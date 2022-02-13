@@ -78,10 +78,6 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
         return new ItemStack(ModBlocks.Grinder, 1);
     }
 
-    public boolean isComplete() {
-        return false;
-    }
-
     public boolean getMutliBlock() {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
             TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);

@@ -75,7 +75,7 @@ configurations {
 	compile.extendsFrom shade
 }
 
-version = "0.7.23-FPSP"
+version = "0.7.24-FPSP"
 
 def ENV = System.getenv()
 if (ENV.BUILD_NUMBER) {

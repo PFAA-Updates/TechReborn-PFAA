@@ -1291,7 +1291,7 @@ public class RecipesIC2 implements ICompatModule {
 
         RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
         		new ItemStack(Items.dye, 3, 15),
-                new ItemStack(IC2Items.getItem("cell").getItem(), 1, 0),
+        		IC2Items.getItem("cell"),
                 null,
                 ItemCells.getCellByName("calcium", 1),
                 null,
@@ -1396,15 +1396,6 @@ public class RecipesIC2 implements ICompatModule {
                 null,
                 20, 30, false
         ));
-        
-        RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
-        		new ItemStack(IC2Items.getItem("electrolyzedWaterCell").getItem(), 6),
-        		null,
-        		ItemCells.getCellByName("hydrogen", 4),
-        		IC2Items.getItem("airCell"),
-        		null,
-        		IC2Items.getItem("cell"),
-        		100, 30));
         
         RecipeHandler.addRecipe(new IndustrialElectrolyzerRecipe(
         		ItemCells.getCellByName("methane", 5),
