@@ -1,0 +1,29 @@
+repositories {
+    maven {
+        name 'GTNH Maven'
+        url 'http://jenkins.usrv.eu:8081/nexus/content/repositories/public/'
+    }
+    maven {
+        name 'IC2 Maven'
+        url 'https://maven.ic2.player.to/'
+        metadataSources {
+            mavenPom()
+            artifact()
+        }
+    }
+    maven {
+        name 'covers1624 Maven'
+        url 'https://nexus.covers1624.net/service/rest/repository/browse/maven-hosted/'
+    }
+    maven {
+        name 'MCModDev Maven'
+        url 'https://maven.mcmoddev.com/'
+    }
+    maven {
+        name 'CurseMaven'
+        url 'https://cursemaven.com/'
+    }
+    maven {
+        url 'https://jitpack.io/'
+    }
+}

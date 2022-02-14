@@ -1,10 +1,10 @@
 [
 {
-  "modid": "techreborn",
-  "name": "TechReborn",
+  "modid": "${modId}",
+  "name": "${modName}",
   "description": "TechReborn, The Gregtech revival you dream about on a cool mid summer's eve.",
-  "version": "$version",
-  "mcversion": "$mcversion",
+  "version": "${modVersion}",
+  "mcversion": "${minecraftVersion}",
   "url": "https://github.com/TechReborn/TechReborn",
   "updateUrl": "",
   "authorList": [
