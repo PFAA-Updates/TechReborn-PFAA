@@ -13,7 +13,10 @@ repositories {
     }
     maven {
         name 'covers1624 Maven'
-        url 'https://nexus.covers1624.net/service/rest/repository/browse/maven-hosted/'
+        url 'https://maven.covers1624.net/'
+        metadataSources {
+            artifact()
+        }
     }
     maven {
         name 'MCModDev Maven'
