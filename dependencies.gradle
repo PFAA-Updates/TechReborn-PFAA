@@ -1,6 +1,6 @@
 dependencies {
     compile 'com.github.FPSP-Modpack:RebornCore:1.1.0.20:dev'
-    compile 'com.github.GTNewHorizons:Baubles:1.1.0.14:dev'
+    compile 'com.github.GTNewHorizons:Baubles:1.0.1.14:dev'
     compile 'com.github.GTNewHorizons:BuildCraft:7.1.27:dev'
     compile 'com.github.GTNewHorizons:CraftTweaker:3.2.6:dev'
     compile 'com.github.GTNewHorizons:ForestryMC:4.4.6:dev'
