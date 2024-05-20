@@ -1,7 +1,7 @@
 package techreborn.compat.recipes;
 
 import java.util.Iterator;
-import java.util.Map;
+import java.util.Map.Entry;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -59,9 +59,9 @@ public class RecipesForestry implements ICompatModule {
             }
         }
 
-        Iterator entries = FuelManager.generatorFuel.entrySet().iterator();
+        Iterator<Entry<Fluid, GeneratorFuel>> entries = FuelManager.generatorFuel.entrySet().iterator();
         while (entries.hasNext()) {
-            Map.Entry thisEntry = (Map.Entry) entries.next();
+            Entry<Fluid, GeneratorFuel> thisEntry = entries.next();
             Fluid fluid = (Fluid) thisEntry.getKey();
             GeneratorFuel generatorFuel = (GeneratorFuel) thisEntry.getValue();
             FluidPowerManager.fluidPowerValues.put(fluid, (double) (generatorFuel.eu / generatorFuel.rate));

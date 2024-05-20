@@ -99,7 +99,7 @@ public class ItemCloakingDevice extends Item implements IEnergyItemInfo {
 
     @Override
 	@SideOnly(Side.CLIENT)
-    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
+    public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List<ItemStack> itemList) {
         ItemStack itemStack = new ItemStack(this, 1);
         itemList.add(itemStack);
 

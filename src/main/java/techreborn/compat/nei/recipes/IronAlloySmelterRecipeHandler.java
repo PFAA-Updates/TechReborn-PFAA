@@ -39,7 +39,7 @@ public class IronAlloySmelterRecipeHandler extends GenericRecipeHander implement
 			PositionedStack pStack2 = new PositionedStack(iStack2, 64 - offset, 9 - offset, false);
 			input.add(pStack2);
 		}
-		Iterator i = ItemList.items.iterator();
+		Iterator<ItemStack> i = ItemList.items.iterator();
 		List<ItemStack> fuels = new ArrayList<ItemStack>();
 		while (i.hasNext()) {
 			ItemStack item = (ItemStack) i.next();

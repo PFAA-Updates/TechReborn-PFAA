@@ -47,7 +47,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
     }
 
     @Override
-    public void addInformation(ItemStack iS, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+    public void addInformation(ItemStack iS, EntityPlayer par2EntityPlayer, List<String> par3List, boolean par4) {
         if (!iS.isItemEnchanted()) {
             par3List.add(Color.WHITE + "Silk Touch I");
         }

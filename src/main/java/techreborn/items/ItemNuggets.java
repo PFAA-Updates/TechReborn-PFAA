@@ -73,7 +73,7 @@ public class ItemNuggets extends Item {
 
 	// Adds Dusts SubItems To Creative Tab
 	@Override
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
 		for (int meta = 0; meta < types.length; ++meta) {
 			list.add(new ItemStack(item, 1, meta));
 		}

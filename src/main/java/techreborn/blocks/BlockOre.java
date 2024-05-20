@@ -121,7 +121,7 @@ public class BlockOre extends Block {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List list) {
+	public void getSubBlocks(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
 		for (int meta = 0; meta < types.length; meta++) {
 			list.add(new ItemStack(item, 1, meta));
 		}
@@ -162,7 +162,8 @@ public class BlockOre extends Block {
 		}
 	}
 
-	@Override
+	@SuppressWarnings("deprecation")
+    @Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player) {
 		return new ItemStack(ModBlocks.ore, 1, world.getBlockMetadata(x, y, z));
 	}

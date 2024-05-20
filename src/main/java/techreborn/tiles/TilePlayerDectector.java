@@ -49,7 +49,7 @@ public class TilePlayerDectector extends TilePowerAcceptor {
             boolean lastRedstone = redstone;
             redstone = false;
             if(canUseEnergy(50)){
-                Iterator tIterator = super.worldObj.playerEntities.iterator();
+                Iterator<EntityPlayer> tIterator = super.worldObj.playerEntities.iterator();
                 while (tIterator.hasNext()) {
                     EntityPlayer player = (EntityPlayer) tIterator.next();
                     if (player.getDistanceSq(super.xCoord + 0.5D, super.yCoord + 0.5D, super.zCoord + 0.5D) <= 256.0D) {

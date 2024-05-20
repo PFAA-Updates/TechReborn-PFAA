@@ -48,7 +48,7 @@ public class ItemFuelRod extends Item implements IReactorComponent, IBoxable {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_) {
+	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List<String> p_77624_3_, boolean p_77624_4_) {
 		p_77624_3_.add("Time left: " + (this.maxDurability - this.getDurabilityOfStack(p_77624_1_)) + " seconds");
 	}
 

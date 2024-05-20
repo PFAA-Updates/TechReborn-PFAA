@@ -100,7 +100,7 @@ public class ItemCells extends ItemTR implements IFluidContainerItem {
 
 	// Adds Dusts SubItems To Creative Tab
 	@Override
-	public void getSubItems(Item item, CreativeTabs creativeTabs, List list) {
+	public void getSubItems(Item item, CreativeTabs creativeTabs, List<ItemStack> list) {
 		for (int meta = 0; meta < types.length; ++meta) {
 			ItemStack stack = new ItemStack(item, 1, meta);
 			if (FluidRegistry.getFluid("fluid" + types[meta].toLowerCase()) != null) {

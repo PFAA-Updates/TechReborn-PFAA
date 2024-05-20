@@ -91,7 +91,7 @@ public class MTRollingMachine {
     public static Object[] toShapedObjects(IIngredient[][] ingredients) {
         if (ingredients == null) return null;
         else {
-            ArrayList prep = new ArrayList();
+            ArrayList<Object> prep = new ArrayList<>();
             prep.add("abc");
             prep.add("def");
             prep.add("ghi");

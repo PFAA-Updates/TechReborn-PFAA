@@ -35,7 +35,7 @@ public class ItemCoolantCell extends Item implements IReactorComponent {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List p_77624_3_, boolean p_77624_4_) {
+	public void addInformation(ItemStack p_77624_1_, EntityPlayer p_77624_2_, List<String> p_77624_3_, boolean p_77624_4_) {
 		p_77624_3_.add("Stored Heat: " + getHeatOfStack(p_77624_1_));
 	}
 

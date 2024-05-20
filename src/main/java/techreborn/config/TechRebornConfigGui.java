@@ -19,8 +19,9 @@ public class TechRebornConfigGui extends GuiConfig {
                 .getAbridgedConfigPath(ConfigTechReborn.config.toString()));
     }
 
+    @SuppressWarnings(value = { "rawtypes", "unchecked" })
     private static List<IConfigElement> getConfigCategories() {
-        List<IConfigElement> list = new ArrayList<IConfigElement>();
+        List<IConfigElement> list = new ArrayList<>();
         list.add(new DummyConfigElement.DummyCategoryElement(StatCollector
                 .translateToLocal("config.techreborn.category.general"),
                 "tr.configgui.category.trGeneral", TRGeneral.class));
@@ -49,10 +50,11 @@ public class TechRebornConfigGui extends GuiConfig {
     public static class TRGeneral extends CategoryEntry {
 
         public TRGeneral(GuiConfig owningScreen,
-                         GuiConfigEntries owningEntryList, IConfigElement configElement) {
+                         GuiConfigEntries owningEntryList, @SuppressWarnings("rawtypes") IConfigElement configElement) {
             super(owningScreen, owningEntryList, configElement);
         }
 
+        @SuppressWarnings({ "unchecked", "rawtypes" })
         @Override
         protected GuiScreen buildChildScreen() {
             return new GuiConfig(this.owningScreen,
@@ -72,10 +74,11 @@ public class TechRebornConfigGui extends GuiConfig {
     // World
     public static class TRWORLD extends CategoryEntry {
         public TRWORLD(GuiConfig owningScreen,
-                       GuiConfigEntries owningEntryList, IConfigElement configElement) {
+                       GuiConfigEntries owningEntryList, @SuppressWarnings("rawtypes") IConfigElement configElement) {
             super(owningScreen, owningEntryList, configElement);
         }
 
+        @SuppressWarnings({ "unchecked", "rawtypes" })
         @Override
         protected GuiScreen buildChildScreen() {
             return new GuiConfig(this.owningScreen,
@@ -95,10 +98,11 @@ public class TechRebornConfigGui extends GuiConfig {
     // Power
     public static class TRPOWER extends CategoryEntry {
         public TRPOWER(GuiConfig owningScreen,
-                       GuiConfigEntries owningEntryList, IConfigElement configElement) {
+                       GuiConfigEntries owningEntryList, @SuppressWarnings("rawtypes") IConfigElement configElement) {
             super(owningScreen, owningEntryList, configElement);
         }
 
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         @Override
         protected GuiScreen buildChildScreen() {
             return new GuiConfig(this.owningScreen,
@@ -118,10 +122,11 @@ public class TechRebornConfigGui extends GuiConfig {
     // Crafting
     public static class TRCRAFTING extends CategoryEntry {
         public TRCRAFTING(GuiConfig owningScreen,
-                          GuiConfigEntries owningEntryList, IConfigElement configElement) {
+                          GuiConfigEntries owningEntryList, @SuppressWarnings("rawtypes") IConfigElement configElement) {
             super(owningScreen, owningEntryList, configElement);
         }
 
+        @SuppressWarnings({ "unchecked", "rawtypes" })
         @Override
         protected GuiScreen buildChildScreen() {
             return new GuiConfig(this.owningScreen,
@@ -141,10 +146,11 @@ public class TechRebornConfigGui extends GuiConfig {
     // Crafting
     public static class TRUU extends CategoryEntry {
         public TRUU(GuiConfig owningScreen,
-                    GuiConfigEntries owningEntryList, IConfigElement configElement) {
+                    GuiConfigEntries owningEntryList, @SuppressWarnings("rawtypes") IConfigElement configElement) {
             super(owningScreen, owningEntryList, configElement);
         }
 
+        @SuppressWarnings({ "unchecked", "rawtypes" })
         @Override
         protected GuiScreen buildChildScreen() {
             return new GuiConfig(this.owningScreen,
@@ -163,10 +169,11 @@ public class TechRebornConfigGui extends GuiConfig {
 
     // Emc
     public static class TREMC extends CategoryEntry {
-        public TREMC(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement) {
+        public TREMC(GuiConfig owningScreen, GuiConfigEntries owningEntryList, @SuppressWarnings("rawtypes") IConfigElement configElement) {
             super(owningScreen, owningEntryList, configElement);
         }
 
+        @SuppressWarnings({ "unchecked", "rawtypes" })
         @Override
         protected GuiScreen buildChildScreen() {
             return new GuiConfig(this.owningScreen,
@@ -185,10 +192,11 @@ public class TechRebornConfigGui extends GuiConfig {
 
     //Mod Integration
     public static class TRINT extends CategoryEntry {
-        public TRINT(GuiConfig owningScreen, GuiConfigEntries owningEntryList, IConfigElement configElement) {
+        public TRINT(GuiConfig owningScreen, GuiConfigEntries owningEntryList, @SuppressWarnings("rawtypes") IConfigElement configElement) {
             super(owningScreen, owningEntryList, configElement);
         }
 
+        @SuppressWarnings({ "rawtypes", "unchecked" })
         @Override
         protected GuiScreen buildChildScreen() {
             return new GuiConfig(this.owningScreen,
