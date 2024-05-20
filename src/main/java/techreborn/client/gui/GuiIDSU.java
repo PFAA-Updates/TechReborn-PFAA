@@ -46,8 +46,8 @@ public class GuiIDSU extends GuiContainer {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float p_146976_1_,
-                                                   int p_146976_2_, int p_146976_3_) {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks,
+                                                   int mouseX, int mouseY) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
@@ -56,8 +56,8 @@ public class GuiIDSU extends GuiContainer {
     }
 
     @Override
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_,
-                                                   int p_146979_2_) {
+	protected void drawGuiContainerForegroundLayer(int mouseX,
+                                                   int mouseY) {
         this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.idsu.name"), 40, 10, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(containerIDSU.euOut + " eu/tick", 10, 20, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(containerIDSU.storedEu + " eu", 10, 30, Color.WHITE.getRGB());

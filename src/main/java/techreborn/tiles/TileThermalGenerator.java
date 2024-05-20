@@ -170,23 +170,23 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     }
 
     @Override
-    public ItemStack getStackInSlot(int p_70301_1_) {
-        return inventory.getStackInSlot(p_70301_1_);
+    public ItemStack getStackInSlot(int slotIn) {
+        return inventory.getStackInSlot(slotIn);
     }
 
     @Override
-    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
-        return inventory.decrStackSize(p_70298_1_, p_70298_2_);
+    public ItemStack decrStackSize(int index, int count) {
+        return inventory.decrStackSize(index, count);
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-        return inventory.getStackInSlotOnClosing(p_70304_1_);
+    public ItemStack getStackInSlotOnClosing(int index) {
+        return inventory.getStackInSlotOnClosing(index);
     }
 
     @Override
-    public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
-        inventory.setInventorySlotContents(p_70299_1_, p_70299_2_);
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        inventory.setInventorySlotContents(index, stack);
     }
 
     @Override
@@ -205,8 +205,8 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-        return inventory.isUseableByPlayer(p_70300_1_);
+    public boolean isUseableByPlayer(EntityPlayer player) {
+        return inventory.isUseableByPlayer(player);
     }
 
     @Override
@@ -220,8 +220,8 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     }
 
     @Override
-    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-        return inventory.isItemValidForSlot(p_94041_1_, p_94041_2_);
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        return inventory.isItemValidForSlot(index, stack);
     }
 
     @Override

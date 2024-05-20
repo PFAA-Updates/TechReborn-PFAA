@@ -59,14 +59,14 @@ public class ItemFuelRod extends Item implements IReactorComponent, IBoxable {
 	}
 
 	@Override
-	public void onUpdate(ItemStack p_77663_1_, World p_77663_2_, Entity p_77663_3_, int p_77663_4_,
+	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int p_77663_4_,
 			boolean p_77663_5_) {
-		if (this.radiation > 0 && p_77663_3_ instanceof EntityLivingBase) {
-			EntityLivingBase entity = (EntityLivingBase) p_77663_3_;
+		if (this.radiation > 0 && entityIn instanceof EntityLivingBase) {
+			EntityLivingBase entity = (EntityLivingBase) entityIn;
 			if (!ItemArmorHazmat.hasCompleteHazmat(entity)) {
 				PotionEffect effect = null;
 				entity.addPotionEffect(new PotionEffect(IC2Potion.radiation.id,
-						radiation * 180 * p_77663_1_.stackSize
+						radiation * 180 * stack.stackSize
 								+ Math.max(0, ((effect = entity.getActivePotionEffect(IC2Potion.radiation)) == null ? 0
 										: effect.getDuration())),
 						Math.max(0, 5 * radiation / 7)));

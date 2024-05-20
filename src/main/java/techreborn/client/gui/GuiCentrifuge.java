@@ -31,7 +31,7 @@ public class GuiCentrifuge extends GuiContainer {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
@@ -56,7 +56,7 @@ public class GuiCentrifuge extends GuiContainer {
     }
 
     @Override
-	protected void drawGuiContainerForegroundLayer(int p_146979_1_, int p_146979_2_) {
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String namePt1 = StatCollector.translateToLocal("tile.techreborn.industrialBlock.name");
         String namePt2 = StatCollector.translateToLocal("tile.techreborn.centrifuge.name").replace(namePt1 + " ", "");
         this.fontRendererObj.drawString(namePt1, 98, 6, 4210752);

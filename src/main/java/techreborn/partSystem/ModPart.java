@@ -87,8 +87,8 @@ public abstract class ModPart extends TileEntity implements IModPart {
 	}
 
 	@Override
-	public void setWorldObj(World p_145834_1_) {
-		super.setWorldObj(p_145834_1_);
+	public void setWorldObj(World worldIn) {
+		super.setWorldObj(worldIn);
 	}
 
 	@Override

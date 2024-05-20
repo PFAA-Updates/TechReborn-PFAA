@@ -37,7 +37,7 @@ public class BlockCentrifuge extends BlockMachineBase {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World p_149915_1_, int p_149915_2_) {
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileCentrifuge();
     }
 
