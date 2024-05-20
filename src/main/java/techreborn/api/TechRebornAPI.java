@@ -27,6 +27,9 @@ public final class TechRebornAPI {
 }
 
 class RegisteredItemRecipe extends Exception {
+    
+    private static final long serialVersionUID = 4815337993927516917L;
+
     public RegisteredItemRecipe(String message) {
         super(message);
     }
