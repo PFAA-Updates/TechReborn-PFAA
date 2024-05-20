@@ -15,7 +15,8 @@ import techreborn.utils.RecipeUtils;
 
 public class ItemPlates extends ItemTR {
 
-	public static ItemStack getPlateByName(String name, int count) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getPlateByName(String name, int count) {
 		int meta = RecipeUtils.getArrayPos(types, name);
 		if(meta == -1) throw new IllegalArgumentException("The plate " + name + " could not be found!");
 		return new ItemStack(ModItems.plate, count, meta);

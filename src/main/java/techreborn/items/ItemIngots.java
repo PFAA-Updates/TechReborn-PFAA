@@ -14,7 +14,8 @@ import techreborn.init.ModItems;
 import techreborn.utils.RecipeUtils;
 
 public class ItemIngots extends Item {
-	public static ItemStack getIngotByName(String name, int count) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getIngotByName(String name, int count) {
 		int meta = RecipeUtils.getArrayPos(types, name);
 		if (meta == -1)
 			throw new IllegalArgumentException("The ingot " + name + " could not be found.");

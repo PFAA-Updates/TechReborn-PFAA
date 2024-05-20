@@ -29,7 +29,8 @@ import techreborn.utils.RecipeUtils;
 
 public class BlockOre extends Block {
 
-	public static ItemStack getOreByName(String name, int count) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getOreByName(String name, int count) {
 		int meta = RecipeUtils.getArrayPos(types, name);
 		if (meta == -1)
 			throw new IllegalArgumentException("The ore " + name + " could not be found!");

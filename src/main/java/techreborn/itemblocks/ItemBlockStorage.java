@@ -7,6 +7,7 @@ import techreborn.init.ModBlocks;
 
 public class ItemBlockStorage extends ItemBlockBase {
 
+    @SuppressWarnings("deprecation")
     public ItemBlockStorage(Block block) {
         super(ModBlocks.storage, ModBlocks.storage, BlockStorage.types);
     }

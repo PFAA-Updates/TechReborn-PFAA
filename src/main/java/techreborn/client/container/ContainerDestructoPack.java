@@ -25,6 +25,7 @@ public class ContainerDestructoPack extends RebornContainer {
     }
 
 
+    @SuppressWarnings("deprecation")
     private void buildContainer() {
         this.addSlotToContainer(new SlotFilteredVoid(inv, 0, 80, 36, new ItemStack[]{new ItemStack(ModItems.parts, 1, 37)}));
         int i;

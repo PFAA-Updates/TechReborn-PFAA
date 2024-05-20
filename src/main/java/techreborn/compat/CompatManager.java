@@ -88,10 +88,8 @@ public class CompatManager {
         }
         Core.logHelper.info("Compat module " + moduleClass.getSimpleName() + " has been loaded");
         try {
-            compatModules.add((ICompatModule) moduleClass.newInstance());
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+            compatModules.add((ICompatModule) moduleClass.getConstructor().newInstance());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

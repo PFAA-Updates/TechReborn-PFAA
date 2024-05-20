@@ -72,19 +72,13 @@ public class ModPartRegistry {
 		if (Loader.isModLoaded(modid) || modid.equals("Minecraft")) {
 			try {
 				IPartProvider iPartProvider = null;
-				iPartProvider = (IPartProvider) Class.forName(className).newInstance();
+				iPartProvider = (IPartProvider) Class.forName(className).getConstructor().newInstance();
 				providers.add(iPartProvider);
 				// I am doing this because the qlibProvider is the most stable
 				if (modid.equals("qmunitylib")) {
 					masterProvider = iPartProvider;
 				}
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-				Core.logHelper.error("Failed to load " + className + " to the part system!");
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-				Core.logHelper.error("Failed to load " + className + " to the part system!");
-			} catch (IllegalAccessException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				Core.logHelper.error("Failed to load " + className + " to the part system!");
 			}

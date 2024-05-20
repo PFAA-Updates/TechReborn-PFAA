@@ -15,7 +15,8 @@ import techreborn.utils.RecipeUtils;
 
 public class ItemGems extends Item {
 
-	public static ItemStack getGemByName(String name, int count) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getGemByName(String name, int count) {
 		int meta = RecipeUtils.getArrayPos(types, name);
 		if (meta == -1)
 			throw new IllegalArgumentException("The gem " + name + " could not be found.");

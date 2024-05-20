@@ -16,7 +16,8 @@ import techreborn.utils.RecipeUtils;
 
 public class ItemDusts extends ItemTR {
 
-	public static ItemStack getDustByName(String name, int count) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getDustByName(String name, int count) {
 		if (name.equalsIgnoreCase("glowstone"))
 			return new ItemStack(Items.glowstone_dust);
 		if (name.equalsIgnoreCase("redstone"))

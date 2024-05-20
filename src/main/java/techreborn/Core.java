@@ -1,6 +1,7 @@
 package techreborn;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.lang3.time.StopWatch;
 
@@ -75,7 +76,7 @@ public class Core {
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException {
+    public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         // Register ModBlocks
         ModBlocks.init();
         // Register Fluids

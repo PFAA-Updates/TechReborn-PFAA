@@ -12,7 +12,8 @@ public class TechRebornCreativeTabMisc extends CreativeTabs {
 		super("techreborn");
 	}
 
-	@Override
+	@SuppressWarnings("deprecation")
+    @Override
 	public Item getTabIconItem() {
 		return ModItems.cells;
 	}

@@ -26,14 +26,15 @@ public class ItemCells extends ItemTR implements IFluidContainerItem {
 		return getCellByName(name, count, true);
 	}
 
-	public static ItemStack getCellByName(String name, int count, boolean lookForIC2) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getCellByName(String name, int count, boolean lookForIC2) {
 		Fluid fluid = FluidRegistry.getFluid("fluid" + name.toLowerCase());
 		if (lookForIC2 && IC2Items.getItem("cell") != null) {
 			if (fluid != null) {
 				ItemStack stack = IC2Items.getItem("cell").copy();
 				if (stack != null && stack.getItem() instanceof IFluidContainerItem) {
 					IFluidContainerItem containerItem = (IFluidContainerItem) stack.getItem();
-					containerItem.fill(stack, new FluidStack(fluid.getID(), 2147483647), true);
+					containerItem.fill(stack, new FluidStack(fluid, 2147483647), true);
 					stack.stackSize = count;
 					return stack;
 				}

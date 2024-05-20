@@ -7,6 +7,7 @@ import techreborn.init.ModBlocks;
 
 public class ItemBlockMachineFrame extends ItemBlockBase {
 
+    @SuppressWarnings("deprecation")
     public ItemBlockMachineFrame(Block block) {
         super(ModBlocks.machineframe, ModBlocks.machineframe, BlockMachineFrame.types);
     }

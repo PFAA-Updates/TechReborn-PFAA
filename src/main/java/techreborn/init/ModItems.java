@@ -1,5 +1,7 @@
 package techreborn.init;
 
+import java.lang.reflect.InvocationTargetException;
+
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
@@ -112,7 +114,7 @@ public class ModItems {
     //public static Item upgrades;
 
 
-    public static void init() throws InstantiationException, IllegalAccessException {
+    public static void init() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         gems = new ItemGems();
         GameRegistry.registerItem(gems, "gem");
         ingots = new ItemIngots();

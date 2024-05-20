@@ -1,5 +1,7 @@
 package techreborn.powerSystem;
 
+import java.lang.reflect.InvocationTargetException;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import reborncore.jtraits.MixinFactory;
@@ -11,8 +13,8 @@ import techreborn.powerSystem.traits.RFItemPowerTrait;
 
 public abstract class PoweredItem {
 
-    public static Item createItem(Class itemClass) throws IllegalAccessException, InstantiationException {
-        return (Item) MixinFactory.mixin(itemClass,BasePowerTrait.class, RFItemPowerTrait.class, EUItemPowerTrait.class).newInstance();
+    public static Item createItem(Class<? extends Item> itemClass) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        return (Item) MixinFactory.mixin(itemClass,BasePowerTrait.class, RFItemPowerTrait.class, EUItemPowerTrait.class).getConstructor().newInstance();
     }
 
     public static boolean canUseEnergy(double energy, ItemStack stack){

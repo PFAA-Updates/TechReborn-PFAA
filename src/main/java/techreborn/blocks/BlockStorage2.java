@@ -20,7 +20,8 @@ import techreborn.utils.RecipeUtils;
 
 public class BlockStorage2 extends Block {
 
-	public static ItemStack getStorageBlockByName(String name, int count) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getStorageBlockByName(String name, int count) {
 		int meta = RecipeUtils.getArrayPos(types, name);
 		if (meta == -1)
 			throw new IllegalArgumentException("The storage block " + name + " could not be found!");

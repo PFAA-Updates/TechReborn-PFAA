@@ -15,7 +15,8 @@ import techreborn.utils.RecipeUtils;
 
 public class ItemNuggets extends Item {
 
-	public static ItemStack getNuggetByName(String name, int count) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getNuggetByName(String name, int count) {
 		int meta = RecipeUtils.getArrayPos(types, name);
 		if (meta == -1)
 			throw new IllegalArgumentException("The nugget " + name + " could not be found.");

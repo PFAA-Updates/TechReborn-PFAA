@@ -27,7 +27,8 @@ public class TROreGen implements IWorldGenerator {
 	WorldGenMinable orePeridot;
 	WorldGenMinable oreSodalite;
 
-	public TROreGen() {
+	@SuppressWarnings("deprecation")
+    public TROreGen() {
 		// World
 		oreGalena = new WorldGenMinable(ModBlocks.ore, 0, ConfigTechReborn.GalenaOreRare, Blocks.stone);
 		oreIridium = new WorldGenMinable(ModBlocks.ore, 1, ConfigTechReborn.IridiumOreRare, Blocks.stone);

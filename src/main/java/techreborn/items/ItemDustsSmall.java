@@ -15,7 +15,8 @@ import techreborn.utils.RecipeUtils;
 
 public class ItemDustsSmall extends ItemTR {
 
-	public static ItemStack getSmallDustByName(String name, int count) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getSmallDustByName(String name, int count) {
 		int meta = RecipeUtils.getArrayPos(types, name);
 		if (meta == -1)
 			throw new IllegalArgumentException("The small dust " + name + " could not be found.");

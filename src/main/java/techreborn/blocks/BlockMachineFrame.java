@@ -17,7 +17,8 @@ import techreborn.utils.RecipeUtils;
 
 public class BlockMachineFrame extends Block {
 
-	public static ItemStack getFrameByName(String name, int count) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getFrameByName(String name, int count) {
 		int meta = RecipeUtils.getArrayPos(types, name);
 		if (meta == -1)
 			throw new IllegalArgumentException("The machine hull " + name + " could not be found.");

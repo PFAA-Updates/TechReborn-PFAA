@@ -19,7 +19,8 @@ import techreborn.utils.RecipeUtils;
 
 public class ItemParts extends Item {
 
-	public static ItemStack getPartByName(String name, int count) {
+	@SuppressWarnings("deprecation")
+    public static ItemStack getPartByName(String name, int count) {
 		int meta = RecipeUtils.getArrayPos(types, name);
 		if (meta == -1)
 			throw new IllegalArgumentException("The part " + name + " could not be found.");
