@@ -51,7 +51,6 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 	    		if(getEnergy() != getMaxPower())
 	    		{
 	                ItemStack stack = inventory.getStackInSlot(slot);
-	                double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
 	                double CurrentCharge = ElectricItem.manager.getCharge(stack);
 	                if (CurrentCharge != 0) 
 	                {

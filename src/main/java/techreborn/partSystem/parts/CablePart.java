@@ -414,7 +414,6 @@ public class CablePart extends ModPart implements IEnergyConductor, INetworkTile
                 if(otherCable == null || dir == null){
                     return false;
                 }
-                int thisDir = Functions.getIntDirFromDirection(dir);
                 int thereDir = Functions.getIntDirFromDirection(dir.getOpposite());
                 boolean hasconnection = otherCable.connections[thereDir];
 

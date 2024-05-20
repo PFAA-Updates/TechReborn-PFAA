@@ -43,8 +43,6 @@ public class GuiMatterFabricator extends GuiContainer {
     }
 
     @Override
-        int k = (this.width - this.xSize) / 2;
-        int l = (this.height - this.ySize) / 2;
 	protected void drawGuiContainerForegroundLayer(int mouseX,
                                                    int mouseY) {
         String name = StatCollector.translateToLocal("tile.techreborn.matterfabricator.name");

@@ -40,7 +40,6 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
             if (getStackInSlot(slot).getItem() instanceof IElectricItem) {
                 if (getEnergy() != getMaxPower()) {
                     ItemStack stack = inventory.getStackInSlot(slot);
-                    double MaxCharge = ((IElectricItem) stack.getItem()).getMaxCharge(stack);
                     double CurrentCharge = ElectricItem.manager.getCharge(stack);
                     if (CurrentCharge != 0) {
                         ElectricItem.manager.discharge(stack, 5, 4, false, false, false);

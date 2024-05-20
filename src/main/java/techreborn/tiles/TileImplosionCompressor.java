@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import reborncore.common.misc.Location;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
@@ -74,13 +73,6 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
                     return false;
                 }
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
-                    int heat;
-                    heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
-                    Location location = new Location(xCoord, yCoord, zCoord, direction);
-                    location.modifyPositionFromSide(direction, 1);
-                    if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava")) {
-                        heat += 500;
-                    }
                     return true;
                 }
             }

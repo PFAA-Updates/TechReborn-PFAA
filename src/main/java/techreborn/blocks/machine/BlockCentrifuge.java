@@ -63,7 +63,6 @@ public class BlockCentrifuge extends BlockMachineBase {
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
-        int metadata = getTileRotation(blockAccess, x, y, z);
         if (blockAccess.getBlockMetadata(x, y, z) == 1) {
             if (side == 1) {
                 return this.iconTopOn;

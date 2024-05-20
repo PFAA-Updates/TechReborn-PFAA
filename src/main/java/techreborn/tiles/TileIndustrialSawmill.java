@@ -14,7 +14,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import reborncore.api.IListInfoProvider;
-import reborncore.common.misc.Location;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -61,13 +60,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
             TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
-                    int heat;
-                    heat = BlockMachineCasing.getHeatFromMeta(tileEntity.getBlockMetadata());
-                    Location location = new Location(xCoord, yCoord, zCoord, direction);
-                    location.modifyPositionFromSide(direction, 1);
-                    if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava")) {
-                        heat += 500;
-                    }
                     return true;
                 }
             }

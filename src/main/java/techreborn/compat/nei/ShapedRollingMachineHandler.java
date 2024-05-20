@@ -2,7 +2,6 @@
 package techreborn.compat.nei;
 
 import java.awt.Rectangle;
-import java.util.List;
 
 import codechicken.nei.NEIServerUtils;
 import codechicken.nei.recipe.ShapedRecipeHandler;

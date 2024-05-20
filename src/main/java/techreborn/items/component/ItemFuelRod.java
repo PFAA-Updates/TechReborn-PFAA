@@ -170,10 +170,6 @@ public class ItemFuelRod extends Item implements IReactorComponent, IBoxable {
 				.acceptUraniumPulse(reactor, stack, pulsingStack, youX, youY, pulseX, pulseY, heatrun)) ? 1 : 0;
 	}
 
-	private void damageItemStack(ItemStack stack, int damage) {
-
-	}
-
 	private int getDurabilityOfStack(ItemStack stack) {
 		NBTTagCompound nbt = stack.getTagCompound();
 		if (nbt == null) {
@@ -181,23 +177,6 @@ public class ItemFuelRod extends Item implements IReactorComponent, IBoxable {
 			stack.setTagCompound(nbt);
 		}
 		return nbt.getInteger("durability");
-	}
-
-	private void setDurabilityOfStack(ItemStack stack, int damage) {
-		NBTTagCompound nbt = stack.getTagCompound();
-		if (nbt == null) {
-			nbt = new NBTTagCompound();
-			stack.setTagCompound(nbt);
-		}
-		nbt.setInteger("durability", damage);
-		if (this.maxDurability > 0) {
-			double p = damage / this.maxDurability;
-			int newDamage = (int) (stack.getMaxDamage() * p);
-			if (newDamage > stack.getMaxDamage()) {
-				newDamage = stack.getMaxDamage() - 1;
-			}
-			stack.setItemDamage(newDamage);
-		}
 	}
 
 	protected class ItemStackCoord {
