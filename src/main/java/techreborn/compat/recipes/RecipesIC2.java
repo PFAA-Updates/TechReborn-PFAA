@@ -85,9 +85,9 @@ public class RecipesIC2 implements ICompatModule {
 
         RecipeHandler.addRecipe(new AlloySmelterRecipe(ItemIngots.getIngotByName("copper", 3), IC2Items.getItem("tinIngot"), new ItemStack(IC2Items.getItem("bronzeIngot").getItem(), 2, 2), 100, 16));
         FusionReactorRecipeHelper.registerRecipe(new FusionReactorRecipe(ItemCells.getCellByName("tungsten"), ItemCells.getCellByName("lithium"), IC2Items.getItem("iridiumOre"), 100000000, -32768, 512));
-        RecipeHandler.addRecipe(new VacuumFreezerRecipe(any(IC2Items.getItem("reactorCoolantSimple")), new ItemStack(IC2Items.getItem("reactorCoolantSimple").getItem(), 1, 1), 1000, 128));
-        RecipeHandler.addRecipe(new VacuumFreezerRecipe(any(IC2Items.getItem("reactorCoolantTriple")), new ItemStack(IC2Items.getItem("reactorCoolantTriple").getItem(), 1, 1), 3000, 128));
-        RecipeHandler.addRecipe(new VacuumFreezerRecipe(any(IC2Items.getItem("reactorCoolantSix")), new ItemStack(IC2Items.getItem("reactorCoolantSix").getItem(), 1, 1), 9000, 128));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(any(IC2Items.getItem("reactorCoolantSimple")), new ItemStack(IC2Items.getItem("reactorCoolantSimple").getItem(), 1, 1), 40, 128));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(any(IC2Items.getItem("reactorCoolantTriple")), new ItemStack(IC2Items.getItem("reactorCoolantTriple").getItem(), 1, 1), 120, 128));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(any(IC2Items.getItem("reactorCoolantSix")), new ItemStack(IC2Items.getItem("reactorCoolantSix").getItem(), 1, 1), 350, 128));
         //TODO Distillation Tower: 16 Oil + 17 Empty -> 16 Diesel + 16 Sulfuric Acid + Glyceryl @ 128EU/t * 16000t
         //TODO Distillation Tower: 16 Biomass -> 8 Bio Diesel + 8 Empty @ 32EU/t * 400t
     }

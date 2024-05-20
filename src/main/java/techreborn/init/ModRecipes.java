@@ -340,12 +340,12 @@ public class ModRecipes {
     static void addMachineRecipes() {
         RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemIngots.getIngotByName("hotTungstensteel"), ItemIngots.getIngotByName("tungstensteel"), 450, 128));
         RecipeHandler.addRecipe(new VacuumFreezerRecipe(ItemCells.getCellByName("heliumPlasma"), ItemCells.getCellByName("helium"), 100, 128));
-        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantHe60k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantHe60k), 7000, 128));
-        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantHe180k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantHe180k), 20000, 128));
-        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantHe360k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantHe360k), 39000, 128));
-        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantNaK60k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantNaK60k), 5000, 128));
-        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantNaK180k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantNaK180k), 15000, 128));
-        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantNaK360k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantNaK360k), 30000, 128));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantHe60k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantHe60k), 270, 128));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantHe180k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantHe180k), 780, 128));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantHe360k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantHe360k), 1500, 128));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantNaK60k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantNaK60k), 190, 128));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantNaK180k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantNaK180k), 580, 128));
+        RecipeHandler.addRecipe(new VacuumFreezerRecipe(new ItemStack(ModItems.coolantNaK360k, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(ModItems.coolantNaK360k), 1150, 128));
     }
 
     static void addSmeltingRecipes() {
