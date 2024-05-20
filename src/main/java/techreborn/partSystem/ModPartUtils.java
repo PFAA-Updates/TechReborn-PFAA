@@ -59,7 +59,7 @@ public class ModPartUtils {
 
 	public static Item getItemForPart(String string) {
 		for (Map.Entry<String, Item> item : ModPartRegistry.itemParts.entrySet()) {
-			if (item.getValue().equals(string)) {
+			if (item.getKey().equals(string)) {
 				return item.getValue();
 			}
 		}
