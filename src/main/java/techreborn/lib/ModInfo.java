@@ -1,11 +1,12 @@
 package techreborn.lib;
 
 import reborncore.common.IModInfo;
+import techreborn.Tags;
 
 public class ModInfo implements IModInfo {
 	public static final String MOD_NAME = "TechReborn";
 	public static final String MOD_ID = "techreborn";
-	public static final String MOD_VERSION = "GRADLETOKEN_VERSION";
+	public static final String MOD_VERSION = Tags.VERSION;
 	public static final String MOD_DEPENDENCUIES = "required-after:Forge@[10.13.3.1374,);required-after:reborncore;after:ThermalExpansion;after:ExtrabiomesXL;after:ProjRed|Exploration;after:Forestry";
 	public static final String SERVER_PROXY_CLASS = "techreborn.proxies.CommonProxy";
 	public static final String CLIENT_PROXY_CLASS = "techreborn.proxies.ClientProxy";

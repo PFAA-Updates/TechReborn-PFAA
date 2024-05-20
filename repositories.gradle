@@ -1,24 +1,5 @@
 repositories {
     maven {
-        name 'GTNH Maven'
-        url 'http://jenkins.usrv.eu:8081/nexus/content/repositories/public/'
-    }
-    maven {
-        name 'IC2 Maven'
-        url 'https://maven.ic2.player.to/'
-        metadataSources {
-            mavenPom()
-            artifact()
-        }
-    }
-    maven {
-        name 'covers1624 Maven'
-        url 'https://maven.covers1624.net/'
-        metadataSources {
-            artifact()
-        }
-    }
-    maven {
         name 'MCModDev Maven'
         url 'https://maven.mcmoddev.com/'
     }
