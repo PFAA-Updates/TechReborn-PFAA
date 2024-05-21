@@ -1,6 +1,7 @@
 package techreborn.client.hud;
 
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -56,7 +57,7 @@ public class ChargeHud {
             double quarter = MaxCharge / 4;
             double half = MaxCharge / 2;
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            GL11.glEnable(32826);
+            GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             RenderHelper.enableStandardItemLighting();
             RenderHelper.enableGUIStandardItemLighting();
             //Render the stack
@@ -82,7 +83,7 @@ public class ChargeHud {
                 double quarter = MaxCharge / 4;
                 double half = MaxCharge / 2;
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-                GL11.glEnable(32826);
+                GL11.glEnable(GL12.GL_RESCALE_NORMAL);
                 RenderHelper.enableStandardItemLighting();
                 RenderHelper.enableGUIStandardItemLighting();
                 RenderItem.getInstance().renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, stack, 0, y - 5);
