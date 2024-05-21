@@ -1,13 +1,5 @@
 repositories {
     maven {
-        name 'MCModDev Maven'
-        url 'https://maven.mcmoddev.com/'
-    }
-    maven {
-        name 'CurseMaven'
-        url 'https://cursemaven.com/'
-    }
-    maven {
         url 'https://jitpack.io/'
     }
 }
