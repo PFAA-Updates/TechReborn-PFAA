@@ -1,7 +1,7 @@
 package techreborn.lib;
 
 import reborncore.common.IModInfo;
-import techreborn.Tags;
+import techreborn.api.Tags;
 
 public class ModInfo implements IModInfo {
 	public static final String MOD_NAME = "TechReborn";
