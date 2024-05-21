@@ -14,10 +14,10 @@ public class LoadingPlugin implements IFMLLoadingPlugin {
     public static boolean runtimeDeobfEnabled = false;
     public static int stripedClases = 0;
 
-//    @Override
-//    public String[] getASMTransformerClass() {
-//        return new String[]{"techreborn.asm.ClassTransformation"};
-//    }
+    // @Override
+    // public String[] getASMTransformerClass() {
+    // return new String[]{"techreborn.asm.ClassTransformation"};
+    // }
 
     @Override
     public String[] getASMTransformerClass() {
@@ -45,6 +45,7 @@ public class LoadingPlugin implements IFMLLoadingPlugin {
     }
 
     public static class DummyMod extends DummyModContainer implements IFMLCallHook {
+
         public DummyMod() {
             super(new ModMetadata());
             ModMetadata md = getMetadata();

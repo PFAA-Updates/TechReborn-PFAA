@@ -3,6 +3,9 @@ package techreborn.compat.minetweaker;
 import static minetweaker.api.minecraft.MineTweakerMC.getItemStack;
 import static minetweaker.api.minecraft.MineTweakerMC.getLiquidStack;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
+
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -14,12 +17,10 @@ import minetweaker.api.item.IItemStack;
 import minetweaker.api.item.IngredientStack;
 import minetweaker.api.liquid.ILiquidStack;
 import minetweaker.api.oredict.IOreDictEntry;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 import techreborn.compat.ICompatModule;
 
-
 public class MinetweakerCompat implements ICompatModule {
+
     @Override
     public void preInit(FMLPreInitializationEvent event) {
 
@@ -57,18 +58,15 @@ public class MinetweakerCompat implements ICompatModule {
     }
 
     public static Object toObject(IIngredient iStack) {
-        if (iStack == null)
-            return null;
+        if (iStack == null) return null;
         else {
-            if (iStack instanceof IOreDictEntry)
-                return ((IOreDictEntry) iStack).getName();
-            else if (iStack instanceof IItemStack)
-                return getItemStack((IItemStack) iStack);
+            if (iStack instanceof IOreDictEntry) return ((IOreDictEntry) iStack).getName();
+            else if (iStack instanceof IItemStack) return getItemStack((IItemStack) iStack);
             else if (iStack instanceof IngredientStack) {
-                IIngredient ingr = ReflectionHelper.getPrivateValue(IngredientStack.class, (IngredientStack) iStack, "ingredient");
+                IIngredient ingr = ReflectionHelper
+                    .getPrivateValue(IngredientStack.class, (IngredientStack) iStack, "ingredient");
                 return toObject(ingr);
-            } else
-                return null;
+            } else return null;
         }
     }
 

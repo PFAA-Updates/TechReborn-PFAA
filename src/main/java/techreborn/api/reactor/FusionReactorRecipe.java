@@ -1,6 +1,5 @@
 package techreborn.api.reactor;
 
-
 import net.minecraft.item.ItemStack;
 
 public class FusionReactorRecipe {
@@ -26,7 +25,6 @@ public class FusionReactorRecipe {
      */
     ItemStack output;
 
-
     /**
      * This is the required eu that has to be in the rector for the reaction to start
      */
@@ -43,14 +41,15 @@ public class FusionReactorRecipe {
 
     /**
      *
-     * @param topInput This is the top slot stack
+     * @param topInput    This is the top slot stack
      * @param bottomInput This is the bottom slot stack
-     * @param output This is the output stack
-     * @param startEU This is the inital EU amount
-     * @param euTick This is the eu that is transfured every tick
-     * @param tickTime This is the time the recipe takes to process
+     * @param output      This is the output stack
+     * @param startEU     This is the inital EU amount
+     * @param euTick      This is the eu that is transfured every tick
+     * @param tickTime    This is the time the recipe takes to process
      */
-    public FusionReactorRecipe(ItemStack topInput, ItemStack bottomInput, ItemStack output, double startEU, double euTick, int tickTime) {
+    public FusionReactorRecipe(ItemStack topInput, ItemStack bottomInput, ItemStack output, double startEU,
+        double euTick, int tickTime) {
         this.topInput = topInput;
         this.bottomInput = bottomInput;
         this.output = output;
@@ -58,7 +57,6 @@ public class FusionReactorRecipe {
         this.euTick = euTick;
         this.tickTime = tickTime;
     }
-
 
     public ItemStack getTopInput() {
         return topInput;

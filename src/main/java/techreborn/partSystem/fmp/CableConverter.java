@@ -2,18 +2,6 @@ package techreborn.partSystem.fmp;
 
 import java.util.Arrays;
 
-import codechicken.lib.packet.PacketCustom;
-import codechicken.lib.raytracer.RayTracer;
-import codechicken.lib.vec.BlockCoord;
-import codechicken.lib.vec.Vector3;
-import codechicken.multipart.MultiPartRegistry;
-import codechicken.multipart.TMultiPart;
-import codechicken.multipart.TileMultipart;
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import ic2.api.item.IC2Items;
-import ic2.core.block.wiring.BlockCable;
-import ic2.core.block.wiring.TileEntityCable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,14 +15,31 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
+import codechicken.lib.packet.PacketCustom;
+import codechicken.lib.raytracer.RayTracer;
+import codechicken.lib.vec.BlockCoord;
+import codechicken.lib.vec.Vector3;
+import codechicken.multipart.MultiPartRegistry;
+import codechicken.multipart.TMultiPart;
+import codechicken.multipart.TileMultipart;
+import cpw.mods.fml.common.eventhandler.EventPriority;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import ic2.api.item.IC2Items;
+import ic2.core.block.wiring.BlockCable;
+import ic2.core.block.wiring.TileEntityCable;
 import reborncore.common.packets.AddDiscriminatorEvent;
 import reborncore.common.packets.PacketHandler;
 import techreborn.partSystem.parts.CablePart;
 
 public class CableConverter implements MultiPartRegistry.IPartConverter {
+
     @Override
     public Iterable<Block> blockTypes() {
-        return Arrays.asList(Block.getBlockFromItem(IC2Items.getItem("copperCableBlock").getItem()));
+        return Arrays.asList(
+            Block.getBlockFromItem(
+                IC2Items.getItem("copperCableBlock")
+                    .getItem()));
     }
 
     @Override
@@ -58,7 +63,7 @@ public class CableConverter implements MultiPartRegistry.IPartConverter {
     @SubscribeEvent(priority = EventPriority.LOW)
     public void playerInteract(PlayerInteractEvent event) {
         if (event.action == PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK && event.entityPlayer.worldObj.isRemote) {
-            if (placing.get() != null) return;//for mods that do dumb stuff and call this event like MFR
+            if (placing.get() != null) return;// for mods that do dumb stuff and call this event like MFR
             placing.set(event);
             if (place(event.entityPlayer, event.entityPlayer.worldObj)) event.setCanceled(true);
             placing.set(null);
@@ -76,7 +81,8 @@ public class CableConverter implements MultiPartRegistry.IPartConverter {
         if (held == null) return false;
 
         Item heldItem = held.getItem();
-        if (heldItem == IC2Items.getItem("copperCableItem").getItem()) {
+        if (heldItem == IC2Items.getItem("copperCableItem")
+            .getItem()) {
             CablePart cablePart = new CablePart();
             cablePart.setType(held.getItemDamage());
             part = new FMPModPart(cablePart);
@@ -84,13 +90,32 @@ public class CableConverter implements MultiPartRegistry.IPartConverter {
 
         if (part == null) return false;
 
-        if (world.isRemote && !player.isSneaking())//attempt to use block activated like normal and tell the server the right stuff
+        if (world.isRemote && !player.isSneaking())// attempt to use block activated like normal and tell the server the
+                                                   // right stuff
         {
             Vector3 f = new Vector3(hit.hitVec).add(-hit.blockX, -hit.blockY, -hit.blockZ);
             Block block = world.getBlock(hit.blockX, hit.blockY, hit.blockZ);
-            if (!ignoreActivate(block) && block.onBlockActivated(world, hit.blockX, hit.blockY, hit.blockZ, player, hit.sideHit, (float) f.x, (float) f.y, (float) f.z)) {
+            if (!ignoreActivate(block) && block.onBlockActivated(
+                world,
+                hit.blockX,
+                hit.blockY,
+                hit.blockZ,
+                player,
+                hit.sideHit,
+                (float) f.x,
+                (float) f.y,
+                (float) f.z)) {
                 player.swingItem();
-                PacketCustom.sendToServer(new C08PacketPlayerBlockPlacement(hit.blockX, hit.blockY, hit.blockZ, hit.sideHit, player.inventory.getCurrentItem(), (float) f.x, (float) f.y, (float) f.z));
+                PacketCustom.sendToServer(
+                    new C08PacketPlayerBlockPlacement(
+                        hit.blockX,
+                        hit.blockY,
+                        hit.blockZ,
+                        hit.sideHit,
+                        player.inventory.getCurrentItem(),
+                        (float) f.x,
+                        (float) f.y,
+                        (float) f.z));
                 return true;
             }
         }
@@ -104,7 +129,13 @@ public class CableConverter implements MultiPartRegistry.IPartConverter {
 
         if (!world.isRemote) {
             TileMultipart.addPart(world, pos, part);
-            world.playSoundEffect(pos.x + 0.5, pos.y + 0.5, pos.z + 0.5, Blocks.wool.stepSound.func_150496_b(), (Blocks.wool.stepSound.getVolume() + 1.0F) / 2.0F, Blocks.wool.stepSound.getPitch() * 0.8F);
+            world.playSoundEffect(
+                pos.x + 0.5,
+                pos.y + 0.5,
+                pos.z + 0.5,
+                Blocks.wool.stepSound.func_150496_b(),
+                (Blocks.wool.stepSound.getVolume() + 1.0F) / 2.0F,
+                Blocks.wool.stepSound.getPitch() * 0.8F);
             if (!player.capabilities.isCreativeMode) {
                 held.stackSize--;
                 if (held.stackSize == 0) {
@@ -129,7 +160,8 @@ public class CableConverter implements MultiPartRegistry.IPartConverter {
 
     @SubscribeEvent
     public void addDiscriminator(AddDiscriminatorEvent event) {
-        event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketFMPPlacePart.class);
+        event.getPacketHandler()
+            .addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketFMPPlacePart.class);
     }
 
 }

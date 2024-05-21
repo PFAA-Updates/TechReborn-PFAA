@@ -2,8 +2,9 @@ package techreborn.compat.nei.recipes;
 
 import java.util.List;
 
-import codechicken.nei.PositionedStack;
 import net.minecraft.client.gui.inventory.GuiContainer;
+
+import codechicken.nei.PositionedStack;
 import techreborn.api.recipe.IBaseRecipeType;
 
 /**
@@ -17,7 +18,8 @@ public interface INeiBaseRecipe {
      * @param input   add the input stacks to this
      * @param outputs add this output stacks to this
      */
-    public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType);
+    public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs,
+        IBaseRecipeType recipeType);
 
     /**
      * @return the recipe name that is used for the recipe

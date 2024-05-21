@@ -1,10 +1,11 @@
 package techreborn.client.container;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileAesu;
 
@@ -23,27 +24,24 @@ public class ContainerAesu extends RebornContainer {
     public int storedEu;
     public int euChange;
 
-    public ContainerAesu(TileAesu tileaesu,
-                         EntityPlayer player) {
+    public ContainerAesu(TileAesu tileaesu, EntityPlayer player) {
         tile = tileaesu;
         this.player = player;
 
         // input
-        //this.addSlotToContainer(new Slot(tileaesu.inventory, 0, 116, 23));
+        // this.addSlotToContainer(new Slot(tileaesu.inventory, 0, 116, 23));
         // this.addSlotToContainer(new Slot(tileaesu.inventory, 1, 116, 59));
 
         int i;
 
         for (i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(player.inventory, j + i * 9
-                        + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
-                    142));
+            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
         }
     }
 

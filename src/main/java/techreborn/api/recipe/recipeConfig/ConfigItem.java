@@ -1,6 +1,5 @@
 package techreborn.api.recipe.recipeConfig;
 
-
 public class ConfigItem {
 
     String localName;
@@ -10,7 +9,6 @@ public class ConfigItem {
     int meta;
 
     int stackSize;
-
 
     public String getItemName() {
         return itemName;

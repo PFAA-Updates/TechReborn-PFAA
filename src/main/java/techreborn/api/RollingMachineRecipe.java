@@ -21,15 +21,12 @@ public class RollingMachineRecipe {
 
     public static final RollingMachineRecipe instance = new RollingMachineRecipe();
 
-    public  void addShapedOreRecipe(ItemStack outputItemStack,
-                                    Object... objectInputs) {
+    public void addShapedOreRecipe(ItemStack outputItemStack, Object... objectInputs) {
         recipes.add(new ShapedOreRecipe(outputItemStack, objectInputs));
     }
 
-    public  void addShapelessOreRecipe(ItemStack outputItemStack,
-                                       Object... objectInputs) {
-        recipes
-                .add(new ShapelessOreRecipe(outputItemStack, objectInputs));
+    public void addShapelessOreRecipe(ItemStack outputItemStack, Object... objectInputs) {
+        recipes.add(new ShapelessOreRecipe(outputItemStack, objectInputs));
     }
 
     public void addRecipe(ItemStack output, Object... components) {
@@ -43,14 +40,18 @@ public class RollingMachineRecipe {
                 String s2 = as[l];
                 k++;
                 j = s2.length();
-                s = (new StringBuilder()).append(s).append(s2).toString();
+                s = (new StringBuilder()).append(s)
+                    .append(s2)
+                    .toString();
             }
         } else {
             while (components[i] instanceof String) {
                 String s1 = (String) components[i++];
                 k++;
                 j = s1.length();
-                s = (new StringBuilder()).append(s).append(s1).toString();
+                s = (new StringBuilder()).append(s)
+                    .append(s1)
+                    .toString();
             }
         }
         HashMap<Character, ItemStack> hashmap = new HashMap<>();
@@ -71,8 +72,7 @@ public class RollingMachineRecipe {
         for (int i1 = 0; i1 < j * k; i1++) {
             char c = s.charAt(i1);
             if (hashmap.containsKey(Character.valueOf(c))) {
-                recipeArray[i1] = ((ItemStack) hashmap
-                        .get(Character.valueOf(c))).copy();
+                recipeArray[i1] = ((ItemStack) hashmap.get(Character.valueOf(c))).copy();
             } else {
                 recipeArray[i1] = null;
             }

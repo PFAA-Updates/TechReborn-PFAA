@@ -1,10 +1,11 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.tile.IWrenchable;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
@@ -48,8 +49,7 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -72,7 +72,6 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
     public boolean isComplete() {
         return false;
     }
-
 
     @Override
     public double getMaxPower() {
@@ -99,12 +98,12 @@ public class TileHeatGenerator extends TilePowerAcceptor implements IWrenchable 
         return 0;
     }
 
-//    @Override
-//	public void addWailaInfo(List<String> info)
-//	{
-//		super.addWailaInfo(info);
-//		info.add("Power Generarating " + euTick +" EU/t");
-//
-//	}
+    // @Override
+    // public void addWailaInfo(List<String> info)
+    // {
+    // super.addWailaInfo(info);
+    // info.add("Power Generarating " + euTick +" EU/t");
+    //
+    // }
 
 }

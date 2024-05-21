@@ -2,7 +2,6 @@ package techreborn.tiles;
 
 import java.util.List;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -15,14 +14,16 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
 import techreborn.init.ModBlocks;
 
-public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
-        IInventory, IWrenchable, IListInfoProvider {
+public class TileQuantumTank extends TileMachineBase
+    implements IFluidHandler, IInventory, IWrenchable, IListInfoProvider {
 
     public Tank tank = new Tank("TileQuantumTank", Integer.MAX_VALUE, this);
     public Inventory inventory = new Inventory(3, "TileQuantumTank", 64);
@@ -50,18 +51,15 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
     }
 
     @Override
-	public Packet getDescriptionPacket() {
+    public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
-                this.zCoord, 1, nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net,
-                             S35PacketUpdateTileEntity packet) {
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-                yCoord, zCoord);
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
     }
 
@@ -72,8 +70,11 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
             FluidUtils.drainContainers(this, inventory, 0, 1);
             FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
             if (tank.getFluidType() != null && getStackInSlot(2) == null) {
-                inventory.setInventorySlotContents(2, new ItemStack(tank
-                        .getFluidType().getBlock()));
+                inventory.setInventorySlotContents(
+                    2,
+                    new ItemStack(
+                        tank.getFluidType()
+                            .getBlock()));
             } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
                 setInventorySlotContents(2, null);
             }
@@ -90,8 +91,7 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, FluidStack resource,
-                            boolean doDrain) {
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
         FluidStack drain = tank.drain(resource.amount, doDrain);
         tank.compareAndUpdate();
         return drain;
@@ -106,17 +106,19 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
+        return tank.getFluid() == null || tank.getFluid()
+            .getFluid() == fluid;
     }
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
+        return tank.getFluid() == null || tank.getFluid()
+            .getFluid() == fluid;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[]{tank.getInfo()};
+        return new FluidTankInfo[] { tank.getInfo() };
     }
 
     // IInventory
@@ -194,8 +196,7 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -228,8 +229,10 @@ public class TileQuantumTank extends TileMachineBase implements IFluidHandler,
     public void addInfo(List<String> info, boolean isRealTile) {
         if (isRealTile) {
             if (tank.getFluid() != null) {
-                info.add(tank.getFluidAmount() + " of "
-                        + tank.getFluidType().getName());
+                info.add(
+                    tank.getFluidAmount() + " of "
+                        + tank.getFluidType()
+                            .getName());
             } else {
                 info.add("Empty");
             }

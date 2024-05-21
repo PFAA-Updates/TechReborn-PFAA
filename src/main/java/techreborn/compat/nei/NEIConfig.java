@@ -27,7 +27,6 @@ public class NEIConfig implements IConfigureNEI {
         return ModInfo.MOD_VERSION;
     }
 
-
     @Override
     public void loadConfig() {
         ShapedRollingMachineHandler shapedRollingMachineHandler = new ShapedRollingMachineHandler();

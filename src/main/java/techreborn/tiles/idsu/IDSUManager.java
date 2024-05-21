@@ -9,16 +9,16 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.TreeMap;
 
+import net.minecraft.world.World;
+import net.minecraft.world.storage.ISaveHandler;
+import net.minecraftforge.event.world.WorldEvent;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import net.minecraft.world.World;
-import net.minecraft.world.storage.ISaveHandler;
-import net.minecraftforge.event.world.WorldEvent;
-
 
 public class IDSUManager {
 
@@ -30,18 +30,24 @@ public class IDSUManager {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void worldSave(WorldEvent.Save event) {
-        if (event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null) {
+        if (event.world != null && event.world.getSaveHandler() != null
+            && event.world.getSaveHandler()
+                .getWorldDirectory() != null) {
             if (worldData.containsKey(event.world)) {
-                worldData.get(event.world).save();
+                worldData.get(event.world)
+                    .save();
             }
         }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void worldLoad(WorldEvent.Load event) {
-        if (event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null) {
+        if (event.world != null && event.world.getSaveHandler() != null
+            && event.world.getSaveHandler()
+                .getWorldDirectory() != null) {
             if (worldData.containsKey(event.world)) {
-                worldData.get(event.world).load();
+                worldData.get(event.world)
+                    .load();
             } else {
                 IDSUWorldSaveData worldSaveData = new IDSUWorldSaveData(event.world);
                 worldData.put(event.world, worldSaveData);
@@ -52,21 +58,25 @@ public class IDSUManager {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void worldClosed(WorldEvent.Unload event) {
-        if (event.world != null && event.world.getSaveHandler() != null && event.world.getSaveHandler().getWorldDirectory() != null) {
+        if (event.world != null && event.world.getSaveHandler() != null
+            && event.world.getSaveHandler()
+                .getWorldDirectory() != null) {
             if (worldData.containsKey(event.world)) {
-                worldData.get(event.world).save();
+                worldData.get(event.world)
+                    .save();
             }
         }
-        //this clears the data ready for a new world
+        // this clears the data ready for a new world
         worldData.clear();
     }
 
     public IDSUValueSaveData getSaveDataForWorld(World world, String channel) {
-    	if(worldData == null){
-    		return null;
-	    }
+        if (worldData == null) {
+            return null;
+        }
         if (worldData.containsKey(world)) {
-            return worldData.get(world).getSaves(channel);
+            return worldData.get(world)
+                .getSaves(channel);
         } else {
             IDSUWorldSaveData worldSaveData = new IDSUWorldSaveData(world);
             worldData.put(world, worldSaveData);
@@ -74,7 +84,6 @@ public class IDSUManager {
             return worldSaveData.getSaves(channel);
         }
     }
-
 
     public class IDSUWorldSaveData {
 
@@ -115,8 +124,7 @@ public class IDSUManager {
             try {
                 Gson gson = new Gson();
                 BufferedReader reader = new BufferedReader(new FileReader(file));
-                Type typeOfHashMap = new TypeToken<TreeMap<String, IDSUValueSaveData>>() {
-                }.getType();
+                Type typeOfHashMap = new TypeToken<TreeMap<String, IDSUValueSaveData>>() {}.getType();
                 idsuValues.clear();
                 idsuValues = gson.fromJson(reader, typeOfHashMap);
             } catch (Exception e) {
@@ -139,7 +147,8 @@ public class IDSUManager {
                 }
             }
 
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Gson gson = new GsonBuilder().setPrettyPrinting()
+                .create();
             String json = gson.toJson(idsuValues);
             try {
                 FileWriter writer = new FileWriter(file);
@@ -160,8 +169,7 @@ public class IDSUManager {
             this.storedPower = storedPower;
         }
 
-        public IDSUValueSaveData() {
-        }
+        public IDSUValueSaveData() {}
 
         public double getStoredPower() {
             return storedPower;

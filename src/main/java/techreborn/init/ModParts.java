@@ -2,8 +2,9 @@ package techreborn.init;
 
 import java.util.HashMap;
 
-import cpw.mods.fml.common.Loader;
 import net.minecraft.item.ItemStack;
+
+import cpw.mods.fml.common.Loader;
 import techreborn.partSystem.IPartProvider;
 import techreborn.partSystem.ModPartRegistry;
 import techreborn.partSystem.parts.CablePart;
@@ -20,12 +21,12 @@ public class ModParts {
                 ModPartRegistry.registerPart(part);
             }
         }
-        ModPartRegistry.addProvider("techreborn.partSystem.fmp.FMPFactory",
-                "ForgeMultipart");
+        ModPartRegistry.addProvider("techreborn.partSystem.fmp.FMPFactory", "ForgeMultipart");
         ModPartRegistry.addProvider("techreborn.partSystem.QLib.QModPartFactory", "qmunitylib");
         ModPartRegistry.addAllPartsToSystems();
         for (IPartProvider provider : ModPartRegistry.providers) {
-            if (provider.modID().equals("ForgeMultipart")) {
+            if (provider.modID()
+                .equals("ForgeMultipart")) {
                 ModPartRegistry.masterProvider = provider;
             }
         }

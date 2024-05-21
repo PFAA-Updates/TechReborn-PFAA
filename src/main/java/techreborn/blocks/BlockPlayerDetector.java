@@ -1,11 +1,8 @@
 package techreborn.blocks;
 
-
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,6 +17,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.tiles.TilePlayerDectector;
 
@@ -32,8 +32,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
         setHardness(2f);
     }
 
-    public static final String[] types = new String[]
-            {"all", "others", "you"};
+    public static final String[] types = new String[] { "all", "others", "you" };
 
     private IIcon[] textures;
 
@@ -61,8 +60,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
         this.textures = new IIcon[types.length];
 
         for (int i = 0; i < types.length; i++) {
-            textures[i] = iconRegister.registerIcon("techreborn:"
-                    + "machine/player_detector_" + types[i]);
+            textures[i] = iconRegister.registerIcon("techreborn:" + "machine/player_detector_" + types[i]);
         }
     }
 
@@ -115,12 +113,14 @@ public class BlockPlayerDetector extends BlockMachineBase {
         super.onBlockPlacedBy(world, x, y, z, player, itemstack);
         TileEntity tile = world.getTileEntity(x, y, z);
         if (tile instanceof TilePlayerDectector) {
-            ((TilePlayerDectector) tile).owenerUdid = player.getUniqueID().toString();
+            ((TilePlayerDectector) tile).owenerUdid = player.getUniqueID()
+                .toString();
         }
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX,
+        float hitY, float hitZ) {
         if (super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ)) {
             return true;
         }
@@ -136,7 +136,7 @@ public class BlockPlayerDetector extends BlockMachineBase {
             case 2:
                 message = EnumChatFormatting.BLUE + "Detects only you";
         }
-        if(!world.isRemote){
+        if (!world.isRemote) {
             entityplayer.addChatComponentMessage(new ChatComponentText(message));
             world.setBlockMetadataWithNotify(x, y, z, newMeta, 2);
         }

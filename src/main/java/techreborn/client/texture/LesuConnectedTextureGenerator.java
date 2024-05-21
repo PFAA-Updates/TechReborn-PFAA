@@ -14,6 +14,7 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+
 import reborncore.client.texture.ConnectedTexture;
 import techreborn.lib.ModInfo;
 
@@ -40,7 +41,6 @@ public class LesuConnectedTextureGenerator extends TextureAtlasSprite {
     public static ResourceLocation getLapisResource() {
         return new ResourceLocation("minecraft", "textures/blocks/lapis_block.png");
     }
-
 
     private static int[] createTexture(int w, int[] type_data, int[] edge_data, ConnectedTexture connectedTexture) {
         int[] new_data = type_data;

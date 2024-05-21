@@ -1,14 +1,15 @@
 package techreborn.tiles;
 
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItem;
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.Inventory;
 import techreborn.api.power.IEnergyInterfaceItem;
 import techreborn.init.ModBlocks;
@@ -33,7 +34,9 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
                     ItemStack stack = inventory.getStackInSlot(i);
                     if (stack.getItem() instanceof IEnergyInterfaceItem) {
                         IEnergyInterfaceItem interfaceItem = (IEnergyInterfaceItem) stack.getItem();
-                        double trans = Math.min(interfaceItem.getMaxPower(stack) - interfaceItem.getEnergy(stack), Math.min(interfaceItem.getMaxTransfer(stack), getEnergy()));
+                        double trans = Math.min(
+                            interfaceItem.getMaxPower(stack) - interfaceItem.getEnergy(stack),
+                            Math.min(interfaceItem.getMaxTransfer(stack), getEnergy()));
                         interfaceItem.setEnergy(trans + interfaceItem.getEnergy(stack), stack);
                         useEnergy(trans);
                     } else if (stack.getItem() instanceof IElectricItem) {
@@ -43,7 +46,6 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
             }
         }
     }
-
 
     @Override
     public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
@@ -56,8 +58,7 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -156,7 +157,7 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5} : new int[]{0, 1, 2, 3, 4, 5};
+        return side == ForgeDirection.DOWN.ordinal() ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
     }
 
     @Override
@@ -169,8 +170,7 @@ public class TileChargeBench extends TilePowerAcceptor implements IWrenchable, I
         if (itemStack.getItem() instanceof IElectricItem) {
             double CurrentCharge = ElectricItem.manager.getCharge(itemStack);
             double MaxCharge = ((IElectricItem) itemStack.getItem()).getMaxCharge(itemStack);
-            if (CurrentCharge == MaxCharge)
-                return true;
+            if (CurrentCharge == MaxCharge) return true;
         }
         return false;
     }

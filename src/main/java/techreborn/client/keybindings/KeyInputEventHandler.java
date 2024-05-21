@@ -6,6 +6,7 @@ import techreborn.Core;
 import techreborn.lib.Key;
 
 public class KeyInputEventHandler {
+
     private static Key getPressedKeybinding() {
         if (KeyBindings.config.isPressed()) {
             return Key.CONFIG;

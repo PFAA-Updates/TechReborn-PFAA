@@ -1,7 +1,5 @@
 package techreborn.tiles;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import ic2.api.tile.IWrenchable;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
+
+import cpw.mods.fml.common.registry.GameRegistry;
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.IBaseRecipeType;
@@ -33,7 +34,6 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
     int output = 2;
 
     int fuel = 3;
-
 
     public int burnTime;
 
@@ -76,7 +76,7 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
             }
             if (flag != this.burnTime > 0) {
                 flag1 = true;
-                //TODO sync on/off
+                // TODO sync on/off
             }
         }
         if (flag1) {
@@ -91,12 +91,13 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
         for (ItemStack input : recipeType.getInputs()) {
             Boolean hasItem = false;
             for (int inputslot = 0; inputslot < 2; inputslot++) {
-                if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputslot), true, true, recipeType.useOreDic()) && inventory.getStackInSlot(inputslot).stackSize >= input.stackSize) {
+                if (ItemUtils
+                    .isItemEqual(input, inventory.getStackInSlot(inputslot), true, true, recipeType.useOreDic())
+                    && inventory.getStackInSlot(inputslot).stackSize >= input.stackSize) {
                     hasItem = true;
                 }
             }
-            if (!hasItem)
-                return false;
+            if (!hasItem) return false;
         }
         return true;
     }
@@ -115,56 +116,60 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
 
             if (itemstack == null) return false;
             if (this.getStackInSlot(output) == null) return true;
-            if (!this.getStackInSlot(output).isItemEqual(itemstack)) return false;
+            if (!this.getStackInSlot(output)
+                .isItemEqual(itemstack)) return false;
             int result = getStackInSlot(output).stackSize + itemstack.stackSize;
-            return result <= getInventoryStackLimit() && result <= this.getStackInSlot(output).getMaxStackSize(); //Forge BugFix: Make it respect stack sizes properly.
+            return result <= getInventoryStackLimit() && result <= this.getStackInSlot(output)
+                .getMaxStackSize(); // Forge BugFix: Make it respect stack sizes properly.
         }
     }
 
     /**
      * Turn one item from the furnace source stack into the appropriate smelted item in the furnace result stack
      */
-	public void smeltItem() {
-		ItemStack itemstack = null;
-		if (this.canSmelt()) {
-			for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
-				if (hasAllInputs(recipeType)) {
-					itemstack = recipeType.getOutput(0);
-					break;
-				}
-				if (itemstack != null) {
-					break;
-				}
-			}
-		}
+    public void smeltItem() {
+        ItemStack itemstack = null;
+        if (this.canSmelt()) {
+            for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+                if (hasAllInputs(recipeType)) {
+                    itemstack = recipeType.getOutput(0);
+                    break;
+                }
+                if (itemstack != null) {
+                    break;
+                }
+            }
+        }
 
-		if (this.getStackInSlot(output) == null) {
-			setInventorySlotContents(output, itemstack.copy());
-		} else if (this.getStackInSlot(output).getItem() == itemstack.getItem()) {
-			decrStackSize(output, -itemstack.stackSize);
-		}
+        if (this.getStackInSlot(output) == null) {
+            setInventorySlotContents(output, itemstack.copy());
+        } else if (this.getStackInSlot(output)
+            .getItem() == itemstack.getItem()) {
+                decrStackSize(output, -itemstack.stackSize);
+            }
 
-		for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
-			boolean hasAllRecipes = true;
-			if (hasAllInputs(recipeType)) {
-			} else {
-				hasAllRecipes = false;
-			}
-			if (hasAllRecipes) {
-				for (ItemStack input : recipeType.getInputs()) {
-					for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
-						if (ItemUtils.isItemEqual(input, inventory.getStackInSlot(inputSlot), true, true,
-								recipeType.useOreDic())) {
-							inventory.decrStackSize(inputSlot, input.stackSize);
-							break;
-						}
-					}
-				}
-			}
-		}
-	}
-
-
+        for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(Reference.alloySmelteRecipe)) {
+            boolean hasAllRecipes = true;
+            if (hasAllInputs(recipeType)) {} else {
+                hasAllRecipes = false;
+            }
+            if (hasAllRecipes) {
+                for (ItemStack input : recipeType.getInputs()) {
+                    for (int inputSlot = 0; inputSlot < 2; inputSlot++) {
+                        if (ItemUtils.isItemEqual(
+                            input,
+                            inventory.getStackInSlot(inputSlot),
+                            true,
+                            true,
+                            recipeType.useOreDic())) {
+                            inventory.decrStackSize(inputSlot, input.stackSize);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     /**
      * Furnace isBurning
@@ -184,7 +189,6 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
     public int getCookProgressScaled(int scale) {
         return this.cookTime * scale / 200;
     }
-
 
     /**
      * Returns the number of ticks that the supplied fuel item will keep the furnace burning, or 0 if the item isn't
@@ -212,9 +216,12 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
                 }
             }
 
-            if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD")) return 200;
+            if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName()
+                .equals("WOOD")) return 200;
+            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName()
+                .equals("WOOD")) return 200;
+            if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName()
+                .equals("WOOD")) return 200;
             if (item == Items.stick) return 100;
             if (item == Items.coal) return 1600;
             if (item == Items.lava_bucket) return 20000;
@@ -235,8 +242,7 @@ public class TileAlloyFurnace extends TileMachineBase implements IWrenchable, II
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {

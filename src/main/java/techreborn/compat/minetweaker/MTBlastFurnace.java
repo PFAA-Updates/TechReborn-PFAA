@@ -1,9 +1,10 @@
 package techreborn.compat.minetweaker;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
-import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
@@ -13,21 +14,38 @@ import techreborn.lib.Reference;
 public class MTBlastFurnace extends MTGeneric {
 
     @ZenMethod
-    public static void addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick, int neededHeat) {
+    public static void addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2,
+        int ticktime, int euTick, int neededHeat) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
         ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
 
-        BlastFurnaceRecipe r = new BlastFurnaceRecipe(oInput1, oInput2, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), ticktime, euTick, neededHeat);
+        BlastFurnaceRecipe r = new BlastFurnaceRecipe(
+            oInput1,
+            oInput2,
+            MinetweakerCompat.toStack(output1),
+            MinetweakerCompat.toStack(output2),
+            ticktime,
+            euTick,
+            neededHeat);
 
         addRecipe(r);
     }
 
     @ZenMethod
-    public static void addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2, int ticktime, int euTick, int neededHeat, boolean useOredict) {
+    public static void addRecipe(IItemStack output1, IItemStack output2, IIngredient input1, IIngredient input2,
+        int ticktime, int euTick, int neededHeat, boolean useOredict) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
         ItemStack oInput2 = (ItemStack) MinetweakerCompat.toObject(input2);
 
-        BlastFurnaceRecipe r = new BlastFurnaceRecipe(oInput1, oInput2, MinetweakerCompat.toStack(output1), MinetweakerCompat.toStack(output2), ticktime, euTick, neededHeat, useOredict);
+        BlastFurnaceRecipe r = new BlastFurnaceRecipe(
+            oInput1,
+            oInput2,
+            MinetweakerCompat.toStack(output1),
+            MinetweakerCompat.toStack(output2),
+            ticktime,
+            euTick,
+            neededHeat,
+            useOredict);
 
         addRecipe(r);
     }

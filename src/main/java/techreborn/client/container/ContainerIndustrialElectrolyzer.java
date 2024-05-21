@@ -2,6 +2,7 @@ package techreborn.client.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
+
 import reborncore.client.gui.SlotOutput;
 import techreborn.tiles.TileIndustrialElectrolyzer;
 
@@ -31,21 +32,19 @@ public class ContainerIndustrialElectrolyzer extends ContainerCrafting {
         this.addSlotToContainer(new SlotOutput(electrolyzer.inventory, 3, 70, 19));
         this.addSlotToContainer(new SlotOutput(electrolyzer.inventory, 4, 90, 19));
         this.addSlotToContainer(new SlotOutput(electrolyzer.inventory, 5, 110, 19));
-        
+
         // battery
         this.addSlotToContainer(new Slot(electrolyzer.inventory, 6, 18, 51));
 
         int i;
         for (i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(player.inventory, j + i * 9
-                        + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
-                    142));
+            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
         }
     }
 

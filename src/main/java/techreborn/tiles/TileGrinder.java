@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -13,6 +12,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -33,7 +34,7 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
 
     public TileGrinder() {
         super(ConfigTechReborn.CentrifugeTier);
-        //TODO configs
+        // TODO configs
 
         int[] inputs = new int[2];
         inputs[0] = 0;
@@ -57,8 +58,7 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -80,9 +80,13 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
 
     public boolean getMutliBlock() {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-            TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            TileEntity tileEntity = worldObj
+                .getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
-                if(((TileMachineCasing) tileEntity).isConnected()  && ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled() && ((TileMachineCasing) tileEntity).getMultiblockController().height == 3){
+                if (((TileMachineCasing) tileEntity).isConnected()
+                    && ((TileMachineCasing) tileEntity).getMultiblockController()
+                        .isAssembled()
+                    && ((TileMachineCasing) tileEntity).getMultiblockController().height == 3) {
                     connectionStatus = 1;
                     return true;
                 }
@@ -131,7 +135,8 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
     /* IFluidHandler */
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury || resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
+        if (resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury
+            || resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
             int filled = tank.fill(resource, doFill);
             tank.compareAndUpdate();
             return filled;
@@ -158,7 +163,8 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
 
     @Override
     public boolean canFill(ForgeDirection from, Fluid fluid) {
-        if (fluid == FluidRegistry.WATER || fluid == ModFluids.fluidMercury || fluid == ModFluids.fluidSodiumpersulfate) {
+        if (fluid == FluidRegistry.WATER || fluid == ModFluids.fluidMercury
+            || fluid == ModFluids.fluidSodiumpersulfate) {
             return true;
         }
         return false;
@@ -171,7 +177,7 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[]{tank.getInfo()};
+        return new FluidTankInfo[] { tank.getInfo() };
     }
 
     @Override
@@ -237,13 +243,12 @@ public class TileGrinder extends TilePowerAcceptor implements IWrenchable, IFlui
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5} : new int[]{0, 1, 2, 3, 4, 5};
+        return side == ForgeDirection.DOWN.ordinal() ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
     }
 
     @Override
     public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
-        if (slotIndex >= 2)
-            return false;
+        if (slotIndex >= 2) return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
 

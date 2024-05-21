@@ -5,8 +5,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -16,6 +14,9 @@ import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.resources.data.AnimationMetadataSection;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import reborncore.client.texture.ConnectedTexture;
 import techreborn.lib.ModInfo;
 
@@ -125,7 +126,8 @@ public class CasingConnectedTextureGenerator extends TextureAtlasSprite {
     }
 
     @SideOnly(Side.CLIENT)
-    public static IIcon genIcon(ConnectedTexture connectedTexture, IIconRegister iconRegister, int texNum, int meta, String[] types) {
+    public static IIcon genIcon(ConnectedTexture connectedTexture, IIconRegister iconRegister, int texNum, int meta,
+        String[] types) {
         if (iconRegister instanceof TextureMap) {
             TextureMap map = (TextureMap) iconRegister;
             String name = CasingConnectedTextureGenerator.getDerivedName(types[meta] + "." + texNum);

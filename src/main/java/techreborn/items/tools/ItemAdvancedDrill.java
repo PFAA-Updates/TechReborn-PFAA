@@ -2,9 +2,6 @@ package techreborn.items.tools;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import ic2.api.item.ElectricItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,6 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.item.ElectricItem;
 import reborncore.common.util.TorchHelper;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
@@ -40,20 +41,20 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon("techreborn:"
-                + "tool/advancedDrill");
+        this.itemIcon = iconRegister.registerIcon("techreborn:" + "tool/advancedDrill");
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World world, Block block,
-                                    int par4, int par5, int par6, EntityLivingBase entityLiving) {
+    public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int par4, int par5, int par6,
+        EntityLivingBase entityLiving) {
         ElectricItem.manager.use(stack, cost, entityLiving);
         return true;
     }
 
     @Override
     public boolean canHarvestBlock(Block block, ItemStack stack) {
-        return Items.diamond_pickaxe.canHarvestBlock(block, stack) || Items.diamond_shovel.canHarvestBlock(block, stack);
+        return Items.diamond_pickaxe.canHarvestBlock(block, stack)
+            || Items.diamond_shovel.canHarvestBlock(block, stack);
     }
 
     @Override
@@ -62,7 +63,8 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo {
             return 4.0F;
         }
 
-        if (Items.wooden_pickaxe.getDigSpeed(stack, block, meta) > 1.0F || Items.wooden_shovel.getDigSpeed(stack, block, meta) > 1.0F) {
+        if (Items.wooden_pickaxe.getDigSpeed(stack, block, meta) > 1.0F
+            || Items.wooden_shovel.getDigSpeed(stack, block, meta) > 1.0F) {
             return efficiencyOnProperMaterial;
         } else {
             return super.getDigSpeed(stack, block, meta);
@@ -75,8 +77,8 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo {
     }
 
     @Override
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world,
-                             int x, int y, int z, int side, float xOffset, float yOffset, float zOffset) {
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
+        float xOffset, float yOffset, float zOffset) {
         return TorchHelper.placeTorch(stack, player, world, x, y, z, side, xOffset, yOffset, zOffset);
     }
 
@@ -84,7 +86,6 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo {
     public boolean isRepairable() {
         return false;
     }
-
 
     @Override
     public double getMaxPower(ItemStack stack) {
@@ -112,8 +113,7 @@ public class ItemAdvancedDrill extends ItemPickaxe implements IEnergyItemInfo {
     }
 
     @Override
-	@SuppressWarnings(
-            {"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
         ItemStack itemStack = new ItemStack(this, 1);

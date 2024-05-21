@@ -1,9 +1,9 @@
 package techreborn.powerSystem.traits;
 
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
 import reborncore.jtraits.JTrait;
 import techreborn.api.power.IEnergyInterfaceItem;
 
@@ -70,7 +70,6 @@ public abstract class BasePowerTrait extends JTrait<Item> implements IEnergyInte
         return this.getEnergy(stack) + energy <= getMaxPower(stack);
     }
 
-
     public NBTTagCompound getOrCreateNbtData(ItemStack itemStack) {
         NBTTagCompound tagCompound = itemStack.getTagCompound();
         if (tagCompound == null) {
@@ -80,6 +79,5 @@ public abstract class BasePowerTrait extends JTrait<Item> implements IEnergyInte
 
         return tagCompound;
     }
-
 
 }

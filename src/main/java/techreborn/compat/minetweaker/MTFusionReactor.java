@@ -3,12 +3,13 @@ package techreborn.compat.minetweaker;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.api.minecraft.MineTweakerMC;
-import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -19,8 +20,15 @@ import techreborn.api.reactor.FusionReactorRecipeHelper;
 public class MTFusionReactor {
 
     @ZenMethod
-    public static void addRecipe(IIngredient topInput, IIngredient bottomInput, IItemStack output, int startEU, int euTick, int tickTime) {
-        FusionReactorRecipe reactorRecipe = new FusionReactorRecipe((ItemStack) MinetweakerCompat.toObject(topInput), (ItemStack) MinetweakerCompat.toObject(bottomInput), MinetweakerCompat.toStack(output), startEU, euTick, tickTime);
+    public static void addRecipe(IIngredient topInput, IIngredient bottomInput, IItemStack output, int startEU,
+        int euTick, int tickTime) {
+        FusionReactorRecipe reactorRecipe = new FusionReactorRecipe(
+            (ItemStack) MinetweakerCompat.toObject(topInput),
+            (ItemStack) MinetweakerCompat.toObject(bottomInput),
+            MinetweakerCompat.toStack(output),
+            startEU,
+            euTick,
+            tickTime);
         MineTweakerAPI.apply(new Add(reactorRecipe));
     }
 
@@ -35,6 +43,7 @@ public class MTFusionReactor {
     }
 
     private static class Add implements IUndoableAction {
+
         private final FusionReactorRecipe recipe;
 
         public Add(FusionReactorRecipe recipe) {
@@ -58,12 +67,14 @@ public class MTFusionReactor {
 
         @Override
         public String describe() {
-            return "Adding Fusion Reactor recipe for " + recipe.getOutput().getDisplayName();
+            return "Adding Fusion Reactor recipe for " + recipe.getOutput()
+                .getDisplayName();
         }
 
         @Override
         public String describeUndo() {
-            return "Removing Fusion Reactor recipe for " + recipe.getOutput().getDisplayName();
+            return "Removing Fusion Reactor recipe for " + recipe.getOutput()
+                .getDisplayName();
         }
 
         @Override
@@ -78,6 +89,7 @@ public class MTFusionReactor {
     }
 
     private static class Remove implements IUndoableAction {
+
         private final ItemStack output;
         List<FusionReactorRecipe> removedRecipes = new ArrayList<FusionReactorRecipe>();
 
@@ -130,8 +142,8 @@ public class MTFusionReactor {
         }
     }
 
-
     private static class RemoveTopInput implements IUndoableAction {
+
         private final IIngredient output;
         List<FusionReactorRecipe> removedRecipes = new ArrayList<FusionReactorRecipe>();
 
@@ -184,6 +196,7 @@ public class MTFusionReactor {
     }
 
     private static class RemoveBottomInput implements IUndoableAction {
+
         private final IIngredient output;
         List<FusionReactorRecipe> removedRecipes = new ArrayList<FusionReactorRecipe>();
 

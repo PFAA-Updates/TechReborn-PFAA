@@ -1,9 +1,10 @@
 package techreborn.compat.minetweaker;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
-import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.recipe.machines.PlateCuttingMachineRecipe;
@@ -15,7 +16,11 @@ public class MTPlateCuttingMachine extends MTGeneric {
     @ZenMethod
     public static void addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-        PlateCuttingMachineRecipe r = new PlateCuttingMachineRecipe(oInput1, MinetweakerCompat.toStack(output), ticktime, euTick);
+        PlateCuttingMachineRecipe r = new PlateCuttingMachineRecipe(
+            oInput1,
+            MinetweakerCompat.toStack(output),
+            ticktime,
+            euTick);
 
         addRecipe(r);
     }
@@ -23,7 +28,12 @@ public class MTPlateCuttingMachine extends MTGeneric {
     @ZenMethod
     public static void addRecipe(IItemStack output, IIngredient input1, int ticktime, int euTick, boolean useOredict) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input1);
-        PlateCuttingMachineRecipe r = new PlateCuttingMachineRecipe(oInput1, MinetweakerCompat.toStack(output), ticktime, euTick, useOredict);
+        PlateCuttingMachineRecipe r = new PlateCuttingMachineRecipe(
+            oInput1,
+            MinetweakerCompat.toStack(output),
+            ticktime,
+            euTick,
+            useOredict);
 
         addRecipe(r);
     }

@@ -27,18 +27,18 @@ public class CompatManager {
     public static boolean isIC2Loaded = false;
     public static boolean isIC2ClassicLoaded = false;
     public static boolean isClassicEnet = false;
-    public static boolean isGregTechLoaded  = false;
+    public static boolean isGregTechLoaded = false;
 
     public CompatManager() {
         isIC2Loaded = Loader.isModLoaded("IC2");
         isIC2ClassicLoaded = IC2Classic.isIc2ClassicLoaded();
-        if(isIC2ClassicLoaded){
+        if (isIC2ClassicLoaded) {
             isClassicEnet = true;
         }
-        if(Loader.isModLoaded("Uncomplication")){
+        if (Loader.isModLoaded("Uncomplication")) {
             isClassicEnet = true;
         }
-        if(Loader.isModLoaded("gregtech")){
+        if (Loader.isModLoaded("gregtech")) {
             isGregTechLoaded = true;
         }
 
@@ -57,11 +57,18 @@ public class CompatManager {
 
     public void registerCompact(Class<?> moduleClass, Object... objs) {
         Core.logHelper.info("Attempting to loading compat module " + moduleClass.getSimpleName());
-        boolean shouldLoad = ConfigTechReborn.config.get(ConfigTechReborn.CATEGORY_INTEGRATION, "Compat:" + moduleClass.getSimpleName(), true, "Should the " + moduleClass.getSimpleName() + " be loaded?").getBoolean(true);
-        if (ConfigTechReborn.config.hasChanged())
-            ConfigTechReborn.config.save();
-        if(!shouldLoad){
-            Core.logHelper.info("Compat module " + moduleClass.getSimpleName() + " was not loaded because it has been disabled in the config file.");
+        boolean shouldLoad = ConfigTechReborn.config
+            .get(
+                ConfigTechReborn.CATEGORY_INTEGRATION,
+                "Compat:" + moduleClass.getSimpleName(),
+                true,
+                "Should the " + moduleClass.getSimpleName() + " be loaded?")
+            .getBoolean(true);
+        if (ConfigTechReborn.config.hasChanged()) ConfigTechReborn.config.save();
+        if (!shouldLoad) {
+            Core.logHelper.info(
+                "Compat module " + moduleClass.getSimpleName()
+                    + " was not loaded because it has been disabled in the config file.");
             return;
         }
         for (Object obj : objs) {
@@ -69,26 +76,36 @@ public class CompatManager {
                 String modid = (String) obj;
                 if (modid.startsWith("!")) {
                     if (Loader.isModLoaded(modid.replaceAll("!", ""))) {
-                        Core.logHelper.info("Compat module " + moduleClass.getSimpleName() + " has not been loaded because " + modid.replaceAll("!", "") + " is loaded!");
+                        Core.logHelper.info(
+                            "Compat module " + moduleClass.getSimpleName()
+                                + " has not been loaded because "
+                                + modid.replaceAll("!", "")
+                                + " is loaded!");
                         return;
                     }
                 } else {
                     if (!Loader.isModLoaded(modid)) {
-                        Core.logHelper.info("Compat module " + moduleClass.getSimpleName() + " has not been loaded because " + modid.replaceAll("!", "") + " is not loaded!");
+                        Core.logHelper.info(
+                            "Compat module " + moduleClass.getSimpleName()
+                                + " has not been loaded because "
+                                + modid.replaceAll("!", "")
+                                + " is not loaded!");
                         return;
                     }
                 }
             } else if (obj instanceof Boolean) {
                 Boolean boo = (Boolean) obj;
-                if (boo == false) {
-                }
-                Core.logHelper.info("Compat module " + moduleClass.getSimpleName() + " has not been loaded because it was told not to");
+                if (boo == false) {}
+                Core.logHelper.info(
+                    "Compat module " + moduleClass.getSimpleName() + " has not been loaded because it was told not to");
                 return;
             }
         }
         Core.logHelper.info("Compat module " + moduleClass.getSimpleName() + " has been loaded");
         try {
-            compatModules.add((ICompatModule) moduleClass.getConstructor().newInstance());
+            compatModules.add(
+                (ICompatModule) moduleClass.getConstructor()
+                    .newInstance());
         } catch (Exception e) {
             e.printStackTrace();
         }

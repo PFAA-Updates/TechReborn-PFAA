@@ -1,14 +1,14 @@
 package techreborn.client.container;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.fusionReactor.TileEntityFusionController;
-
 
 public class ContainerFusionReactor extends RebornContainer {
 
@@ -20,8 +20,7 @@ public class ContainerFusionReactor extends RebornContainer {
 
     TileEntityFusionController fusionController;
 
-    public ContainerFusionReactor(TileEntityFusionController tileEntityFusionController,
-                                  EntityPlayer player) {
+    public ContainerFusionReactor(TileEntityFusionController tileEntityFusionController, EntityPlayer player) {
         super();
         this.fusionController = tileEntityFusionController;
 
@@ -33,14 +32,12 @@ public class ContainerFusionReactor extends RebornContainer {
 
         for (i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(player.inventory, j + i * 9
-                        + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
-                    142));
+            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
         }
 
     }
@@ -62,13 +59,13 @@ public class ContainerFusionReactor extends RebornContainer {
                 icrafting.sendProgressBarUpdate(this, 1, (int) fusionController.getEnergy());
             }
             if (this.tickTime != fusionController.crafingTickTime) {
-                icrafting.sendProgressBarUpdate(this, 2,  fusionController.crafingTickTime);
+                icrafting.sendProgressBarUpdate(this, 2, fusionController.crafingTickTime);
             }
             if (this.finalTickTime != fusionController.finalTickTime) {
-                icrafting.sendProgressBarUpdate(this, 3,  fusionController.finalTickTime);
+                icrafting.sendProgressBarUpdate(this, 3, fusionController.finalTickTime);
             }
             if (this.neededEU != fusionController.neededPower) {
-                icrafting.sendProgressBarUpdate(this, 4,  fusionController.neededPower);
+                icrafting.sendProgressBarUpdate(this, 4, fusionController.neededPower);
             }
         }
     }
@@ -88,27 +85,31 @@ public class ContainerFusionReactor extends RebornContainer {
     public void updateProgressBar(int id, int value) {
         if (id == 0) {
             this.coilStatus = value;
-        }  else if (id == 1) {
+        } else if (id == 1) {
             this.energy = value;
-        } else if(id == 2){
+        } else if (id == 2) {
             this.tickTime = value;
-        } else if(id == 3){
+        } else if (id == 3) {
             this.finalTickTime = value;
-        } else if(id == 4){
+        } else if (id == 4) {
             this.neededEU = value;
         }
-        if(tickTime == -1){
+        if (tickTime == -1) {
             tickTime = 0;
         }
-        if(finalTickTime == -1){
+        if (finalTickTime == -1) {
             finalTickTime = 0;
         }
-        if(neededEU == -1){
+        if (neededEU == -1) {
             neededEU = 0;
         }
     }
 
-    public int getProgressScaled(){
-        return Math.max(0, Math.min(24, (this.tickTime > 0 ? 1 : 0) + this.tickTime * 24 / (this.finalTickTime < 1 ? 1 : this.finalTickTime)));
+    public int getProgressScaled() {
+        return Math.max(
+            0,
+            Math.min(
+                24,
+                (this.tickTime > 0 ? 1 : 0) + this.tickTime * 24 / (this.finalTickTime < 1 ? 1 : this.finalTickTime)));
     }
 }

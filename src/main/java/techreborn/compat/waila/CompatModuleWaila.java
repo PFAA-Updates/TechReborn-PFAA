@@ -17,9 +17,8 @@ public class CompatModuleWaila implements ICompatModule {
     }
 
     @Override
-	public void init(FMLInitializationEvent event) {
-        FMLInterModComms.sendMessage("Waila", "register", getClass().getName()
-                + ".callbackRegister");
+    public void init(FMLInitializationEvent event) {
+        FMLInterModComms.sendMessage("Waila", "register", getClass().getName() + ".callbackRegister");
     }
 
     @Override
@@ -33,7 +32,6 @@ public class CompatModuleWaila implements ICompatModule {
     }
 
     public static void callbackRegister(IWailaRegistrar registrar) {
-        registrar.registerBodyProvider(new WailaProviderMachines(),
-                TileMachineBase.class);
+        registrar.registerBodyProvider(new WailaProviderMachines(), TileMachineBase.class);
     }
 }

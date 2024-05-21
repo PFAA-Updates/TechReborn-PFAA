@@ -2,8 +2,6 @@ package techreborn.items.tools;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,6 +12,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import reborncore.common.util.Color;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
@@ -86,10 +87,9 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
     }
 
     @Override
-	public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+    public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
         par1ItemStack.addEnchantment(Enchantment.silkTouch, 1);
     }
-
 
     @Override
     public double getMaxPower(ItemStack stack) {
@@ -117,8 +117,7 @@ public class ItemRockCutter extends ItemPickaxe implements IEnergyItemInfo {
     }
 
     @Override
-	@SuppressWarnings(
-            {"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List itemList) {
         ItemStack itemStack = new ItemStack(this, 1);

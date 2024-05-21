@@ -1,14 +1,15 @@
 package techreborn.tiles;
 
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItem;
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
@@ -23,7 +24,7 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
 
     public TileChemicalReactor() {
         super(2);
-        //Input slots
+        // Input slots
         int[] inputs = new int[2];
         inputs[0] = 0;
         inputs[1] = 1;
@@ -38,25 +39,20 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
         crafter.updateEntity();
         charge(3);
     }
-    
-    public void charge(int slot)
-    {
-    	if(getStackInSlot(slot) != null)
-    	{
-	    	if(getStackInSlot(slot).getItem() instanceof IElectricItem)
-	    	{
-	    		if(getEnergy() != getMaxPower())
-	    		{
-	                ItemStack stack = inventory.getStackInSlot(slot);
-	                double CurrentCharge = ElectricItem.manager.getCharge(stack);
-	                if (CurrentCharge != 0) 
-	                {
-	                	ElectricItem.manager.discharge(stack, 5, 4, false, false, false);
-	                    addEnergy(5);
-	                }
-	    		}
-	    	}
-    	}
+
+    public void charge(int slot) {
+        if (getStackInSlot(slot) != null) {
+            if (getStackInSlot(slot).getItem() instanceof IElectricItem) {
+                if (getEnergy() != getMaxPower()) {
+                    ItemStack stack = inventory.getStackInSlot(slot);
+                    double CurrentCharge = ElectricItem.manager.getCharge(stack);
+                    if (CurrentCharge != 0) {
+                        ElectricItem.manager.discharge(stack, 5, 4, false, false, false);
+                        addEnergy(5);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -70,8 +66,7 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -172,13 +167,12 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2} : new int[]{0, 1, 2};
+        return side == ForgeDirection.DOWN.ordinal() ? new int[] { 0, 1, 2 } : new int[] { 0, 1, 2 };
     }
 
     @Override
     public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
-        if (slotIndex == 2)
-            return false;
+        if (slotIndex == 2) return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
 
@@ -187,15 +181,15 @@ public class TileChemicalReactor extends TilePowerAcceptor implements IWrenchabl
         return slotIndex == 2;
     }
 
-//	@Override
-//	public void addWailaInfo(List<String> info)
-//	{
-//		super.addWailaInfo(info);
-//		info.add("Power Stored " + energy.getEnergyStored() +" EU");
-//		if(crafter.currentRecipe !=null){
-//		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-//		}
-//	}
+    // @Override
+    // public void addWailaInfo(List<String> info)
+    // {
+    // super.addWailaInfo(info);
+    // info.add("Power Stored " + energy.getEnergyStored() +" EU");
+    // if(crafter.currentRecipe !=null){
+    // info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+    // }
+    // }
 
     public int getProgressScaled(int scale) {
         if (crafter.currentTickTime != 0) {

@@ -1,7 +1,5 @@
 package techreborn.blocks.machine;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,6 +7,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.Core;
 import techreborn.blocks.BlockMachineBase;
 import techreborn.client.GuiHandler;
@@ -39,14 +40,12 @@ public class BlockIndustrialSawmill extends BlockMachineBase {
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if(fillBlockWithFluid(world, x, y, z, player, side, hitX, hitY, hitZ)){
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+        float hitY, float hitZ) {
+        if (fillBlockWithFluid(world, x, y, z, player, side, hitX, hitY, hitZ)) {
             return true;
         }
-        if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.sawMillID, world, x, y,
-                    z);
+        if (!player.isSneaking()) player.openGui(Core.INSTANCE, GuiHandler.sawMillID, world, x, y, z);
         return true;
     }
 
@@ -68,9 +67,9 @@ public class BlockIndustrialSawmill extends BlockMachineBase {
             return this.iconFrontOn;
         }
         return metadata == 0 && side == 3 ? this.iconFront
-                : side == 1 ? this.iconTop :
-                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
-                        : (side == metadata ? this.iconFront : this.blockIcon));
+            : side == 1 ? this.iconTop
+                : side == 0 ? this.iconBottom
+                    : (side == 0 ? this.iconTop : (side == metadata ? this.iconFront : this.blockIcon));
     }
 
     @Override

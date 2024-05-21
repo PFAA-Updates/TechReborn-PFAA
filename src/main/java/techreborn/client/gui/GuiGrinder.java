@@ -1,7 +1,5 @@
 package techreborn.client.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.resources.I18n;
@@ -9,13 +7,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
 import reborncore.client.gui.GuiUtil;
 import techreborn.client.container.ContainerGrinder;
 import techreborn.tiles.TileGrinder;
 
 public class GuiGrinder extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/industrial_grinder.png");
+    private static final ResourceLocation texture = new ResourceLocation(
+        "techreborn",
+        "textures/gui/industrial_grinder.png");
 
     TileGrinder grinder;
     ContainerGrinder containerGrinder;
@@ -31,7 +34,8 @@ public class GuiGrinder extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(texture);
+        this.mc.getTextureManager()
+            .bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
@@ -50,21 +54,24 @@ public class GuiGrinder extends GuiContainer {
 
         if (containerGrinder.connectionStatus != 1) {
             GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - j, 114, 10);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - j, -1);
+            this.fontRendererObj.drawString(
+                StatCollector.translateToLocal("techreborn.message.missingmultiblock"),
+                k + 38,
+                l + 52 + 12 - j,
+                -1);
         }
 
         if (grinder.tank.getFluidAmount() != 0) {
-            IIcon fluidIcon = grinder.tank.getFluid().getFluid().getIcon();
+            IIcon fluidIcon = grinder.tank.getFluid()
+                .getFluid()
+                .getIcon();
             if (fluidIcon != null) {
                 this.mc.renderEngine.bindTexture(texture);
                 drawTexturedModalRect(k + 7, l + 15, 176, 31, 20, 55);
 
-                this.mc.renderEngine
-                        .bindTexture(TextureMap.locationBlocksTexture);
-                int liquidHeight = grinder.tank.getFluidAmount() * 47
-                        / grinder.tank.getCapacity();
-                GuiUtil.drawRepeated(fluidIcon, k + 11, l + 19 + 47
-                        - liquidHeight, 12.0D, liquidHeight, this.zLevel);
+                this.mc.renderEngine.bindTexture(TextureMap.locationBlocksTexture);
+                int liquidHeight = grinder.tank.getFluidAmount() * 47 / grinder.tank.getCapacity();
+                GuiUtil.drawRepeated(fluidIcon, k + 11, l + 19 + 47 - liquidHeight, 12.0D, liquidHeight, this.zLevel);
 
                 this.mc.renderEngine.bindTexture(texture);
 
@@ -74,10 +81,12 @@ public class GuiGrinder extends GuiContainer {
     }
 
     @Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String name = StatCollector.translateToLocal("tile.techreborn.grinder.name");
-        this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
-        this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj
+            .drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
+        this.fontRendererObj
+            .drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
 
 }

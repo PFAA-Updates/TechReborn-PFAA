@@ -3,6 +3,8 @@ package techreborn;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import org.apache.commons.lang3.time.StopWatch;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
@@ -16,7 +18,6 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraftforge.common.MinecraftForge;
 import reborncore.common.multiblock.MultiblockEventHandler;
 import reborncore.common.multiblock.MultiblockServerTickHandler;
 import reborncore.common.packets.AddDiscriminatorEvent;
@@ -43,8 +44,14 @@ import techreborn.tiles.idsu.IDSUManager;
 import techreborn.world.DungeonLoot;
 import techreborn.world.TROreGen;
 
-@Mod(modid = ModInfo.MOD_ID, name = ModInfo.MOD_NAME, version = ModInfo.MOD_VERSION, dependencies = ModInfo.MOD_DEPENDENCUIES, guiFactory = ModInfo.GUI_FACTORY_CLASS)
+@Mod(
+    modid = ModInfo.MOD_ID,
+    name = ModInfo.MOD_NAME,
+    version = ModInfo.MOD_VERSION,
+    dependencies = ModInfo.MOD_DEPENDENCUIES,
+    guiFactory = ModInfo.GUI_FACTORY_CLASS)
 public class Core {
+
     public static ConfigTechReborn config;
 
     @SidedProxy(clientSide = ModInfo.CLIENT_PROXY_CLASS, serverSide = ModInfo.SERVER_PROXY_CLASS)
@@ -59,11 +66,14 @@ public class Core {
     public void preinit(FMLPreInitializationEvent event) {
         event.getModMetadata().version = ModInfo.MOD_VERSION;
         INSTANCE = this;
-        FMLCommonHandler.instance().bus().register(this);
+        FMLCommonHandler.instance()
+            .bus()
+            .register(this);
         MinecraftForge.EVENT_BUS.register(this);
 
-        String path = event.getSuggestedConfigurationFile().getAbsolutePath()
-                .replace(ModInfo.MOD_ID, "TechReborn");
+        String path = event.getSuggestedConfigurationFile()
+            .getAbsolutePath()
+            .replace(ModInfo.MOD_ID, "TechReborn");
 
         config = ConfigTechReborn.initialize(new File(path));
 
@@ -76,16 +86,17 @@ public class Core {
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    public void init(FMLInitializationEvent event) throws IllegalAccessException, InstantiationException,
+        IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
         // Register ModBlocks
         ModBlocks.init();
         // Register Fluids
         ModFluids.init();
         // Register ModItems
         ModItems.init();
-        //Multiparts
+        // Multiparts
         ModParts.init();
-        //Client only init, needs to be done before parts system
+        // Client only init, needs to be done before parts system
         proxy.init();
         // Compat
         for (ICompatModule compatModule : CompatManager.INSTANCE.compatModules) {
@@ -93,7 +104,7 @@ public class Core {
         }
         // WorldGen
         GameRegistry.registerWorldGenerator(new TROreGen(), 0);
-		DungeonLoot.init();
+        DungeonLoot.init();
         // Register Gui Handler
         NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 
@@ -102,9 +113,15 @@ public class Core {
         // IDSU manager
         IDSUManager.INSTANCE = new IDSUManager();
         MinecraftForge.EVENT_BUS.register(IDSUManager.INSTANCE);
-        FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
-        FMLCommonHandler.instance().bus().register(new TRTickHandler());
-        FMLCommonHandler.instance().bus().register(new OreUnifier());
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new MultiblockServerTickHandler());
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new TRTickHandler());
+        FMLCommonHandler.instance()
+            .bus()
+            .register(new OreUnifier());
         logHelper.info("Initialization Complete");
     }
 
@@ -122,9 +139,9 @@ public class Core {
         }
         logHelper.info(RecipeHandler.recipeList.size() + " recipes loaded");
 
-        //RecipeHandler.scanForDupeRecipes();
+        // RecipeHandler.scanForDupeRecipes();
 
-        //RecipeConfigManager.save();
+        // RecipeConfigManager.save();
     }
 
     @Mod.EventHandler
@@ -142,10 +159,11 @@ public class Core {
         }
     }
 
-
     @SubscribeEvent
     public void addDiscriminator(AddDiscriminatorEvent event) {
-        event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketAesu.class);
-        event.getPacketHandler().addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketIdsu.class);
+        event.getPacketHandler()
+            .addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketAesu.class);
+        event.getPacketHandler()
+            .addDiscriminator(event.getPacketHandler().nextDiscriminator, PacketIdsu.class);
     }
 }

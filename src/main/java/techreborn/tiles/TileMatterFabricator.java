@@ -1,14 +1,15 @@
 package techreborn.tiles;
 
-import ic2.api.recipe.RecipeOutput;
-import ic2.api.recipe.Recipes;
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.recipe.RecipeOutput;
+import ic2.api.recipe.Recipes;
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.init.ModBlocks;
@@ -25,7 +26,7 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
 
     public TileMatterFabricator() {
         super(6);
-        //TODO configs
+        // TODO configs
     }
 
     @Override
@@ -39,8 +40,7 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -139,13 +139,13 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5, 6} : new int[]{0, 1, 2, 3, 4, 5, 6};
+        return side == ForgeDirection.DOWN.ordinal() ? new int[] { 0, 1, 2, 3, 4, 5, 6 }
+            : new int[] { 0, 1, 2, 3, 4, 5, 6 };
     }
 
     @Override
     public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
-        if (slotIndex == 6)
-            return false;
+        if (slotIndex == 6) return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
 
@@ -198,18 +198,20 @@ public class TileMatterFabricator extends TilePowerAcceptor implements IWrenchab
     }
 
     private boolean spaceForOutput() {
-        return inventory.getStackInSlot(6) == null || ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.uuMatter), true, true, false) && inventory.getStackInSlot(6).stackSize < 64;
+        return inventory.getStackInSlot(6) == null
+            || ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.uuMatter), true, true, false)
+                && inventory.getStackInSlot(6).stackSize < 64;
     }
 
     private void addOutputProducts() {
 
         if (inventory.getStackInSlot(6) == null) {
             inventory.setInventorySlotContents(6, new ItemStack(ModItems.uuMatter));
-        } else if (ItemUtils.isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.uuMatter), true, true, false)) {
-            inventory.getStackInSlot(6).stackSize = Math.min(64, 1 + inventory.getStackInSlot(6).stackSize);
-        }
+        } else if (ItemUtils
+            .isItemEqual(inventory.getStackInSlot(6), new ItemStack(ModItems.uuMatter), true, true, false)) {
+                inventory.getStackInSlot(6).stackSize = Math.min(64, 1 + inventory.getStackInSlot(6).stackSize);
+            }
     }
-
 
     public boolean decreaseStoredEnergy(double aEnergy, boolean aIgnoreTooLessEnergy) {
         if (this.getEnergy() - aEnergy < 0 && !aIgnoreTooLessEnergy) {

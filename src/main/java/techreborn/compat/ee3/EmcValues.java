@@ -1,5 +1,8 @@
 package techreborn.compat.ee3;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+
 import com.pahimar.ee3.api.exchange.EnergyValue;
 import com.pahimar.ee3.api.exchange.EnergyValueRegistryProxy;
 import com.pahimar.ee3.api.exchange.RecipeRegistryProxy;
@@ -11,8 +14,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
 import techreborn.compat.ICompatModule;
@@ -20,7 +21,6 @@ import techreborn.items.ItemParts;
 import techreborn.items.ItemPlates;
 
 public class EmcValues implements ICompatModule {
-
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
@@ -73,13 +73,11 @@ public class EmcValues implements ICompatModule {
         EnergyValueRegistryProxy.addPreAssignedEnergyValue(stack, energyValue);
     }
 
-
     private void addStack(ItemStack itemStack, Number value) {
         WrappedStack stack = WrappedStack.wrap(itemStack);
         EnergyValue energyValue = new EnergyValue(value);
 
         EnergyValueRegistryProxy.addPreAssignedEnergyValue(stack, energyValue);
     }
-
 
 }

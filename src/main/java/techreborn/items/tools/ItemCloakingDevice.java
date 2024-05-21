@@ -2,8 +2,6 @@ package techreborn.items.tools;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -12,12 +10,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.world.World;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.api.power.IEnergyItemInfo;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.config.ConfigTechReborn;
 import techreborn.powerSystem.PoweredItem;
 
 public class ItemCloakingDevice extends Item implements IEnergyItemInfo {
+
     public static int Teir = ConfigTechReborn.CloakingDeviceTier;
     public static int MaxCharge = ConfigTechReborn.CloakingDeviceCharge;
     public static int Limit = 100;
@@ -74,7 +76,7 @@ public class ItemCloakingDevice extends Item implements IEnergyItemInfo {
     }
 
     @Override
-	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
+    public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
         ItemStack itemstack1 = player.getCurrentArmor(3);
 
         if (itemstack1 == null) {
@@ -93,12 +95,11 @@ public class ItemCloakingDevice extends Item implements IEnergyItemInfo {
     @SideOnly(Side.CLIENT)
     @Override
     public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon("techreborn:"
-                + "techreborn.cloakingdevice");
+        this.itemIcon = iconRegister.registerIcon("techreborn:" + "techreborn.cloakingdevice");
     }
 
     @Override
-	@SideOnly(Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public void getSubItems(Item item, CreativeTabs par2CreativeTabs, List<ItemStack> itemList) {
         ItemStack itemStack = new ItemStack(this, 1);
         itemList.add(itemStack);
@@ -108,16 +109,15 @@ public class ItemCloakingDevice extends Item implements IEnergyItemInfo {
         itemList.add(charged);
     }
 
-
     @Override
-	public double getDurabilityForDisplay(ItemStack stack) {
+    public double getDurabilityForDisplay(ItemStack stack) {
         double charge = (PoweredItem.getEnergy(stack) / getMaxPower(stack));
         return 1 - charge;
 
     }
 
     @Override
-	public boolean showDurabilityBar(ItemStack stack) {
+    public boolean showDurabilityBar(ItemStack stack) {
         return true;
     }
 

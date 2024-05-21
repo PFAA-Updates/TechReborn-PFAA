@@ -1,10 +1,11 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.Inventory;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
@@ -33,8 +34,7 @@ public class TileChunkLoader extends TilePowerAcceptor implements IWrenchable, I
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {

@@ -1,9 +1,10 @@
 package techreborn.compat.minetweaker;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
-import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import techreborn.api.recipe.machines.VacuumFreezerRecipe;
@@ -24,7 +25,12 @@ public class MTVacuumFreezer extends MTGeneric {
     public static void addRecipe(IItemStack output, IIngredient input, int ticktime, int euTick, boolean useOredict) {
         ItemStack oInput1 = (ItemStack) MinetweakerCompat.toObject(input);
 
-        VacuumFreezerRecipe r = new VacuumFreezerRecipe(oInput1, MinetweakerCompat.toStack(output), ticktime, euTick, useOredict);
+        VacuumFreezerRecipe r = new VacuumFreezerRecipe(
+            oInput1,
+            MinetweakerCompat.toStack(output),
+            ticktime,
+            euTick,
+            useOredict);
         addRecipe(r);
     }
 

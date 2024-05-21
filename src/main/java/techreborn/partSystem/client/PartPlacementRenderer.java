@@ -1,10 +1,5 @@
 package techreborn.partSystem.client;
 
-import org.lwjgl.opengl.GL11;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
@@ -15,6 +10,12 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import reborncore.common.misc.Location;
 import reborncore.common.misc.vecmath.Vecs3d;
 import techreborn.partSystem.IModPart;
@@ -37,25 +38,17 @@ public class PartPlacementRenderer {
     public void onRenderTick(RenderWorldLastEvent event) {
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         ItemStack item = player.getCurrentEquippedItem();
-        if (item == null)
-            return;
-        if (!(item.getItem() instanceof ModPartItem))
-            return;
-        if (Minecraft.getMinecraft().gameSettings.hideGUI
-                && Minecraft.getMinecraft().currentScreen == null)
-            return;
-        MovingObjectPosition mop = player.rayTrace(
-                player.capabilities.isCreativeMode ? 5 : 4, 0);
-        if (mop == null
-                || mop.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK)
-            return;
+        if (item == null) return;
+        if (!(item.getItem() instanceof ModPartItem)) return;
+        if (Minecraft.getMinecraft().gameSettings.hideGUI && Minecraft.getMinecraft().currentScreen == null) return;
+        MovingObjectPosition mop = player.rayTrace(player.capabilities.isCreativeMode ? 5 : 4, 0);
+        if (mop == null || mop.typeOfHit != MovingObjectPosition.MovingObjectType.BLOCK) return;
         IModPart part = ((ModPartItem) item.getItem()).getModPart();
-        if (part == null)
-            return;
+        if (part == null) return;
         ForgeDirection faceHit = ForgeDirection.getOrientation(mop.sideHit);
         Location location = new Location(mop.blockX, mop.blockY, mop.blockZ);
         if (fb == null || width != Minecraft.getMinecraft().displayWidth
-                || height != Minecraft.getMinecraft().displayHeight) {
+            || height != Minecraft.getMinecraft().displayHeight) {
             width = Minecraft.getMinecraft().displayWidth;
             height = Minecraft.getMinecraft().displayHeight;
             fb = new Framebuffer(width, height, true);
@@ -63,50 +56,51 @@ public class PartPlacementRenderer {
 
         GL11.glPushMatrix();
         {
-            Minecraft.getMinecraft().getFramebuffer().unbindFramebuffer();
+            Minecraft.getMinecraft()
+                .getFramebuffer()
+                .unbindFramebuffer();
             GL11.glPushMatrix();
             {
                 GL11.glLoadIdentity();
                 fb.bindFramebuffer(true);
-                GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT
-                        | GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+                GL11.glClear(GL11.GL_STENCIL_BUFFER_BIT | GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
                 GL11.glMatrixMode(GL11.GL_MODELVIEW);
                 GL11.glLoadIdentity();
                 GL11.glClearColor(0, 0, 0, 0);
-                net.minecraft.client.renderer.RenderHelper
-                        .enableStandardItemLighting();
+                net.minecraft.client.renderer.RenderHelper.enableStandardItemLighting();
                 GL11.glPushMatrix();
                 {
                     Vec3 playerPos = player.getPosition(event.partialTicks);
-                    double x = location.getX() - playerPos.xCoord
-                            + faceHit.offsetX;
-                    double y = location.getY() - playerPos.yCoord
-                            + faceHit.offsetY;
-                    double z = location.getZ() - playerPos.zCoord
-                            + faceHit.offsetZ;
+                    double x = location.getX() - playerPos.xCoord + faceHit.offsetX;
+                    double y = location.getY() - playerPos.yCoord + faceHit.offsetY;
+                    double z = location.getZ() - playerPos.zCoord + faceHit.offsetZ;
                     GL11.glRotated(player.rotationPitch, 1, 0, 0);
                     GL11.glRotated(player.rotationYaw - 180, 0, 1, 0);
                     GL11.glTranslated(x, y, z);
                     part.renderDynamic(new Vecs3d(0, 0, 0), event.partialTicks);
                 }
                 GL11.glPopMatrix();
-                net.minecraft.client.renderer.RenderHelper
-                        .disableStandardItemLighting();
+                net.minecraft.client.renderer.RenderHelper.disableStandardItemLighting();
                 fb.unbindFramebuffer();
             }
             GL11.glPopMatrix();
-            Minecraft.getMinecraft().getFramebuffer().bindFramebuffer(true);
+            Minecraft.getMinecraft()
+                .getFramebuffer()
+                .bindFramebuffer(true);
             GL11.glPushMatrix();
             {
                 Minecraft mc = Minecraft.getMinecraft();
-                ScaledResolution scaledresolution = new ScaledResolution(mc,
-                        mc.displayWidth, mc.displayHeight);
+                ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
                 GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
                 GL11.glMatrixMode(GL11.GL_PROJECTION);
                 GL11.glLoadIdentity();
-                GL11.glOrtho(0, scaledresolution.getScaledWidth_double(),
-                        scaledresolution.getScaledHeight_double(), 0, 0.1,
-                        10000D);
+                GL11.glOrtho(
+                    0,
+                    scaledresolution.getScaledWidth_double(),
+                    scaledresolution.getScaledHeight_double(),
+                    0,
+                    0.1,
+                    10000D);
                 GL11.glMatrixMode(GL11.GL_MODELVIEW);
                 GL11.glLoadIdentity();
                 GL11.glTranslatef(0.0F, 0.0F, -2000.0F);
@@ -114,8 +108,7 @@ public class PartPlacementRenderer {
                 {
                     GL11.glDisable(GL11.GL_LIGHTING);
                     GL11.glEnable(GL11.GL_BLEND);
-                    GL11.glBlendFunc(GL11.GL_SRC_ALPHA,
-                            GL11.GL_ONE_MINUS_SRC_ALPHA);
+                    GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
                     Tessellator tessellator = Tessellator.instance;
                     int w = scaledresolution.getScaledWidth();
                     int h = scaledresolution.getScaledHeight();
@@ -135,7 +128,9 @@ public class PartPlacementRenderer {
             }
             GL11.glPopMatrix();
             fb.framebufferClear();
-            Minecraft.getMinecraft().getFramebuffer().bindFramebuffer(true);
+            Minecraft.getMinecraft()
+                .getFramebuffer()
+                .bindFramebuffer(true);
         }
         GL11.glPopMatrix();
     }

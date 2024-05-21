@@ -1,11 +1,16 @@
 /*
- * This file was made by modmuss50. View the licence file to see what licence this is is on. You can always ask me if you would like to use part or all of this file in your project.
+ * This file was made by modmuss50. View the licence file to see what licence this is is on. You can always ask me if
+ * you would like to use part or all of this file in your project.
  */
 
 package techreborn.partSystem.fmp;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 
 import codechicken.lib.data.MCDataInput;
 import codechicken.lib.data.MCDataOutput;
@@ -19,17 +24,13 @@ import codechicken.multipart.TMultiPart;
 import codechicken.multipart.TSlottedPart;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
 import reborncore.common.misc.Location;
 import reborncore.common.misc.vecmath.Vecs3d;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import techreborn.partSystem.IPartDesc;
 import techreborn.partSystem.ModPart;
 
-public class FMPModPart extends TMultiPart implements TSlottedPart,
-        JNormalOcclusion, ISidedHollowConnect {
+public class FMPModPart extends TMultiPart implements TSlottedPart, JNormalOcclusion, ISidedHollowConnect {
 
     ModPart iModPart;
 
@@ -46,9 +47,7 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
     @Override
     public Iterable<Cuboid6> getOcclusionBoxes() {
         List<Cuboid6> cubes = new ArrayList<Cuboid6>();
-        for (Vecs3dCube c : iModPart.getOcclusionBoxes())
-            if (c != null)
-                cubes.add(new Cuboid6(c.toAABB()));
+        for (Vecs3dCube c : iModPart.getOcclusionBoxes()) if (c != null) cubes.add(new Cuboid6(c.toAABB()));
         return cubes;
     }
 
@@ -57,15 +56,13 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
         return NormalOcclusionTest.apply(this, npart);
     }
 
-
     @Override
     public Iterable<Cuboid6> getCollisionBoxes() {
         List<Cuboid6> cubes = new ArrayList<Cuboid6>();
         List<Vecs3dCube> boxes = new ArrayList<Vecs3dCube>();
         iModPart.addCollisionBoxesToList(boxes, null);
         for (Vecs3dCube c : boxes) {
-            if (c != null)
-                cubes.add(new Cuboid6(c.toAABB()));
+            if (c != null) cubes.add(new Cuboid6(c.toAABB()));
         }
 
         return cubes;
@@ -76,11 +73,9 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
         List<IndexedCuboid6> cubes = new ArrayList<IndexedCuboid6>();
         if (iModPart.getSelectionBoxes() != null) {
             for (Vecs3dCube c : iModPart.getSelectionBoxes())
-                if (c != null)
-                    cubes.add(new IndexedCuboid6(0, new Cuboid6(c.toAABB())));
+                if (c != null) cubes.add(new IndexedCuboid6(0, new Cuboid6(c.toAABB())));
 
-            if (cubes.size() == 0)
-                cubes.add(new IndexedCuboid6(0, new Cuboid6(0, 0, 0, 1, 1, 1)));
+            if (cubes.size() == 0) cubes.add(new IndexedCuboid6(0, new Cuboid6(0, 0, 0, 1, 1, 1)));
 
         }
         return cubes;
@@ -156,7 +151,7 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
     }
 
     @Override
-	public void onRemoved() {
+    public void onRemoved() {
         iModPart.onRemoved();
         super.onRemoved();
 
@@ -173,11 +168,12 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
     public Iterable<ItemStack> getDrops() {
         List<ItemStack> stackArrayList = new ArrayList<ItemStack>();
         if (iModPart.getItem() != null) {
-            stackArrayList.add(iModPart.getItem().copy());
+            stackArrayList.add(
+                iModPart.getItem()
+                    .copy());
         }
         return stackArrayList;
     }
-
 
     @Override
     public void onPartChanged(TMultiPart part) {
@@ -220,6 +216,5 @@ public class FMPModPart extends TMultiPart implements TSlottedPart,
     public void onWorldSeparate() {
         iModPart.onChunkUnload();
     }
-
 
 }

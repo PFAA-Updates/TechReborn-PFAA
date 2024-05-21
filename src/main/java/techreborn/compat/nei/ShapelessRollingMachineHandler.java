@@ -1,16 +1,18 @@
-//Copy and pasted from https://github.com/Chicken-Bones/NotEnoughItems/blob/master/src/codechicken/nei/recipe/ShapelessRecipeHandler.java
+// Copy and pasted from
+// https://github.com/Chicken-Bones/NotEnoughItems/blob/master/src/codechicken/nei/recipe/ShapelessRecipeHandler.java
 package techreborn.compat.nei;
 
 import java.awt.Rectangle;
 import java.util.List;
 
-import codechicken.nei.NEIServerUtils;
-import codechicken.nei.recipe.ShapelessRecipeHandler;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+
+import codechicken.nei.NEIServerUtils;
+import codechicken.nei.recipe.ShapelessRecipeHandler;
 import techreborn.api.RollingMachineRecipe;
 import techreborn.client.gui.GuiRollingMachine;
 
@@ -22,14 +24,13 @@ public class ShapelessRollingMachineHandler extends ShapelessRecipeHandler {
     }
 
     @Override
-	public String getRecipeName() {
+    public String getRecipeName() {
         return "Shapeless Rolling Machine";
     }
 
     @Override
     public void loadTransferRects() {
-        transferRects.add(new RecipeTransferRect(new Rectangle(84, 23, 24, 18),
-                "rollingcraftingnoshape"));
+        transferRects.add(new RecipeTransferRect(new Rectangle(84, 23, 24, 18), "rollingcraftingnoshape"));
     }
 
     @Override
@@ -39,19 +40,15 @@ public class ShapelessRollingMachineHandler extends ShapelessRecipeHandler {
 
     @Override
     public void loadCraftingRecipes(String outputId, Object... results) {
-        if (outputId.equals("rollingcraftingnoshape")
-                && getClass() == ShapelessRollingMachineHandler.class) {
-            List<IRecipe> allrecipes = RollingMachineRecipe.instance
-                    .getRecipeList();
+        if (outputId.equals("rollingcraftingnoshape") && getClass() == ShapelessRollingMachineHandler.class) {
+            List<IRecipe> allrecipes = RollingMachineRecipe.instance.getRecipeList();
             for (IRecipe irecipe : allrecipes) {
                 CachedShapelessRecipe recipe = null;
-                if (irecipe instanceof ShapelessRecipes)
-                    recipe = shapelessRecipe((ShapelessRecipes) irecipe);
+                if (irecipe instanceof ShapelessRecipes) recipe = shapelessRecipe((ShapelessRecipes) irecipe);
                 else if (irecipe instanceof ShapelessOreRecipe)
                     recipe = forgeShapelessRecipe((ShapelessOreRecipe) irecipe);
 
-                if (recipe == null)
-                    continue;
+                if (recipe == null) continue;
 
                 arecipes.add(recipe);
             }
@@ -62,19 +59,15 @@ public class ShapelessRollingMachineHandler extends ShapelessRecipeHandler {
 
     @Override
     public void loadCraftingRecipes(ItemStack result) {
-        List<IRecipe> allrecipes = RollingMachineRecipe.instance
-                .getRecipeList();
+        List<IRecipe> allrecipes = RollingMachineRecipe.instance.getRecipeList();
         for (IRecipe irecipe : allrecipes) {
-            if (NEIServerUtils.areStacksSameTypeCrafting(
-                    irecipe.getRecipeOutput(), result)) {
+            if (NEIServerUtils.areStacksSameTypeCrafting(irecipe.getRecipeOutput(), result)) {
                 CachedShapelessRecipe recipe = null;
-                if (irecipe instanceof ShapelessRecipes)
-                    recipe = shapelessRecipe((ShapelessRecipes) irecipe);
+                if (irecipe instanceof ShapelessRecipes) recipe = shapelessRecipe((ShapelessRecipes) irecipe);
                 else if (irecipe instanceof ShapelessOreRecipe)
                     recipe = forgeShapelessRecipe((ShapelessOreRecipe) irecipe);
 
-                if (recipe == null)
-                    continue;
+                if (recipe == null) continue;
 
                 arecipes.add(recipe);
             }
@@ -83,17 +76,13 @@ public class ShapelessRollingMachineHandler extends ShapelessRecipeHandler {
 
     @Override
     public void loadUsageRecipes(ItemStack ingredient) {
-        List<IRecipe> allrecipes = RollingMachineRecipe.instance
-                .getRecipeList();
+        List<IRecipe> allrecipes = RollingMachineRecipe.instance.getRecipeList();
         for (IRecipe irecipe : allrecipes) {
             CachedShapelessRecipe recipe = null;
-            if (irecipe instanceof ShapelessRecipes)
-                recipe = shapelessRecipe((ShapelessRecipes) irecipe);
-            else if (irecipe instanceof ShapelessOreRecipe)
-                recipe = forgeShapelessRecipe((ShapelessOreRecipe) irecipe);
+            if (irecipe instanceof ShapelessRecipes) recipe = shapelessRecipe((ShapelessRecipes) irecipe);
+            else if (irecipe instanceof ShapelessOreRecipe) recipe = forgeShapelessRecipe((ShapelessOreRecipe) irecipe);
 
-            if (recipe == null)
-                continue;
+            if (recipe == null) continue;
 
             if (recipe.contains(recipe.ingredients, ingredient)) {
                 recipe.setIngredientPermutation(recipe.ingredients, ingredient);
@@ -103,11 +92,9 @@ public class ShapelessRollingMachineHandler extends ShapelessRecipeHandler {
     }
 
     private CachedShapelessRecipe shapelessRecipe(ShapelessRecipes recipe) {
-        if (recipe.recipeItems == null)
-            return null;
+        if (recipe.recipeItems == null) return null;
 
-        return new CachedShapelessRecipe(recipe.recipeItems,
-                recipe.getRecipeOutput());
+        return new CachedShapelessRecipe(recipe.recipeItems, recipe.getRecipeOutput());
     }
 
     @Override

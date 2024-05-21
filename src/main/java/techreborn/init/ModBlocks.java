@@ -2,12 +2,13 @@ package techreborn.init;
 
 import java.util.ArrayList;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import cpw.mods.fml.common.registry.GameRegistry;
 import techreborn.Core;
 import techreborn.blocks.BlockChunkLoader;
 import techreborn.blocks.BlockComputerCube;
@@ -319,7 +320,6 @@ public class ModBlocks {
         machineframe = new BlockMachineFrame(Material.iron);
         GameRegistry.registerBlock(machineframe, ItemBlockMachineFrame.class, "techreborn.machineFrame");
 
-
         GameRegistry.registerTileEntity(TileMachineBase.class, "TileMachineBaseTR");
 
         registerOreDict();
@@ -365,12 +365,11 @@ public class ModBlocks {
         OreDictionary.registerOre("blockRedGarnet", new ItemStack(storage2, 1, 7));
         OreDictionary.registerOre("blockOlivine", new ItemStack(storage2, 1, 8));
 
-
         OreDictionary.registerOre("craftingPiston", Blocks.piston);
         OreDictionary.registerOre("craftingPiston", Blocks.sticky_piston);
         OreDictionary.registerOre("crafterWood", Blocks.crafting_table);
         OreDictionary.registerOre("chestEnder", Blocks.ender_chest);
-        
+
         OreDictionary.registerOre("machineBasic", new ItemStack(machineframe, 1, 0));
         OreDictionary.registerOre("machineBasic", new ItemStack(machineframe, 1, 1));
         OreDictionary.registerOre("machineBasic", new ItemStack(machineframe, 1, 2));

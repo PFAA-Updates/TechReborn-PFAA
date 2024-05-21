@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -11,6 +10,8 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.common.misc.Location;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.util.Inventory;
@@ -32,7 +33,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
     public TileBlastFurnace() {
         super(ConfigTechReborn.CentrifugeTier);
-        //TODO configs
+        // TODO configs
         int[] inputs = new int[2];
         inputs[0] = 0;
         inputs[1] = 1;
@@ -59,8 +60,7 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -82,22 +82,36 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
 
     public int getHeat() {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-            TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            TileEntity tileEntity = worldObj
+                .getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
-                if (((TileMachineCasing) tileEntity).isConnected() && ((TileMachineCasing) tileEntity).getMultiblockController().isAssembled()) {
+                if (((TileMachineCasing) tileEntity).isConnected()
+                    && ((TileMachineCasing) tileEntity).getMultiblockController()
+                        .isAssembled()) {
                     MultiBlockCasing casing = ((TileMachineCasing) tileEntity).getMultiblockController();
                     Location location = new Location(xCoord, yCoord, zCoord, direction);
                     location.modifyPositionFromSide(direction, 1);
                     int heat = 0;
-                    if (worldObj.getBlock(location.getX(), location.getY() - 1, location.getZ()) == tileEntity.getBlockType()) {
+                    if (worldObj.getBlock(location.getX(), location.getY() - 1, location.getZ())
+                        == tileEntity.getBlockType()) {
                         return 0;
                     }
 
                     for (IMultiblockPart part : casing.connectedParts) {
-                        heat += BlockMachineCasing.getHeatFromMeta(part.getWorldObj().getBlockMetadata(part.getWorldLocation().x, part.getWorldLocation().y, part.getWorldLocation().z));
+                        heat += BlockMachineCasing.getHeatFromMeta(
+                            part.getWorldObj()
+                                .getBlockMetadata(
+                                    part.getWorldLocation().x,
+                                    part.getWorldLocation().y,
+                                    part.getWorldLocation().z));
                     }
 
-                    if (worldObj.getBlock(location.getX(), location.getY(), location.getZ()).getUnlocalizedName().equals("tile.lava") && worldObj.getBlock(location.getX(), location.getY() + 1, location.getZ()).getUnlocalizedName().equals("tile.lava")) {
+                    if (worldObj.getBlock(location.getX(), location.getY(), location.getZ())
+                        .getUnlocalizedName()
+                        .equals("tile.lava")
+                        && worldObj.getBlock(location.getX(), location.getY() + 1, location.getZ())
+                            .getUnlocalizedName()
+                            .equals("tile.lava")) {
                         heat += 500;
                     }
                     return heat;
@@ -168,18 +182,15 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     }
 
     @Override
-	public Packet getDescriptionPacket() {
+    public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
-                this.zCoord, 1, nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net,
-                             S35PacketUpdateTileEntity packet) {
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-                yCoord, zCoord);
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
     }
 
@@ -204,13 +215,12 @@ public class TileBlastFurnace extends TilePowerAcceptor implements IWrenchable, 
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
+        return side == ForgeDirection.DOWN.ordinal() ? new int[] { 0, 1, 2, 3 } : new int[] { 0, 1, 2, 3 };
     }
 
     @Override
     public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
-        if (slotIndex >= 2)
-            return false;
+        if (slotIndex >= 2) return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
 

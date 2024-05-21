@@ -1,7 +1,5 @@
 package techreborn.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -13,6 +11,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
@@ -44,11 +45,9 @@ public class BlockQuantumChest extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z,
-                                    EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
-        if (!player.isSneaking())
-            player.openGui(Core.INSTANCE, GuiHandler.quantumChestID, world, x,
-                    y, z);
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX,
+        float hitY, float hitZ) {
+        if (!player.isSneaking()) player.openGui(Core.INSTANCE, GuiHandler.quantumChestID, world, x, y, z);
         return true;
     }
 
@@ -62,18 +61,18 @@ public class BlockQuantumChest extends BlockContainer {
     }
 
     @Override
-	@SideOnly(Side.CLIENT)
+    @SideOnly(Side.CLIENT)
     public IIcon getIcon(int side, int metadata) {
 
         return metadata == 0 && side == 3 ? this.iconFront
-                : side == 1 ? this.iconTop :
-                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
-                        : (side == metadata ? this.iconFront : this.blockIcon));
+            : side == 1 ? this.iconTop
+                : side == 0 ? this.iconBottom
+                    : (side == 0 ? this.iconTop : (side == metadata ? this.iconFront : this.blockIcon));
 
     }
 
     @Override
-	public void onBlockAdded(World world, int x, int y, int z) {
+    public void onBlockAdded(World world, int x, int y, int z) {
 
         super.onBlockAdded(world, x, y, z);
         this.setDefaultDirection(world, x, y, z);
@@ -110,11 +109,9 @@ public class BlockQuantumChest extends BlockContainer {
     }
 
     @Override
-	public void onBlockPlacedBy(World world, int x, int y, int z,
-                                EntityLivingBase player, ItemStack itemstack) {
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {
 
-        int l = MathHelper
-                .floor_double(player.rotationYaw * 4.0F / 360F + 0.5D) & 3;
+        int l = MathHelper.floor_double(player.rotationYaw * 4.0F / 360F + 0.5D) & 3;
 
         if (l == 0) {
             world.setBlockMetadataWithNotify(x, y, z, 2, 2);

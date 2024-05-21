@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+
 import org.apache.commons.lang3.time.StopWatch;
 
-import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import techreborn.Core;
 import techreborn.api.recipe.recipeConfig.RecipeConfigManager;
-
 
 public class RecipeHandler {
 
@@ -18,7 +18,6 @@ public class RecipeHandler {
      * This is the array list of all of the recipes for all of the machines
      */
     public static final ArrayList<IBaseRecipeType> recipeList = new ArrayList<IBaseRecipeType>();
-
 
     public static HashMap<IBaseRecipeType, String> stackMap = new HashMap<IBaseRecipeType, String>();
     /**
@@ -35,7 +34,8 @@ public class RecipeHandler {
     public static List<IBaseRecipeType> getRecipeClassFromName(String name) {
         List<IBaseRecipeType> baseRecipeList = new ArrayList<IBaseRecipeType>();
         for (IBaseRecipeType baseRecipe : recipeList) {
-            if (baseRecipe.getRecipeName().equals(name)) {
+            if (baseRecipe.getRecipeName()
+                .equals(name)) {
                 baseRecipeList.add(baseRecipe);
             }
         }
@@ -44,7 +44,8 @@ public class RecipeHandler {
 
     public static String getUserFreindlyName(String name) {
         for (IBaseRecipeType baseRecipe : recipeList) {
-            if (baseRecipe.getRecipeName().equals(name)) {
+            if (baseRecipe.getRecipeName()
+                .equals(name)) {
                 return baseRecipe.getUserFreindlyName();
             }
         }
@@ -71,27 +72,41 @@ public class RecipeHandler {
         }
         recipeList.add(recipe);
         StringBuffer buffer = new StringBuffer();
-        for (StackTraceElement ste : Thread.currentThread().getStackTrace()) {
+        for (StackTraceElement ste : Thread.currentThread()
+            .getStackTrace()) {
             buffer.append(ste);
         }
         stackMap.put(recipe, buffer.toString());
     }
-
 
     public static void scanForDupeRecipes() throws Exception {
         StopWatch watch = new StopWatch();
         watch.start();
         for (IBaseRecipeType baseRecipeType : recipeList) {
             for (IBaseRecipeType recipe : recipeList) {
-                if (baseRecipeType != recipe && baseRecipeType.getRecipeName().equals(recipe.getRecipeName())) {
-                    for (int i = 0; i < baseRecipeType.getInputs().size(); i++) {
-                        if (ItemUtils.isItemEqual(baseRecipeType.getInputs().get(i), recipe.getInputs().get(i), true, false, false)) {
+                if (baseRecipeType != recipe && baseRecipeType.getRecipeName()
+                    .equals(recipe.getRecipeName())) {
+                    for (int i = 0; i < baseRecipeType.getInputs()
+                        .size(); i++) {
+                        if (ItemUtils.isItemEqual(
+                            baseRecipeType.getInputs()
+                                .get(i),
+                            recipe.getInputs()
+                                .get(i),
+                            true,
+                            false,
+                            false)) {
                             StringBuffer itemInfo = new StringBuffer();
                             for (ItemStack inputs : baseRecipeType.getInputs()) {
-                                itemInfo.append(":" + inputs.getItem().getUnlocalizedName() + "," + inputs.getDisplayName() + "," + inputs.stackSize);
+                                itemInfo.append(
+                                    ":" + inputs.getItem()
+                                        .getUnlocalizedName() + "," + inputs.getDisplayName() + "," + inputs.stackSize);
                             }
                             Core.logHelper.all(stackMap.get(baseRecipeType));
-                            throw new Exception("Found a duplicate recipe for " + baseRecipeType.getRecipeName() + " with inputs " + itemInfo.toString());
+                            throw new Exception(
+                                "Found a duplicate recipe for " + baseRecipeType.getRecipeName()
+                                    + " with inputs "
+                                    + itemInfo.toString());
                         }
                     }
                 }

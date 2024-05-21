@@ -1,14 +1,15 @@
 package techreborn.tiles;
 
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItem;
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
@@ -23,7 +24,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
 
     public TileIndustrialElectrolyzer() {
         super(2);
-        //Input slots
+        // Input slots
         int[] inputs = new int[2];
         inputs[0] = 0;
         inputs[1] = 1;
@@ -41,25 +42,20 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
         crafter.updateEntity();
         charge(6);
     }
-    
-    public void charge(int slot)
-    {
-    	if(getStackInSlot(slot) != null)
-    	{
-	    	if(getStackInSlot(slot).getItem() instanceof IElectricItem)
-	    	{
-	    		if(getEnergy() != getMaxPower())
-	    		{
-	                ItemStack stack = inventory.getStackInSlot(slot);
-	                double CurrentCharge = ElectricItem.manager.getCharge(stack);
-	                if (CurrentCharge != 0) 
-	                {
-	                	ElectricItem.manager.discharge(stack, 5, 4, false, false, false);
-	                    addEnergy(5);
-	                }
-	    		}
-	    	}
-    	}
+
+    public void charge(int slot) {
+        if (getStackInSlot(slot) != null) {
+            if (getStackInSlot(slot).getItem() instanceof IElectricItem) {
+                if (getEnergy() != getMaxPower()) {
+                    ItemStack stack = inventory.getStackInSlot(slot);
+                    double CurrentCharge = ElectricItem.manager.getCharge(stack);
+                    if (CurrentCharge != 0) {
+                        ElectricItem.manager.discharge(stack, 5, 4, false, false, false);
+                        addEnergy(5);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -73,8 +69,7 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -112,15 +107,15 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
         crafter.writeToNBT(tagCompound);
     }
 
-//	@Override
-//	public void addWailaInfo(List<String> info)
-//	{
-//		super.addWailaInfo(info);
-//		info.add("Power Stored " + energy.getEnergyStored() +" EU");
-//		if(crafter.currentRecipe !=null){
-//		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-//		}
-//	}
+    // @Override
+    // public void addWailaInfo(List<String> info)
+    // {
+    // super.addWailaInfo(info);
+    // info.add("Power Stored " + energy.getEnergyStored() +" EU");
+    // if(crafter.currentRecipe !=null){
+    // info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+    // }
+    // }
 
     @Override
     public int getSizeInventory() {
@@ -185,13 +180,12 @@ public class TileIndustrialElectrolyzer extends TilePowerAcceptor implements IWr
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4, 5} : new int[]{0, 1, 2, 3, 4, 5};
+        return side == ForgeDirection.DOWN.ordinal() ? new int[] { 0, 1, 2, 3, 4, 5 } : new int[] { 0, 1, 2, 3, 4, 5 };
     }
 
     @Override
     public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
-        if (slotIndex > 1)
-            return false;
+        if (slotIndex > 1) return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
 

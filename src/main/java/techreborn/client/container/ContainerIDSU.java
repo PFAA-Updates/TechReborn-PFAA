@@ -1,13 +1,13 @@
 package techreborn.client.container;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.idsu.TileIDSU;
-
 
 public class ContainerIDSU extends RebornContainer {
 
@@ -25,8 +25,7 @@ public class ContainerIDSU extends RebornContainer {
     public int euChange;
     public int channel;
 
-    public ContainerIDSU(TileIDSU tileIDSU,
-                         EntityPlayer player) {
+    public ContainerIDSU(TileIDSU tileIDSU, EntityPlayer player) {
         tile = tileIDSU;
         this.player = player;
 
@@ -34,14 +33,12 @@ public class ContainerIDSU extends RebornContainer {
 
         for (i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(player.inventory, j + i * 9
-                        + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
-                    142));
+            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
         }
     }
 

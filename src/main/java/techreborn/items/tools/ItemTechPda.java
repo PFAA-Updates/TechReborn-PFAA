@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+
 import techreborn.Core;
 import techreborn.client.GuiHandler;
 import techreborn.client.TechRebornCreativeTab;
@@ -24,8 +25,7 @@ public class ItemTechPda extends Item {
 
     @Override
     public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) {
-        player.openGui(Core.INSTANCE, GuiHandler.pdaID, world,
-                (int) player.posX, (int) player.posY, (int) player.posY);
+        player.openGui(Core.INSTANCE, GuiHandler.pdaID, world, (int) player.posX, (int) player.posY, (int) player.posY);
         return itemStack;
     }
 

@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -8,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.blocks.BlockMachineCasing;
@@ -23,7 +24,7 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 
     public TileImplosionCompressor() {
         super(1);
-        //Input slots
+        // Input slots
         int[] inputs = new int[2];
         inputs[0] = 0;
         inputs[1] = 1;
@@ -44,8 +45,7 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -67,9 +67,10 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
 
     public boolean getMutliBlock() {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-            TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            TileEntity tileEntity = worldObj
+                .getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
-                if(!((TileMachineCasing) tileEntity).isConnected()){
+                if (!((TileMachineCasing) tileEntity).isConnected()) {
                     return false;
                 }
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
@@ -88,7 +89,6 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
         }
     }
 
-
     @Override
     public void readFromNBT(NBTTagCompound tagCompound) {
         super.readFromNBT(tagCompound);
@@ -103,15 +103,15 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
         crafter.writeToNBT(tagCompound);
     }
 
-//    @Override
-//	public void addWailaInfo(List<String> info)
-//	{
-//		super.addWailaInfo(info);
-//		info.add("Power Stored " + energy.getEnergyStored() +" EU");
-//		if(crafter.currentRecipe !=null){
-//		info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
-//		}
-//	}
+    // @Override
+    // public void addWailaInfo(List<String> info)
+    // {
+    // super.addWailaInfo(info);
+    // info.add("Power Stored " + energy.getEnergyStored() +" EU");
+    // if(crafter.currentRecipe !=null){
+    // info.add("Power Usage " + crafter.currentRecipe.euPerTick() + " EU/t");
+    // }
+    // }
 
     @Override
     public int getSizeInventory() {
@@ -176,13 +176,12 @@ public class TileImplosionCompressor extends TilePowerAcceptor implements IWrenc
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3} : new int[]{0, 1, 2, 3};
+        return side == ForgeDirection.DOWN.ordinal() ? new int[] { 0, 1, 2, 3 } : new int[] { 0, 1, 2, 3 };
     }
 
     @Override
     public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
-        if (slotIndex >= 2)
-            return false;
+        if (slotIndex >= 2) return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
 

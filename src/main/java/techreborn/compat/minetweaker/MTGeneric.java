@@ -3,17 +3,19 @@ package techreborn.compat.minetweaker;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
+
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
 import minetweaker.api.minecraft.MineTweakerMC;
-import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.BaseRecipe;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
 
 public class MTGeneric {
+
     public static String getMachineName() {
         return null;
     }
@@ -23,6 +25,7 @@ public class MTGeneric {
     }
 
     private static class Add implements IUndoableAction {
+
         private final BaseRecipe recipe;
 
         public Add(BaseRecipe recipe) {
@@ -46,12 +49,18 @@ public class MTGeneric {
 
         @Override
         public String describe() {
-            return "Adding " + recipe.getRecipeName() + " recipe for " + recipe.getOutput(0).getDisplayName();
+            return "Adding " + recipe.getRecipeName()
+                + " recipe for "
+                + recipe.getOutput(0)
+                    .getDisplayName();
         }
 
         @Override
         public String describeUndo() {
-            return "Removing " + recipe.getRecipeName() + " recipe for " + recipe.getOutput(0).getDisplayName();
+            return "Removing " + recipe.getRecipeName()
+                + " recipe for "
+                + recipe.getOutput(0)
+                    .getDisplayName();
         }
 
         @Override
@@ -61,6 +70,7 @@ public class MTGeneric {
     }
 
     public static class Remove implements IUndoableAction {
+
         private final ItemStack output;
         List<BaseRecipe> removedRecipes = new ArrayList<BaseRecipe>();
         private final String name;
@@ -116,8 +126,8 @@ public class MTGeneric {
         }
     }
 
-
     public static class RemoveInput implements IUndoableAction {
+
         private final IIngredient output;
         List<BaseRecipe> removedRecipes = new ArrayList<BaseRecipe>();
         private final String name;

@@ -1,6 +1,5 @@
 package techreborn.api.reactor;
 
-
 import java.util.ArrayList;
 
 public class FusionReactorRecipeHelper {
@@ -15,7 +14,7 @@ public class FusionReactorRecipeHelper {
      *
      * @param reactorRecipe the recipe you want to add
      */
-    public static void registerRecipe(FusionReactorRecipe reactorRecipe){
+    public static void registerRecipe(FusionReactorRecipe reactorRecipe) {
         reactorRecipes.add(reactorRecipe);
     }
 }

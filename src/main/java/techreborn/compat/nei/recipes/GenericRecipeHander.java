@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.RecipeHandler;
@@ -86,7 +87,11 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
             DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
             symbols.setGroupingSeparator('.');
             formatter.setDecimalFormatSymbols(symbols);
-            GuiDraw.drawString("EU needed: " + formatter.format(genericRecipe.recipie.euPerTick() * genericRecipe.recipie.tickTime()), 16, 105, -1);
+            GuiDraw.drawString(
+                "EU needed: " + formatter.format(genericRecipe.recipie.euPerTick() * genericRecipe.recipie.tickTime()),
+                16,
+                105,
+                -1);
             GuiDraw.drawString("Ticks to process: " + genericRecipe.recipie.tickTime(), 14, 115, -1);
             GuiDraw.drawString("Time to process: " + genericRecipe.recipie.tickTime() / 20 + " seconds", 14, 125, -1);
         }
@@ -98,15 +103,16 @@ public abstract class GenericRecipeHander extends TemplateRecipeHandler {
         return 1;
     }
 
-//	public void loadTransferRects() {
-//		this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
-//				new Rectangle(0, 0, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
-//	}
+    // public void loadTransferRects() {
+    // this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
+    // new Rectangle(0, 0, 20, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
+    // }
 
     @Override
-	public void loadCraftingRecipes(String outputId, Object... results) {
+    public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(getNeiBaseRecipe().getRecipeName())) {
-            for (IBaseRecipeType recipeType : RecipeHandler.getRecipeClassFromName(getNeiBaseRecipe().getRecipeName())) {
+            for (IBaseRecipeType recipeType : RecipeHandler
+                .getRecipeClassFromName(getNeiBaseRecipe().getRecipeName())) {
                 addCached(recipeType);
             }
         } else {

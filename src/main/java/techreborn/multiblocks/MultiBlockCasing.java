@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import reborncore.common.multiblock.CoordTriplet;
 import reborncore.common.multiblock.IMultiblockPart;
 import reborncore.common.multiblock.MultiblockControllerBase;
@@ -21,8 +22,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
         super(world);
     }
 
-
-    public String getInfo(){
+    public String getInfo() {
         String value = "Intact";
         try {
             isMachineWhole();
@@ -35,7 +35,7 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
     /**
      * @return True if the machine is "whole" and should be assembled. False
-     * otherwise.
+     *         otherwise.
      */
     @Override
     protected void isMachineWhole() throws MultiblockValidationException {
@@ -60,62 +60,47 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
 
         if (maxX > 0 && deltaX > maxX) {
             throw new MultiblockValidationException(
-                    String.format(
-                            "Machine is too large, it may be at most %d blocks in the X dimension",
-                            maxX));
+                String.format("Machine is too large, it may be at most %d blocks in the X dimension", maxX));
         }
         if (maxY > 0 && deltaY > maxY) {
             throw new MultiblockValidationException(
-                    String.format(
-                            "Machine is too large, it may be at most %d blocks in the Y dimension",
-                            maxY));
+                String.format("Machine is too large, it may be at most %d blocks in the Y dimension", maxY));
         }
         if (maxZ > 0 && deltaZ > maxZ) {
             throw new MultiblockValidationException(
-                    String.format(
-                            "Machine is too large, it may be at most %d blocks in the Z dimension",
-                            maxZ));
+                String.format("Machine is too large, it may be at most %d blocks in the Z dimension", maxZ));
         }
         if (deltaX < minX) {
             throw new MultiblockValidationException(
-                    String.format(
-                            "Machine is too small, it must be at least %d blocks in the X dimension",
-                            minX));
+                String.format("Machine is too small, it must be at least %d blocks in the X dimension", minX));
         }
         if (deltaY < minY) {
             throw new MultiblockValidationException(
-                    String.format(
-                            "Machine is too small, it must be at least %d blocks in the Y dimension",
-                            minY));
+                String.format("Machine is too small, it must be at least %d blocks in the Y dimension", minY));
         }
         if (deltaZ < minZ) {
             throw new MultiblockValidationException(
-                    String.format(
-                            "Machine is too small, it must be at least %d blocks in the Z dimension",
-                            minZ));
+                String.format("Machine is too small, it must be at least %d blocks in the Z dimension", minZ));
         }
         height = deltaY;
 
-//		if(checkIfStarShape(minimumCoord.x, minimumCoord.y, minimumCoord.z)){
-//			isStar = true;
-//			return;
-//		} else {
-//			isStar = false;
-//		}
+        // if(checkIfStarShape(minimumCoord.x, minimumCoord.y, minimumCoord.z)){
+        // isStar = true;
+        // return;
+        // } else {
+        // isStar = false;
+        // }
 
         if (deltaY < minY) {
             throw new MultiblockValidationException(
-                    String.format(
-                            "Machine is too small, it must be at least %d blocks in the Y dimension",
-                            minY));
+                String.format("Machine is too small, it must be at least %d blocks in the Y dimension", minY));
         }
 
         // Now we run a simple check on each block within that volume.
         // Any block deviating = NO DEAL SIR
         TileEntity te;
         RectangularMultiblockTileEntityBase part;
-        Class<? extends RectangularMultiblockControllerBase> myClass = this
-                .getClass();
+        Class<? extends RectangularMultiblockControllerBase> myClass = this.getClass();
 
         for (int x = minimumCoord.x; x <= maximumCoord.x; x++) {
             for (int y = minimumCoord.y; y <= maximumCoord.y; y++) {
@@ -130,9 +115,12 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
                         // cube of this controller's type
                         if (!myClass.equals(part.getMultiblockControllerType())) {
                             throw new MultiblockValidationException(
-                                    String.format(
-                                            "Part @ %d, %d, %d is incompatible with machines of type %s",
-                                            x, y, z, myClass.getSimpleName()));
+                                String.format(
+                                    "Part @ %d, %d, %d is incompatible with machines of type %s",
+                                    x,
+                                    y,
+                                    z,
+                                    myClass.getSimpleName()));
                         }
                     } else {
                         // This is permitted so that we can incorporate certain
@@ -202,16 +190,13 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
         }
     }
 
-
     @Override
-    public void onAttachedPartWithMultiblockData(IMultiblockPart part,
-                                                 NBTTagCompound data) {
+    public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data) {
 
     }
 
     @Override
-    protected void onBlockAdded(IMultiblockPart newPart) {
-    }
+    protected void onBlockAdded(IMultiblockPart newPart) {}
 
     @Override
     protected void onBlockRemoved(IMultiblockPart oldPart) {
@@ -314,125 +299,123 @@ public class MultiBlockCasing extends RectangularMultiblockControllerBase {
     }
 
     @Override
-    protected void isBlockGoodForInterior(World world, int x, int y, int z)
-            throws MultiblockValidationException {
+    protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException {
         Block block = world.getBlock(x, y, z);
-
 
         if (block.isAir(world, x, y, z)) {
 
-        } else if (block.getUnlocalizedName().equals("tile.lava")) {
-            hasLava = true;
-        } else {
-            super.isBlockGoodForInterior(world, x, y, z);
-        }
+        } else if (block.getUnlocalizedName()
+            .equals("tile.lava")) {
+                hasLava = true;
+            } else {
+                super.isBlockGoodForInterior(world, x, y, z);
+            }
     }
 
-
-//    /**
-//     * This is horrible code, don't look at this
-//     *
-//     * @param x
-//     * @param y
-//     * @param z
-//     * @return
-//     */
-//
-//    public boolean checkIfStarShape(int x, int y, int z) {
-//        boolean isSolid = true;
-//
-//        TileEntity te;
-//        {//corners
-//            te = this.worldObj.getTileEntity(x, y, z);
-//            isSolid = checkTeIsCorner(te);
-//            if (!isSolid) {
-//                return false;
-//            }
-//
-//            te = this.worldObj.getTileEntity(x + 2, y, z);
-//            isSolid = checkTeIsCorner(te);
-//            if (!isSolid) {
-//                return false;
-//            }
-//
-//            te = this.worldObj.getTileEntity(x, y, z + 2);
-//            isSolid = checkTeIsCorner(te);
-//            if (!isSolid) {
-//                return false;
-//            }
-//
-//            te = this.worldObj.getTileEntity(x + 2, y, z + 2);
-//            isSolid = checkTeIsCorner(te);
-//            if (!isSolid) {
-//                return false;
-//            }
-//
-//            te = this.worldObj.getTileEntity(x, y + 2, z);
-//            isSolid = checkTeIsCorner(te);
-//            if (!isSolid) {
-//                return false;
-//            }
-//
-//            te = this.worldObj.getTileEntity(x + 2, y + 2, z);
-//            isSolid = checkTeIsCorner(te);
-//            if (!isSolid) {
-//                return false;
-//            }
-//
-//            te = this.worldObj.getTileEntity(x, y + 2, z + 2);
-//            isSolid = checkTeIsCorner(te);
-//            if (!isSolid) {
-//                return false;
-//            }
-//
-//            te = this.worldObj.getTileEntity(x + 2, y + 2, z + 2);
-//            isSolid = checkTeIsCorner(te);
-//            if (!isSolid) {
-//                return false;
-//            }
-//        }
-//        {//middle blocks
-//            for (int i = 0; i < 3; i++) {
-//                System.out.println(this.worldObj.getBlock(x, y - 1, z));
-//                te = this.worldObj.getTileEntity(x + 1, y + i, z);
-//                isSolid = checkTeIsCenter(te);
-//                if (!isSolid) {
-//                    return false;
-//                }
-//                te = this.worldObj.getTileEntity(x, y + i, z + 1);
-//                isSolid = checkTeIsCenter(te);
-//                if (!isSolid) {
-//                    return false;
-//                }
-//
-//                te = this.worldObj.getTileEntity(x + 1, y + i, z + 1);
-//                isSolid = checkTeIsCenter(te);
-//                if (!isSolid) {
-//                    return false;
-//                }
-//
-//                te = this.worldObj.getTileEntity(x + 2, y + i, z + 1);
-//                isSolid = checkTeIsCenter(te);
-//                if (!isSolid) {
-//                    return false;
-//                }
-//
-//                te = this.worldObj.getTileEntity(x + 1, y + i, z + 2);
-//                isSolid = checkTeIsCenter(te);
-//                if (!isSolid) {
-//                    return false;
-//                }
-//            }
-//        }
-//        return isSolid;
-//    }
-//
-//    public boolean checkTeIsCorner(TileEntity te) {
-//        return (te.blockType instanceof BlockMachineCasing && te.blockMetadata == 0);
-//    }
-//
-//    public boolean checkTeIsCenter(TileEntity te) {
-//        return (te.blockType instanceof BlockMachineCasing && te.blockMetadata == 1);
-//    }
+    // /**
+    // * This is horrible code, don't look at this
+    // *
+    // * @param x
+    // * @param y
+    // * @param z
+    // * @return
+    // */
+    //
+    // public boolean checkIfStarShape(int x, int y, int z) {
+    // boolean isSolid = true;
+    //
+    // TileEntity te;
+    // {//corners
+    // te = this.worldObj.getTileEntity(x, y, z);
+    // isSolid = checkTeIsCorner(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    //
+    // te = this.worldObj.getTileEntity(x + 2, y, z);
+    // isSolid = checkTeIsCorner(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    //
+    // te = this.worldObj.getTileEntity(x, y, z + 2);
+    // isSolid = checkTeIsCorner(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    //
+    // te = this.worldObj.getTileEntity(x + 2, y, z + 2);
+    // isSolid = checkTeIsCorner(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    //
+    // te = this.worldObj.getTileEntity(x, y + 2, z);
+    // isSolid = checkTeIsCorner(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    //
+    // te = this.worldObj.getTileEntity(x + 2, y + 2, z);
+    // isSolid = checkTeIsCorner(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    //
+    // te = this.worldObj.getTileEntity(x, y + 2, z + 2);
+    // isSolid = checkTeIsCorner(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    //
+    // te = this.worldObj.getTileEntity(x + 2, y + 2, z + 2);
+    // isSolid = checkTeIsCorner(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    // }
+    // {//middle blocks
+    // for (int i = 0; i < 3; i++) {
+    // System.out.println(this.worldObj.getBlock(x, y - 1, z));
+    // te = this.worldObj.getTileEntity(x + 1, y + i, z);
+    // isSolid = checkTeIsCenter(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    // te = this.worldObj.getTileEntity(x, y + i, z + 1);
+    // isSolid = checkTeIsCenter(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    //
+    // te = this.worldObj.getTileEntity(x + 1, y + i, z + 1);
+    // isSolid = checkTeIsCenter(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    //
+    // te = this.worldObj.getTileEntity(x + 2, y + i, z + 1);
+    // isSolid = checkTeIsCenter(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    //
+    // te = this.worldObj.getTileEntity(x + 1, y + i, z + 2);
+    // isSolid = checkTeIsCenter(te);
+    // if (!isSolid) {
+    // return false;
+    // }
+    // }
+    // }
+    // return isSolid;
+    // }
+    //
+    // public boolean checkTeIsCorner(TileEntity te) {
+    // return (te.blockType instanceof BlockMachineCasing && te.blockMetadata == 0);
+    // }
+    //
+    // public boolean checkTeIsCenter(TileEntity te) {
+    // return (te.blockType instanceof BlockMachineCasing && te.blockMetadata == 1);
+    // }
 
 }

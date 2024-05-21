@@ -8,9 +8,7 @@ import techreborn.tiles.idsu.TileIDSU;
 
 public class PacketIdsu extends SimplePacket {
 
-
-    public PacketIdsu() {
-    }
+    public PacketIdsu() {}
 
     int buttonID;
 

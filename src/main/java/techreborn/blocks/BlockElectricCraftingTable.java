@@ -1,11 +1,12 @@
 package techreborn.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockElectricCraftingTable extends BlockMachineBase {
 
@@ -37,9 +38,9 @@ public class BlockElectricCraftingTable extends BlockMachineBase {
     public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side) {
         int metadata = getTileRotation(blockAccess, x, y, z);
         return metadata == 0 && side == 3 ? this.iconFront
-                : side == 1 ? this.iconTop :
-                side == 0 ? this.iconBottom : (side == 0 ? this.iconTop
-                        : (side == metadata ? this.iconFront : this.blockIcon));
+            : side == 1 ? this.iconTop
+                : side == 0 ? this.iconBottom
+                    : (side == 0 ? this.iconTop : (side == metadata ? this.iconFront : this.blockIcon));
     }
 
     @Override

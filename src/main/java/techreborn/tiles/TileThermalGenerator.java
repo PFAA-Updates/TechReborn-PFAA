@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -16,6 +15,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -23,11 +24,9 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchable,
-        IFluidHandler, IInventory {
+public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory {
 
-    public Tank tank = new Tank("TileThermalGenerator",
-            FluidContainerRegistry.BUCKET_VOLUME * 10, this);
+    public Tank tank = new Tank("TileThermalGenerator", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
     public Inventory inventory = new Inventory(3, "TileThermalGenerator", 64);
     public static final int euTick = ConfigTechReborn.ThermalGenertaorOutput;
 
@@ -46,8 +45,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -75,8 +73,7 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, FluidStack resource,
-                            boolean doDrain) {
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
         FluidStack drain = tank.drain(resource.amount, doDrain);
         tank.compareAndUpdate();
         return drain;
@@ -101,12 +98,13 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
+        return tank.getFluid() == null || tank.getFluid()
+            .getFluid() == fluid;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[]{tank.getInfo()};
+        return new FluidTankInfo[] { tank.getInfo() };
     }
 
     @Override
@@ -124,18 +122,15 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
     }
 
     @Override
-	public Packet getDescriptionPacket() {
+    public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
-                this.zCoord, 1, nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net,
-                             S35PacketUpdateTileEntity packet) {
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-                yCoord, zCoord);
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
     }
 
@@ -145,20 +140,24 @@ public class TileThermalGenerator extends TilePowerAcceptor implements IWrenchab
         if (!worldObj.isRemote) {
             FluidUtils.drainContainers(this, inventory, 0, 1);
             for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-                if (worldObj.getBlock(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ) == Blocks.lava) {
+                if (worldObj
+                    .getBlock(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ)
+                    == Blocks.lava) {
                     addEnergy(1);
                 }
             }
         }
 
-        if (tank.getFluidAmount() > 0
-                && getMaxPower() - getEnergy() >= euTick) {
+        if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick) {
             tank.drain(1, true);
             addEnergy(euTick);
         }
         if (tank.getFluidType() != null && getStackInSlot(2) == null) {
-            inventory.setInventorySlotContents(2, new ItemStack(tank
-                    .getFluidType().getBlock()));
+            inventory.setInventorySlotContents(
+                2,
+                new ItemStack(
+                    tank.getFluidType()
+                        .getBlock()));
         } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
             setInventorySlotContents(2, null);
         }

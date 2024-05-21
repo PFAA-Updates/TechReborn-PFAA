@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -14,6 +13,8 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -22,11 +23,9 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchable,
-        IFluidHandler, IInventory {
+public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory {
 
-    public Tank tank = new Tank("TileDieselGenerator",
-            FluidContainerRegistry.BUCKET_VOLUME * 10, this);
+    public Tank tank = new Tank("TileDieselGenerator", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
     public Inventory inventory = new Inventory(3, "TileDieselGenerator", 64);
     public static final int euTick = ConfigTechReborn.ThermalGenertaorOutput;
 
@@ -45,8 +44,7 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -97,12 +95,13 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
+        return tank.getFluid() == null || tank.getFluid()
+            .getFluid() == fluid;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[]{tank.getInfo()};
+        return new FluidTankInfo[] { tank.getInfo() };
     }
 
     @Override
@@ -120,18 +119,15 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
     }
 
     @Override
-	public Packet getDescriptionPacket() {
+    public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
-                this.zCoord, 1, nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net,
-                             S35PacketUpdateTileEntity packet) {
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-                yCoord, zCoord);
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
     }
 
@@ -142,15 +138,19 @@ public class TileDieselGenerator extends TilePowerAcceptor implements IWrenchabl
             FluidUtils.drainContainers(this, inventory, 0, 1);
             FluidUtils.fillContainers(this, inventory, 0, 1, tank.getFluidType());
             if (tank.getFluidType() != null && getStackInSlot(2) == null) {
-                inventory.setInventorySlotContents(2, new ItemStack(tank
-                        .getFluidType().getBlock()));
+                inventory.setInventorySlotContents(
+                    2,
+                    new ItemStack(
+                        tank.getFluidType()
+                            .getBlock()));
                 syncWithAll();
             } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
                 setInventorySlotContents(2, null);
                 syncWithAll();
             }
 
-            if (!tank.isEmpty() && tank.getFluidType() != null && FluidPowerManager.fluidPowerValues.containsKey(tank.getFluidType())) {
+            if (!tank.isEmpty() && tank.getFluidType() != null
+                && FluidPowerManager.fluidPowerValues.containsKey(tank.getFluidType())) {
                 double powerIn = FluidPowerManager.fluidPowerValues.get(tank.getFluidType());
                 if (getFreeSpace() >= powerIn) {
                     addEnergy(powerIn, false);

@@ -5,10 +5,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.minecraft.item.ItemStack;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.minecraft.item.ItemStack;
 import techreborn.api.recipe.IBaseRecipeType;
 
 public class RecipeConfigManager {
@@ -27,7 +28,8 @@ public class RecipeConfigManager {
         if (configFile.exists()) {
             configFile.delete();
         }
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting()
+            .create();
         String json = gson.toJson(configs);
         try {
             FileWriter writer = new FileWriter(configFile);
@@ -37,7 +39,6 @@ public class RecipeConfigManager {
             e.printStackTrace();
         }
     }
-
 
     public static boolean canLoadRecipe(IBaseRecipeType recipeType) {
         RecipeConfig config = new RecipeConfig();
@@ -53,10 +54,11 @@ public class RecipeConfigManager {
         return config.enabled;
     }
 
-
     public static ConfigItem itemToConfig(ItemStack stack) {
         ConfigItem newItem = new ConfigItem();
-        newItem.setItemName(stack.getItem().getUnlocalizedName());
+        newItem.setItemName(
+            stack.getItem()
+                .getUnlocalizedName());
         newItem.setMeta(stack.getItemDamage());
         newItem.setStackSize(stack.stackSize);
         newItem.setLocalName(stack.getDisplayName());

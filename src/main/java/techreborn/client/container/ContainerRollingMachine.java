@@ -5,6 +5,7 @@ import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.api.RollingMachineRecipe;
@@ -21,9 +22,8 @@ public class ContainerRollingMachine extends RebornContainer {
 
         for (int l = 0; l < 3; l++) {
             for (int k1 = 0; k1 < 3; k1++) {
-                this.addSlotToContainer(new Slot(
-                        tileRollingmachine.craftMatrix, k1 + l * 3,
-                        30 + k1 * 18, 17 + l * 18));
+                this.addSlotToContainer(
+                    new Slot(tileRollingmachine.craftMatrix, k1 + l * 3, 30 + k1 * 18, 17 + l * 18));
             }
         }
 
@@ -36,14 +36,12 @@ public class ContainerRollingMachine extends RebornContainer {
 
         for (i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(player.inventory, j + i * 9
-                        + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
-                    142));
+            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
         }
     }
 
@@ -54,8 +52,7 @@ public class ContainerRollingMachine extends RebornContainer {
 
     @Override
     public final void onCraftMatrixChanged(IInventory inv) {
-        ItemStack output = RollingMachineRecipe.instance.findMatchingRecipe(
-                tile.craftMatrix, tile.getWorldObj());
+        ItemStack output = RollingMachineRecipe.instance.findMatchingRecipe(tile.craftMatrix, tile.getWorldObj());
         tile.inventory.setInventorySlotContents(1, output);
     }
 
@@ -99,7 +96,7 @@ public class ContainerRollingMachine extends RebornContainer {
             this.energy = value;
         }
         this.tile.runTime = this.currentItemBurnTime;
-        if(this.burnTime == -1){
+        if (this.burnTime == -1) {
             this.burnTime = 0;
         }
         this.tile.tickTime = this.burnTime;

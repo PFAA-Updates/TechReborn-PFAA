@@ -1,5 +1,10 @@
 package techreborn.compat.recipes;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
+
 import buildcraft.api.fuels.IFuel;
 import buildcraft.core.Version;
 import cpw.mods.fml.common.Loader;
@@ -8,10 +13,6 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import ic2.api.item.IC2Items;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import reborncore.api.fuel.FluidPowerManager;
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.RecipeRemover;
@@ -24,24 +25,18 @@ public class RecipesBuildcraft implements ICompatModule {
     public static Block quarryBlock;
 
     public static void removeRecipes() {
-        RecipeRemover.removeAnyRecipe(new ItemStack(
-                quarryBlock));
+        RecipeRemover.removeAnyRecipe(new ItemStack(quarryBlock));
     }
 
     public static void addRecipies() {
-        Item drill = IC2Items.getItem("diamondDrill").getItem();
+        Item drill = IC2Items.getItem("diamondDrill")
+            .getItem();
         ItemStack drillStack = new ItemStack(drill, 1, OreDictionary.WILDCARD_VALUE);
-        //Quarry
-        CraftingHelper.addShapedOreRecipe(new ItemStack(quarryBlock), new Object[]
-                        {
-                                "IAI", "GIG", "DED",
-                                'I', "gearIron",
-                                'G', "gearGold",
-                                'D', "gearDiamond",
-                                'A', IC2Items.getItem("advancedCircuit"),
-                                'E', drillStack
-                        }
-        );
+        // Quarry
+        CraftingHelper.addShapedOreRecipe(
+            new ItemStack(quarryBlock),
+            new Object[] { "IAI", "GIG", "DED", 'I', "gearIron", 'G', "gearGold", 'D', "gearDiamond", 'A',
+                IC2Items.getItem("advancedCircuit"), 'E', drillStack });
     }
 
     @Override
@@ -59,15 +54,19 @@ public class RecipesBuildcraft implements ICompatModule {
         Core.logHelper.info("Trying to change the quarry recipe");
         try {
             String itemClass = "buildcraft.BuildCraftBuilders";
-            if (!Version.getVersion().startsWith("7")) {//Buildcraft 6
+            if (!Version.getVersion()
+                .startsWith("7")) {// Buildcraft 6
                 if (Loader.isModLoaded("BuildCraft|Factory")) {
                     itemClass = "buildcraft.BuildCraftFactory";
                 }
-            } else if (!Version.getVersion().startsWith("7") && !Loader.isModLoaded("BuildCraft|Builders")) { //Buildcraft 7
-                Core.logHelper.info("Buildcraft not found");
-                return;
-            }
-            Object obj = Class.forName(itemClass).getField("quarryBlock").get(null);
+            } else if (!Version.getVersion()
+                .startsWith("7") && !Loader.isModLoaded("BuildCraft|Builders")) { // Buildcraft 7
+                    Core.logHelper.info("Buildcraft not found");
+                    return;
+                }
+            Object obj = Class.forName(itemClass)
+                .getField("quarryBlock")
+                .get(null);
             if (obj instanceof Block) {
                 quarryBlock = (Block) obj;
                 Core.logHelper.info("Found Quarry Block from buildcraft at " + itemClass + ":quarryBlock");
@@ -83,7 +82,8 @@ public class RecipesBuildcraft implements ICompatModule {
         removeRecipes();
         addRecipies();
         for (IFuel fuel : buildcraft.energy.fuels.FuelManager.INSTANCE.getFuels()) {
-            FluidPowerManager.fluidPowerValues.put(fuel.getFluid(), (double) fuel.getPowerPerCycle() / ConfigTechReborn.euPerRF);
+            FluidPowerManager.fluidPowerValues
+                .put(fuel.getFluid(), (double) fuel.getPowerPerCycle() / ConfigTechReborn.euPerRF);
         }
     }
 

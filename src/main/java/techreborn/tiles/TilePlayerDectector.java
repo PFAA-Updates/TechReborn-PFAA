@@ -5,8 +5,8 @@ import java.util.Iterator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
-import techreborn.powerSystem.TilePowerAcceptor;
 
+import techreborn.powerSystem.TilePowerAcceptor;
 
 public class TilePlayerDectector extends TilePowerAcceptor {
 
@@ -45,22 +45,26 @@ public class TilePlayerDectector extends TilePowerAcceptor {
     @Override
     public void updateEntity() {
         super.updateEntity();
-        if(!worldObj.isRemote && worldObj.getWorldTime() % 20 == 0){
+        if (!worldObj.isRemote && worldObj.getWorldTime() % 20 == 0) {
             boolean lastRedstone = redstone;
             redstone = false;
-            if(canUseEnergy(50)){
+            if (canUseEnergy(50)) {
                 Iterator<EntityPlayer> tIterator = super.worldObj.playerEntities.iterator();
                 while (tIterator.hasNext()) {
                     EntityPlayer player = (EntityPlayer) tIterator.next();
                     if (player.getDistanceSq(super.xCoord + 0.5D, super.yCoord + 0.5D, super.zCoord + 0.5D) <= 256.0D) {
-                        if(worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 0){//ALL
+                        if (worldObj.getBlockMetadata(xCoord, yCoord, zCoord) == 0) {// ALL
                             redstone = true;
-                        } else if (blockMetadata == 1){//Others
-                            if(!owenerUdid.isEmpty() && !owenerUdid.equals(player.getUniqueID().toString())){
+                        } else if (blockMetadata == 1) {// Others
+                            if (!owenerUdid.isEmpty() && !owenerUdid.equals(
+                                player.getUniqueID()
+                                    .toString())) {
                                 redstone = true;
                             }
-                        } else {//You
-                            if(!owenerUdid.isEmpty() &&owenerUdid.equals(player.getUniqueID().toString())){
+                        } else {// You
+                            if (!owenerUdid.isEmpty() && owenerUdid.equals(
+                                player.getUniqueID()
+                                    .toString())) {
                                 redstone = true;
                             }
                         }
@@ -68,14 +72,15 @@ public class TilePlayerDectector extends TilePowerAcceptor {
                 }
                 useEnergy(50);
             }
-            if(lastRedstone != redstone){
+            if (lastRedstone != redstone) {
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
+                worldObj
+                    .notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, worldObj.getBlock(xCoord, yCoord, zCoord));
             }
         }
     }
 
-    public boolean isProvidingPower(){
+    public boolean isProvidingPower() {
         return redstone;
     }
 

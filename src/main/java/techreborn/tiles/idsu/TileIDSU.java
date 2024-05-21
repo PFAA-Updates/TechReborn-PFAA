@@ -1,11 +1,12 @@
 package techreborn.tiles.idsu;
 
-import org.apache.commons.lang3.StringUtils;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import org.apache.commons.lang3.StringUtils;
+
 import reborncore.common.misc.Functions;
 import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
@@ -20,9 +21,9 @@ public class TileIDSU extends TilePowerAcceptor {
         if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
             return 0.0;
         }
-	    IDSUManager.IDSUValueSaveData data = IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid);
-        if(data == null){
-        	return 0;
+        IDSUManager.IDSUValueSaveData data = IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid);
+        if (data == null) {
+            return 0;
         }
         return data.storedPower;
     }
@@ -32,11 +33,11 @@ public class TileIDSU extends TilePowerAcceptor {
         if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
             return;
         }
-	    IDSUManager.IDSUValueSaveData data = IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid);
-        if(data == null){
-        	return;
+        IDSUManager.IDSUValueSaveData data = IDSUManager.INSTANCE.getSaveDataForWorld(worldObj, ownerUdid);
+        if (data == null) {
+            return;
         }
-	    data.storedPower = energy;
+        data.storedPower = energy;
     }
 
     @Override
@@ -102,13 +103,13 @@ public class TileIDSU extends TilePowerAcceptor {
     }
 
     @Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
         this.ownerUdid = nbttagcompound.getString("ownerUdid");
     }
 
     @Override
-	public void writeToNBT(NBTTagCompound nbttagcompound) {
+    public void writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
         if (ownerUdid == null && StringUtils.isBlank(ownerUdid) || StringUtils.isEmpty(ownerUdid)) {
             return;
@@ -117,7 +118,7 @@ public class TileIDSU extends TilePowerAcceptor {
     }
 
     @Override
-	public void updateEntity() {
+    public void updateEntity() {
         super.updateEntity();
 
         if (ticks == ConfigTechReborn.aveargeEuOutTickTime) {
@@ -136,7 +137,6 @@ public class TileIDSU extends TilePowerAcceptor {
 
         boolean needsInvUpdate = false;
 
-
         if (needsInvUpdate) {
             this.markDirty();
         }
@@ -147,7 +147,6 @@ public class TileIDSU extends TilePowerAcceptor {
         return false;
     }
 
-
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
         NBTTagCompound tileEntity = new NBTTagCompound();
         ItemStack dropStack = new ItemStack(ModBlocks.Idsu, 1);
@@ -156,7 +155,6 @@ public class TileIDSU extends TilePowerAcceptor {
         dropStack.stackTagCompound.setTag("tileEntity", tileEntity);
         return dropStack;
     }
-
 
     public double getEuChange() {
         if (euChange == -1) {

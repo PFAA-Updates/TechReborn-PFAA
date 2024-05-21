@@ -1,10 +1,11 @@
 package techreborn.client.container;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import reborncore.client.gui.SlotOutput;
 import reborncore.common.container.RebornContainer;
 import techreborn.tiles.TileMatterFabricator;
@@ -17,8 +18,7 @@ public class ContainerMatterFabricator extends RebornContainer {
 
     public int progressTime;
 
-    public ContainerMatterFabricator(TileMatterFabricator tileMatterfab,
-                                     EntityPlayer player) {
+    public ContainerMatterFabricator(TileMatterFabricator tileMatterfab, EntityPlayer player) {
         tile = tileMatterfab;
         this.player = player;
 
@@ -31,21 +31,18 @@ public class ContainerMatterFabricator extends RebornContainer {
         this.addSlotToContainer(new Slot(tileMatterfab.inventory, 5, 51, 53));
 
         // outputs
-        this.addSlotToContainer(new SlotOutput(tileMatterfab.inventory, 6,
-                116, 35));
+        this.addSlotToContainer(new SlotOutput(tileMatterfab.inventory, 6, 116, 35));
 
         int i;
 
         for (i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(player.inventory, j + i * 9
-                        + 9, 8 + j * 18, 84 + i * 18));
+                this.addSlotToContainer(new Slot(player.inventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
         for (i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18,
-                    142));
+            this.addSlotToContainer(new Slot(player.inventory, i, 8 + i * 18, 142));
         }
     }
 

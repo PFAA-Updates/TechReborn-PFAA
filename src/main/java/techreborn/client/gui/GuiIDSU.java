@@ -2,13 +2,14 @@ package techreborn.client.gui;
 
 import java.awt.Color;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
 import reborncore.common.packets.PacketHandler;
 import techreborn.client.container.ContainerIDSU;
 import techreborn.packets.PacketIdsu;
@@ -16,14 +17,11 @@ import techreborn.tiles.idsu.TileIDSU;
 
 public class GuiIDSU extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation(
-            "techreborn", "textures/gui/aesu.png");
-
+    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/aesu.png");
 
     TileIDSU idsu;
 
     ContainerIDSU containerIDSU;
-
 
     public GuiIDSU(EntityPlayer player, TileIDSU tileIDSU) {
         super(new ContainerIDSU(tileIDSU, player));
@@ -46,19 +44,19 @@ public class GuiIDSU extends GuiContainer {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks,
-                                                   int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(texture);
+        this.mc.getTextureManager()
+            .bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
     }
 
     @Override
-	protected void drawGuiContainerForegroundLayer(int mouseX,
-                                                   int mouseY) {
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("tile.techreborn.idsu.name"), 40, 10, Color.WHITE.getRGB());
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+        this.fontRendererObj
+            .drawString(StatCollector.translateToLocal("tile.techreborn.idsu.name"), 40, 10, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(containerIDSU.euOut + " eu/tick", 10, 20, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(containerIDSU.storedEu + " eu", 10, 30, Color.WHITE.getRGB());
         this.fontRendererObj.drawString(containerIDSU.euChange + " eu change", 10, 40, Color.WHITE.getRGB());

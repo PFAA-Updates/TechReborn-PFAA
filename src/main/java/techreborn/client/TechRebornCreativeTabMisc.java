@@ -2,20 +2,21 @@ package techreborn.client;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+
 import techreborn.init.ModItems;
 
 public class TechRebornCreativeTabMisc extends CreativeTabs {
 
-	public static TechRebornCreativeTabMisc instance = new TechRebornCreativeTabMisc();
+    public static TechRebornCreativeTabMisc instance = new TechRebornCreativeTabMisc();
 
-	public TechRebornCreativeTabMisc() {
-		super("techreborn");
-	}
+    public TechRebornCreativeTabMisc() {
+        super("techreborn");
+    }
 
-	@SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation")
     @Override
-	public Item getTabIconItem() {
-		return ModItems.cells;
-	}
+    public Item getTabIconItem() {
+        return ModItems.cells;
+    }
 
 }

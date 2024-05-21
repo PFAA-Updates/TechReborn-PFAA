@@ -1,11 +1,11 @@
 package techreborn.powerSystem.traits;
 
-import ic2.api.item.IElectricItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import ic2.api.item.IElectricItem;
 import reborncore.jtraits.JTrait;
 import techreborn.api.power.IEnergyInterfaceItem;
-
 
 public class EUItemPowerTrait extends JTrait<IEnergyInterfaceItem> implements IElectricItem {
 

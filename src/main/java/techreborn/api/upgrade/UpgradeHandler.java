@@ -3,6 +3,7 @@ package techreborn.api.upgrade;
 import java.util.ArrayList;
 
 import net.minecraft.item.ItemStack;
+
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 
@@ -23,8 +24,7 @@ public class UpgradeHandler {
     }
 
     public void tick() {
-        if (crafter.parentTile.getWorldObj().isRemote)
-            return;
+        if (crafter.parentTile.getWorldObj().isRemote) return;
         crafter.resetPowerMulti();
         crafter.resetSpeedMulti();
         for (int slot : this.slots) {
@@ -33,7 +33,7 @@ public class UpgradeHandler {
                 ((IMachineUpgrade) stack.getItem()).processUpgrade(crafter, stack);
             }
         }
-        if (crafter.currentRecipe != null)
-            crafter.currentNeededTicks = (int) (crafter.currentRecipe.tickTime() * (1.0 - crafter.getSpeedMultiplier()));
+        if (crafter.currentRecipe != null) crafter.currentNeededTicks = (int) (crafter.currentRecipe.tickTime()
+            * (1.0 - crafter.getSpeedMultiplier()));
     }
 }

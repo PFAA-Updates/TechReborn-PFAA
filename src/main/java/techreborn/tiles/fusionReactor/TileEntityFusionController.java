@@ -1,11 +1,12 @@
 package techreborn.tiles.fusionReactor;
 
-import ic2.api.item.IC2Items;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.item.IC2Items;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.reactor.FusionReactorRecipe;
@@ -13,14 +14,13 @@ import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-
 public class TileEntityFusionController extends TilePowerAcceptor implements IInventory {
 
     public Inventory inventory = new Inventory(3, "TileEntityFusionController", 64);
 
-    //0= no coils, 1 = coils
+    // 0= no coils, 1 = coils
     public int coilStatus = 0;
-    int emptyCellCount = 0 ;
+    int emptyCellCount = 0;
     int topStackSlot = 0;
     int bottomStackSlot = 1;
     int outputStackSlot = 2;
@@ -43,7 +43,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     @Override
     public boolean canAcceptEnergy(ForgeDirection direction) {
-        if(direction == ForgeDirection.DOWN || direction == ForgeDirection.UP){
+        if (direction == ForgeDirection.DOWN || direction == ForgeDirection.UP) {
             return false;
         }
         return true;
@@ -51,7 +51,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     @Override
     public boolean canProvideEnergy(ForgeDirection direction) {
-        if(direction == ForgeDirection.DOWN || direction == ForgeDirection.UP){
+        if (direction == ForgeDirection.DOWN || direction == ForgeDirection.UP) {
             return true;
         }
         return false;
@@ -59,7 +59,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     @Override
     public double getMaxOutput() {
-        if(!(hasStartedCrafting&&currentRecipe.getEuTick()>0)){
+        if (!(hasStartedCrafting && currentRecipe.getEuTick() > 0)) {
             return 0;
         }
         return 500000000;
@@ -67,7 +67,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     @Override
     public double getMaxInput() {
-        if((hasStartedCrafting&&currentRecipe.getEuTick()>0)){
+        if ((hasStartedCrafting && currentRecipe.getEuTick() > 0)) {
             return 0;
         }
         return 50000;
@@ -89,13 +89,13 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
         super.writeToNBT(tagCompound);
         inventory.writeToNBT(tagCompound);
 
-        if(crafingTickTime == -1){
+        if (crafingTickTime == -1) {
             crafingTickTime = 0;
         }
-        if(finalTickTime == -1){
+        if (finalTickTime == -1) {
             finalTickTime = 0;
         }
-        if(neededPower == -1){
+        if (neededPower == -1) {
             neededPower = 0;
         }
         tagCompound.setInteger("crafingTickTime", crafingTickTime);
@@ -162,36 +162,35 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
 
     @Override
     public boolean isItemValidForSlot(int slot, ItemStack stack) {
-        return slot!=2;
-        //return inventory.isItemValidForSlot(slot, stack);
+        return slot != 2;
+        // return inventory.isItemValidForSlot(slot, stack);
     }
 
-
     public boolean checkCoils() {
-        if ((isCoil(this.xCoord + 3, this.yCoord, this.zCoord + 1)) &&
-                (isCoil(this.xCoord + 3, this.yCoord, this.zCoord)) &&
-                (isCoil(this.xCoord + 3, this.yCoord, this.zCoord - 1)) &&
-                (isCoil(this.xCoord - 3, this.yCoord, this.zCoord + 1)) &&
-                (isCoil(this.xCoord - 3, this.yCoord, this.zCoord)) &&
-                (isCoil(this.xCoord - 3, this.yCoord, this.zCoord - 1)) &&
-                (isCoil(this.xCoord + 2, this.yCoord, this.zCoord + 2)) &&
-                (isCoil(this.xCoord + 2, this.yCoord, this.zCoord + 1)) &&
-                (isCoil(this.xCoord + 2, this.yCoord, this.zCoord - 1)) &&
-                (isCoil(this.xCoord + 2, this.yCoord, this.zCoord - 2)) &&
-                (isCoil(this.xCoord - 2, this.yCoord, this.zCoord + 2)) &&
-                (isCoil(this.xCoord - 2, this.yCoord, this.zCoord + 1)) &&
-                (isCoil(this.xCoord - 2, this.yCoord, this.zCoord - 1)) &&
-                (isCoil(this.xCoord - 2, this.yCoord, this.zCoord - 2)) &&
-                (isCoil(this.xCoord + 1, this.yCoord, this.zCoord + 3)) &&
-                (isCoil(this.xCoord + 1, this.yCoord, this.zCoord + 2)) &&
-                (isCoil(this.xCoord + 1, this.yCoord, this.zCoord - 2)) &&
-                (isCoil(this.xCoord + 1, this.yCoord, this.zCoord - 3)) &&
-                (isCoil(this.xCoord - 1, this.yCoord, this.zCoord + 3)) &&
-                (isCoil(this.xCoord - 1, this.yCoord, this.zCoord + 2)) &&
-                (isCoil(this.xCoord - 1, this.yCoord, this.zCoord - 2)) &&
-                (isCoil(this.xCoord - 1, this.yCoord, this.zCoord - 3)) &&
-                (isCoil(this.xCoord, this.yCoord, this.zCoord + 3)) &&
-                (isCoil(this.xCoord, this.yCoord, this.zCoord - 3))) {
+        if ((isCoil(this.xCoord + 3, this.yCoord, this.zCoord + 1))
+            && (isCoil(this.xCoord + 3, this.yCoord, this.zCoord))
+            && (isCoil(this.xCoord + 3, this.yCoord, this.zCoord - 1))
+            && (isCoil(this.xCoord - 3, this.yCoord, this.zCoord + 1))
+            && (isCoil(this.xCoord - 3, this.yCoord, this.zCoord))
+            && (isCoil(this.xCoord - 3, this.yCoord, this.zCoord - 1))
+            && (isCoil(this.xCoord + 2, this.yCoord, this.zCoord + 2))
+            && (isCoil(this.xCoord + 2, this.yCoord, this.zCoord + 1))
+            && (isCoil(this.xCoord + 2, this.yCoord, this.zCoord - 1))
+            && (isCoil(this.xCoord + 2, this.yCoord, this.zCoord - 2))
+            && (isCoil(this.xCoord - 2, this.yCoord, this.zCoord + 2))
+            && (isCoil(this.xCoord - 2, this.yCoord, this.zCoord + 1))
+            && (isCoil(this.xCoord - 2, this.yCoord, this.zCoord - 1))
+            && (isCoil(this.xCoord - 2, this.yCoord, this.zCoord - 2))
+            && (isCoil(this.xCoord + 1, this.yCoord, this.zCoord + 3))
+            && (isCoil(this.xCoord + 1, this.yCoord, this.zCoord + 2))
+            && (isCoil(this.xCoord + 1, this.yCoord, this.zCoord - 2))
+            && (isCoil(this.xCoord + 1, this.yCoord, this.zCoord - 3))
+            && (isCoil(this.xCoord - 1, this.yCoord, this.zCoord + 3))
+            && (isCoil(this.xCoord - 1, this.yCoord, this.zCoord + 2))
+            && (isCoil(this.xCoord - 1, this.yCoord, this.zCoord - 2))
+            && (isCoil(this.xCoord - 1, this.yCoord, this.zCoord - 3))
+            && (isCoil(this.xCoord, this.yCoord, this.zCoord + 3))
+            && (isCoil(this.xCoord, this.yCoord, this.zCoord - 3))) {
             coilStatus = 1;
             return true;
         }
@@ -206,32 +205,45 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     @Override
     public void updateEntity() {
         super.updateEntity();
-        //TODO improve this code a lot
+        // TODO improve this code a lot
 
         if (worldObj.getTotalWorldTime() % 20 == 0) {
             checkCoils();
         }
 
         if (!worldObj.isRemote) {
-            if(emptyCellCount>0){
+            if (emptyCellCount > 0) {
                 if (getStackInSlot(outputStackSlot) == null) {
-                    setInventorySlotContents(outputStackSlot, IC2Items.getItem("cell").splitStack(emptyCellCount));
-                    emptyCellCount=0;
+                    setInventorySlotContents(
+                        outputStackSlot,
+                        IC2Items.getItem("cell")
+                            .splitStack(emptyCellCount));
+                    emptyCellCount = 0;
                 }
             }
             if (coilStatus == 1) {
                 if (currentRecipe == null) {
                     if (inventory.hasChanged || crafingTickTime != 0) {
                         for (FusionReactorRecipe reactorRecipe : FusionReactorRecipeHelper.reactorRecipes) {
-                            if (ItemUtils.isItemEqual(getStackInSlot(topStackSlot), reactorRecipe.getTopInput(), true, true, true)) {
+                            if (ItemUtils.isItemEqual(
+                                getStackInSlot(topStackSlot),
+                                reactorRecipe.getTopInput(),
+                                true,
+                                true,
+                                true)) {
                                 if (reactorRecipe.getBottomInput() != null) {
-                                    if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), reactorRecipe.getBottomInput(), true, true, true) == false) {
+                                    if (ItemUtils.isItemEqual(
+                                        getStackInSlot(bottomStackSlot),
+                                        reactorRecipe.getBottomInput(),
+                                        true,
+                                        true,
+                                        true) == false) {
                                         break;
                                     }
                                 }
                                 if (canFitStack(reactorRecipe.getOutput(), outputStackSlot, true)) {
                                     currentRecipe = reactorRecipe;
-                                    if(crafingTickTime != 0){
+                                    if (crafingTickTime != 0) {
                                         finalTickTime = currentRecipe.getTickTime();
                                         neededPower = (int) currentRecipe.getStartEU();
                                     }
@@ -246,13 +258,14 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
                     }
                 } else {
                     /*
-                    if (inventory.hasChanged) {
-                        if (!validateRecipe()) {
-                            resetCrafter();
-                            System.out.println("reset1");
-                            return;
-                        }
-                    }//*/
+                     * if (inventory.hasChanged) {
+                     * if (!validateRecipe()) {
+                     * resetCrafter();
+                     * System.out.println("reset1");
+                     * return;
+                     * }
+                     * }//
+                     */
                     if (!hasStartedCrafting) {
                         if (canUseEnergy(currentRecipe.getStartEU() + 64)) {
                             useEnergy(currentRecipe.getStartEU());
@@ -260,50 +273,65 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
                         }
                     } else {
                         if (crafingTickTime < currentRecipe.getTickTime()) {
-                            if(crafingTickTime==0){
+                            if (crafingTickTime == 0) {
                                 decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
                                 if (currentRecipe.getBottomInput() != null) {
                                     decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
                                 }
                             }
-                            if (currentRecipe.getEuTick() > 0) { //Power gen
-                                addEnergy(currentRecipe.getEuTick()); //Waste power if it has no where to go
+                            if (currentRecipe.getEuTick() > 0) { // Power gen
+                                addEnergy(currentRecipe.getEuTick()); // Waste power if it has no where to go
                                 crafingTickTime++;
-                            } else { //Power user
+                            } else { // Power user
                                 if (canUseEnergy(currentRecipe.getEuTick() * -1)) {
                                     setEnergy(getEnergy() - (currentRecipe.getEuTick() * -1));
                                     crafingTickTime++;
-                                }else {
+                                } else {
                                     resetCrafter();
                                 }
                             }
                         } else {
                             if (canFitStack(currentRecipe.getOutput(), outputStackSlot, true)) {
                                 if (getStackInSlot(outputStackSlot) == null) {
-                                    setInventorySlotContents(outputStackSlot, currentRecipe.getOutput().copy());
+                                    setInventorySlotContents(
+                                        outputStackSlot,
+                                        currentRecipe.getOutput()
+                                            .copy());
                                 } else {
                                     decrStackSize(outputStackSlot, -currentRecipe.getOutput().stackSize);
                                 }
 
-                                if(currentRecipe.getTopInput().getItem().getUnlocalizedName().toLowerCase().contains("cell"))emptyCellCount++;
-                                if(currentRecipe.getBottomInput().getItem().getUnlocalizedName().toLowerCase().contains("cell"))emptyCellCount++;
-                                if(currentRecipe.getOutput().getItem().getUnlocalizedName().toLowerCase().contains("cell"))emptyCellCount--;
+                                if (currentRecipe.getTopInput()
+                                    .getItem()
+                                    .getUnlocalizedName()
+                                    .toLowerCase()
+                                    .contains("cell")) emptyCellCount++;
+                                if (currentRecipe.getBottomInput()
+                                    .getItem()
+                                    .getUnlocalizedName()
+                                    .toLowerCase()
+                                    .contains("cell")) emptyCellCount++;
+                                if (currentRecipe.getOutput()
+                                    .getItem()
+                                    .getUnlocalizedName()
+                                    .toLowerCase()
+                                    .contains("cell")) emptyCellCount--;
 
-
-                                if(emptyCellCount>64)emptyCellCount=64;
-                                //System.out.println(String.valueOf(emptyCellCount));
+                                if (emptyCellCount > 64) emptyCellCount = 64;
+                                // System.out.println(String.valueOf(emptyCellCount));
                                 /*
-                                decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
-                                if (currentRecipe.getBottomInput() != null) {
-                                    decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
-                                }//*/
-                                crafingTickTime=0;
+                                 * decrStackSize(topStackSlot, currentRecipe.getTopInput().stackSize);
+                                 * if (currentRecipe.getBottomInput() != null) {
+                                 * decrStackSize(bottomStackSlot, currentRecipe.getBottomInput().stackSize);
+                                 * }//
+                                 */
+                                crafingTickTime = 0;
                                 if (!validateRecipe()) {
                                     resetCrafter();
-                                    //System.out.println("reset2X");
-                                    //return;
+                                    // System.out.println("reset2X");
+                                    // return;
                                 }
-                                //System.out.println("reset2");
+                                // System.out.println("reset2");
                             }
                         }
                     }
@@ -311,11 +339,10 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
             } else {
                 if (currentRecipe != null) {
                     resetCrafter();
-                    //System.out.println("reset3");
+                    // System.out.println("reset3");
                 }
             }
         }
-
 
         if (inventory.hasChanged) {
             inventory.hasChanged = false;
@@ -325,7 +352,9 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
     private boolean validateRecipe() {
         if (ItemUtils.isItemEqual(getStackInSlot(topStackSlot), currentRecipe.getTopInput(), true, true, true)) {
             if (currentRecipe.getBottomInput() != null) {
-                if (ItemUtils.isItemEqual(getStackInSlot(bottomStackSlot), currentRecipe.getBottomInput(), true, true, true) == false) {
+                if (ItemUtils
+                    .isItemEqual(getStackInSlot(bottomStackSlot), currentRecipe.getBottomInput(), true, true, true)
+                    == false) {
                     return false;
                 }
             }
@@ -344,7 +373,7 @@ public class TileEntityFusionController extends TilePowerAcceptor implements IIn
         hasStartedCrafting = false;
     }
 
-    public boolean canFitStack(ItemStack stack, int slot, boolean oreDic) {//Checks to see if it can fit the stack
+    public boolean canFitStack(ItemStack stack, int slot, boolean oreDic) {// Checks to see if it can fit the stack
         if (stack == null) {
             return true;
         }

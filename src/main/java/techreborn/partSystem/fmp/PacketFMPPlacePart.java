@@ -1,6 +1,5 @@
 package techreborn.partSystem.fmp;
 
-
 import java.io.IOException;
 
 import io.netty.buffer.ByteBuf;
@@ -8,9 +7,7 @@ import reborncore.common.packets.SimplePacket;
 
 public class PacketFMPPlacePart extends SimplePacket {
 
-
-    public PacketFMPPlacePart() {
-    }
+    public PacketFMPPlacePart() {}
 
     @Override
     public void writeData(ByteBuf out) throws IOException {

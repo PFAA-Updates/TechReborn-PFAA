@@ -3,8 +3,6 @@ package techreborn.blocks;
 import java.util.ArrayList;
 import java.util.Random;
 
-import cpw.mods.fml.common.Loader;
-import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockDynamicLiquid;
@@ -29,6 +27,9 @@ import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import net.minecraftforge.fluids.IFluidHandler;
+
+import cpw.mods.fml.common.Loader;
+import ic2.api.item.IC2Items;
 import techreborn.client.TechRebornCreativeTab;
 import techreborn.init.ModBlocks;
 import techreborn.tiles.TileMachineBase;
@@ -40,7 +41,7 @@ public class BlockMachineBase extends BlockContainer {
         setCreativeTab(TechRebornCreativeTab.instance);
         setHardness(2f);
         setStepSound(soundTypeMetal);
-       // ModBlocks.blocksToCut.add(this);
+        // ModBlocks.blocksToCut.add(this);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class BlockMachineBase extends BlockContainer {
     }
 
     @Override
-	public void onBlockAdded(World world, int x, int y, int z) {
+    public void onBlockAdded(World world, int x, int y, int z) {
 
         super.onBlockAdded(world, x, y, z);
         this.setDefaultDirection(world, x, y, z);
@@ -87,11 +88,9 @@ public class BlockMachineBase extends BlockContainer {
     }
 
     @Override
-	public void onBlockPlacedBy(World world, int x, int y, int z,
-                                EntityLivingBase player, ItemStack itemstack) {
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase player, ItemStack itemstack) {
 
-        int l = MathHelper
-                .floor_double(player.rotationYaw * 4.0F / 360F + 0.5D) & 3;
+        int l = MathHelper.floor_double(player.rotationYaw * 4.0F / 360F + 0.5D) & 3;
 
         if (l == 0) {
             setTileRotation(world, x, y, z, 2);
@@ -108,8 +107,7 @@ public class BlockMachineBase extends BlockContainer {
         super.onBlockPlacedBy(world, x, y, z, player, itemstack);
     }
 
-    public boolean canCreatureSpawn(EnumCreatureType type, World world, int x,
-                                    int y, int z) {
+    public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z) {
         return false;
     }
 
@@ -133,7 +131,9 @@ public class BlockMachineBase extends BlockContainer {
 
             if (itemStack != null && itemStack.stackSize > 0) {
                 if (itemStack.getItem() instanceof ItemBlock) {
-                    if (((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockFluidBase || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockStaticLiquid || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockDynamicLiquid) {
+                    if (((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockFluidBase
+                        || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockStaticLiquid
+                        || ((ItemBlock) itemStack.getItem()).field_150939_a instanceof BlockDynamicLiquid) {
                         return;
                     }
                 }
@@ -146,7 +146,10 @@ public class BlockMachineBase extends BlockContainer {
                 EntityItem entityItem = new EntityItem(world, x + dX, y + dY, z + dZ, itemStack.copy());
 
                 if (itemStack.hasTagCompound()) {
-                    entityItem.getEntityItem().setTagCompound((NBTTagCompound) itemStack.getTagCompound().copy());
+                    entityItem.getEntityItem()
+                        .setTagCompound(
+                            (NBTTagCompound) itemStack.getTagCompound()
+                                .copy());
                 }
 
                 float factor = 0.05F;
@@ -173,18 +176,26 @@ public class BlockMachineBase extends BlockContainer {
     }
 
     public int getTileRotation(IBlockAccess blockAccess, int x, int y, int z) {
-        return blockAccess.getTileEntity(x, y, z) != null ? getTileRotation(blockAccess.getTileEntity(x, y, z).getWorldObj(), x, y, z) : 0;
+        return blockAccess.getTileEntity(x, y, z) != null ? getTileRotation(
+            blockAccess.getTileEntity(x, y, z)
+                .getWorldObj(),
+            x,
+            y,
+            z) : 0;
     }
 
     @Override
     public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
         ArrayList<ItemStack> items = new ArrayList<ItemStack>();
         if (Loader.isModLoaded("IC2")) {
-            ItemStack stack = IC2Items.getItem(isAdvanced() ? "advancedMachine" : "machine").copy();
+            ItemStack stack = IC2Items.getItem(isAdvanced() ? "advancedMachine" : "machine")
+                .copy();
             stack.stackSize = 1;
             items.add(stack);
         } else {
-            items.add(isAdvanced() ? new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2) : new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0));
+            items.add(
+                isAdvanced() ? new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 2)
+                    : new ItemStack(Item.getItemFromBlock(ModBlocks.MachineCasing), 1, 0));
         }
         return items;
     }
@@ -201,7 +212,10 @@ public class BlockMachineBase extends BlockContainer {
             TileEntity tile = worldObj.getTileEntity(x, y, z);
             if (tile != null && tile instanceof TileMachineBase) {
                 TileMachineBase machineBase = (TileMachineBase) tile;
-                machineBase.setRotation(ForgeDirection.getOrientation(machineBase.getRotation()).getRotation(axis).ordinal());
+                machineBase.setRotation(
+                    ForgeDirection.getOrientation(machineBase.getRotation())
+                        .getRotation(axis)
+                        .ordinal());
                 return true;
             }
             return false;
@@ -209,14 +223,16 @@ public class BlockMachineBase extends BlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
-        if(fillBlockWithFluid(world, x, y, z, entityplayer, side, hitX, hitY, hitZ)){
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX,
+        float hitY, float hitZ) {
+        if (fillBlockWithFluid(world, x, y, z, entityplayer, side, hitX, hitY, hitZ)) {
             return true;
         }
         return super.onBlockActivated(world, x, y, z, entityplayer, side, hitX, hitY, hitZ);
     }
 
-    public boolean fillBlockWithFluid(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
+    public boolean fillBlockWithFluid(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX,
+        float hitY, float hitZ) {
         ItemStack current = entityplayer.inventory.getCurrentItem();
 
         if (current != null) {
@@ -233,13 +249,19 @@ public class BlockMachineBase extends BlockContainer {
 
                         if (qty != 0 && !entityplayer.capabilities.isCreativeMode) {
                             if (current.stackSize > 1) {
-                                if (!entityplayer.inventory.addItemStackToInventory(FluidContainerRegistry.drainFluidContainer(current))) {
-                                    entityplayer.dropPlayerItemWithRandomChoice(FluidContainerRegistry.drainFluidContainer(current), false);
+                                if (!entityplayer.inventory
+                                    .addItemStackToInventory(FluidContainerRegistry.drainFluidContainer(current))) {
+                                    entityplayer.dropPlayerItemWithRandomChoice(
+                                        FluidContainerRegistry.drainFluidContainer(current),
+                                        false);
                                 }
 
-                                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
+                                entityplayer.inventory
+                                    .setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
                             } else {
-                                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, FluidContainerRegistry.drainFluidContainer(current));
+                                entityplayer.inventory.setInventorySlotContents(
+                                    entityplayer.inventory.currentItem,
+                                    FluidContainerRegistry.drainFluidContainer(current));
                             }
                         }
 
@@ -260,11 +282,16 @@ public class BlockMachineBase extends BlockContainer {
                                         if (!entityplayer.inventory.addItemStackToInventory(filled)) {
                                             return false;
                                         } else {
-                                            entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
+                                            entityplayer.inventory.setInventorySlotContents(
+                                                entityplayer.inventory.currentItem,
+                                                consumeItem(current));
                                         }
                                     } else {
-                                        entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
-                                        entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, filled);
+                                        entityplayer.inventory.setInventorySlotContents(
+                                            entityplayer.inventory.currentItem,
+                                            consumeItem(current));
+                                        entityplayer.inventory
+                                            .setInventorySlotContents(entityplayer.inventory.currentItem, filled);
                                     }
                                 }
 
@@ -308,8 +335,10 @@ public class BlockMachineBase extends BlockContainer {
 
     public static ItemStack consumeItem(ItemStack stack) {
         if (stack.stackSize == 1) {
-            if (stack.getItem().hasContainerItem(stack)) {
-                return stack.getItem().getContainerItem(stack);
+            if (stack.getItem()
+                .hasContainerItem(stack)) {
+                return stack.getItem()
+                    .getContainerItem(stack);
             } else {
                 return null;
             }

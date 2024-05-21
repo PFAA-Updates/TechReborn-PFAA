@@ -1,15 +1,15 @@
 package techreborn.tiles.lesu;
 
-
 import java.util.ArrayList;
 
 import net.minecraftforge.common.util.ForgeDirection;
+
 import reborncore.common.misc.Functions;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileLesu extends TilePowerAcceptor {//TODO wrench
+public class TileLesu extends TilePowerAcceptor {// TODO wrench
 
     private ArrayList<LesuNetwork> countedNetworks = new ArrayList<LesuNetwork>();
     public int connectedBlocks = 0;
@@ -35,9 +35,14 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
         countedNetworks.clear();
         connectedBlocks = 0;
         for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS) {
-            if (worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ) instanceof TileLesuStorage) {
-                if (((TileLesuStorage) worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ)).network != null) {
-                    LesuNetwork network = ((TileLesuStorage) worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ)).network;
+            if (worldObj.getTileEntity(
+                xCoord + dir.offsetX,
+                yCoord + dir.offsetY,
+                zCoord + dir.offsetZ) instanceof TileLesuStorage) {
+                if (((TileLesuStorage) worldObj
+                    .getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ)).network != null) {
+                    LesuNetwork network = ((TileLesuStorage) worldObj
+                        .getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ)).network;
                     if (!countedNetworks.contains(network)) {
                         if (network.master == null || network.master == this) {
                             connectedBlocks += network.storages.size();
@@ -68,7 +73,6 @@ public class TileLesu extends TilePowerAcceptor {//TODO wrench
 
         euLastTick = getEnergy();
     }
-
 
     public double getEuChange() {
         if (euChange == -1) {

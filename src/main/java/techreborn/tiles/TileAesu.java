@@ -1,10 +1,11 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.common.misc.Functions;
 import reborncore.common.util.Inventory;
 import techreborn.config.ConfigTechReborn;
@@ -16,7 +17,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
     public static final int MAX_OUTPUT = ConfigTechReborn.aesuMaxOutput;
     public static final int MAX_STORAGE = ConfigTechReborn.aesuMaxStorage;
     public Inventory inventory = new Inventory(2, "TileAesu", 64);
-    private int OUTPUT = 64; //The current output
+    private int OUTPUT = 64; // The current output
     private double euLastTick = 0;
     private double euChange;
     private int ticks;
@@ -121,7 +122,7 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
     }
 
     @Override
-	public void writeToNBT(NBTTagCompound tagCompound) {
+    public void writeToNBT(NBTTagCompound tagCompound) {
         super.writeToNBT(tagCompound);
         tagCompound.setDouble("euChange", euChange);
         tagCompound.setDouble("euLastTick", euLastTick);
@@ -130,14 +131,13 @@ public class TileAesu extends TilePowerAcceptor implements IWrenchable {
     }
 
     @Override
-	public void readFromNBT(NBTTagCompound nbttagcompound) {
+    public void readFromNBT(NBTTagCompound nbttagcompound) {
         super.readFromNBT(nbttagcompound);
         this.euChange = nbttagcompound.getDouble("euChange");
         this.euLastTick = nbttagcompound.getDouble("euLastTick");
         this.OUTPUT = nbttagcompound.getInteger("output");
         inventory.readFromNBT(nbttagcompound);
     }
-
 
     @Override
     public double getMaxPower() {

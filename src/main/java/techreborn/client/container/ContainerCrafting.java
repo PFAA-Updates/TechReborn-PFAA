@@ -1,8 +1,9 @@
 package techreborn.client.container;
 
+import net.minecraft.inventory.ICrafting;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.inventory.ICrafting;
 import reborncore.common.container.RebornContainer;
 import techreborn.api.recipe.RecipeCrafter;
 
@@ -48,7 +49,7 @@ public abstract class ContainerCrafting extends RebornContainer {
     public void updateProgressBar(int id, int value) {
         if (id == 0) {
             this.currentTickTime = value;
-            if(this.currentTickTime == -1){
+            if (this.currentTickTime == -1) {
                 this.currentTickTime = 0;
             }
         } else if (id == 1) {

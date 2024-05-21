@@ -3,8 +3,6 @@ package techreborn.blocks;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,6 +13,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import reborncore.client.texture.ConnectedTexture;
 import reborncore.common.multiblock.BlockMultiblockBase;
 import techreborn.client.TechRebornCreativeTab;
@@ -25,8 +26,7 @@ import techreborn.tiles.TileMachineCasing;
 
 public class BlockMachineCasing extends BlockMultiblockBase {
 
-    public static final String[] types = new String[]
-            {"standard", "reinforced", "advanced"};
+    public static final String[] types = new String[] { "standard", "reinforced", "advanced" };
     public IIcon[][] icons;
 
     public BlockMachineCasing(Material material) {
@@ -74,30 +74,45 @@ public class BlockMachineCasing extends BlockMultiblockBase {
         if (!ConfigTechReborn.useConnectedTextures) {
             for (int i = 0; i < types.length; i++) {
                 for (int j = 0; j < 16; j++) {
-                    icons[i][j] = iconRegister.registerIcon("techreborn:" + "machine/casing"
-                            + types[i] + "_full");
+                    icons[i][j] = iconRegister.registerIcon("techreborn:" + "machine/casing" + types[i] + "_full");
                 }
             }
             return;
         }
         for (int i = 0; i < types.length; i++) {
-            //  up   down  left  right
-            icons[i][0] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, true, true), iconRegister, 0, i, types);
-            icons[i][1] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, true, true), iconRegister, 1, i, types);
-            icons[i][2] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, true, true), iconRegister, 2, i, types);
-            icons[i][3] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, true, false), iconRegister, 3, i, types);
-            icons[i][4] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, false, true), iconRegister, 4, i, types);
-            icons[i][5] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, true, false, false), iconRegister, 5, i, types);
-            icons[i][6] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, true, true), iconRegister, 6, i, types);
-            icons[i][7] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, false, true), iconRegister, 7, i, types);
-            icons[i][8] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, true, false), iconRegister, 8, i, types);
-            icons[i][9] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, false, true), iconRegister, 9, i, types);
-            icons[i][10] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, true, false), iconRegister, 10, i, types);
-            icons[i][11] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, true, false, false), iconRegister, 11, i, types);
-            icons[i][12] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(true, false, false, false), iconRegister, 12, i, types);
-            icons[i][13] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, false, true), iconRegister, 13, i, types);
-            icons[i][14] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, true, false), iconRegister, 14, i, types);
-            icons[i][15] = CasingConnectedTextureGenerator.genIcon(new ConnectedTexture(false, false, false, false), iconRegister, 15, i, types);
+            // up down left right
+            icons[i][0] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(true, true, true, true), iconRegister, 0, i, types);
+            icons[i][1] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(true, false, true, true), iconRegister, 1, i, types);
+            icons[i][2] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(false, true, true, true), iconRegister, 2, i, types);
+            icons[i][3] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(true, true, true, false), iconRegister, 3, i, types);
+            icons[i][4] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(true, true, false, true), iconRegister, 4, i, types);
+            icons[i][5] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(true, true, false, false), iconRegister, 5, i, types);
+            icons[i][6] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(false, false, true, true), iconRegister, 6, i, types);
+            icons[i][7] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(false, true, false, true), iconRegister, 7, i, types);
+            icons[i][8] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(false, true, true, false), iconRegister, 8, i, types);
+            icons[i][9] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(true, false, false, true), iconRegister, 9, i, types);
+            icons[i][10] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(true, false, true, false), iconRegister, 10, i, types);
+            icons[i][11] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(false, true, false, false), iconRegister, 11, i, types);
+            icons[i][12] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(true, false, false, false), iconRegister, 12, i, types);
+            icons[i][13] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(false, false, false, true), iconRegister, 13, i, types);
+            icons[i][14] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(false, false, true, false), iconRegister, 14, i, types);
+            icons[i][15] = CasingConnectedTextureGenerator
+                .genIcon(new ConnectedTexture(false, false, false, false), iconRegister, 15, i, types);
         }
 
     }
@@ -120,26 +135,52 @@ public class BlockMachineCasing extends BlockMultiblockBase {
     }
 
     /**
-     * This is taken from https://github.com/SlimeKnights/TinkersConstruct/blob/a7405a3d10318bb5c486ec75fb62897a8149d1a6/src/main/java/tconstruct/smeltery/blocks/GlassBlockConnected.java
+     * This is taken from
+     * https://github.com/SlimeKnights/TinkersConstruct/blob/a7405a3d10318bb5c486ec75fb62897a8149d1a6/src/main/java/tconstruct/smeltery/blocks/GlassBlockConnected.java
      */
-    public IIcon getConnectedBlockTexture(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, IIcon[] icons) {
+    public IIcon getConnectedBlockTexture(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5,
+        IIcon[] icons) {
         boolean isOpenUp = false, isOpenDown = false, isOpenLeft = false, isOpenRight = false;
 
         switch (par5) {
             case 0:
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2 - 1, par3, par4),
+                    par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4))) {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2 + 1, par3, par4),
+                    par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4))) {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3, par4 - 1),
+                    par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1))) {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3, par4 + 1),
+                    par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1))) {
                     isOpenRight = true;
                 }
 
@@ -176,19 +217,43 @@ public class BlockMachineCasing extends BlockMultiblockBase {
                 }
                 break;
             case 1:
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2 - 1, par3, par4),
+                    par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4))) {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2 + 1, par3, par4),
+                    par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4))) {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3, par4 - 1),
+                    par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1))) {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3, par4 + 1),
+                    par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1))) {
                     isOpenRight = true;
                 }
 
@@ -225,19 +290,43 @@ public class BlockMachineCasing extends BlockMultiblockBase {
                 }
                 break;
             case 2:
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3 - 1, par4),
+                    par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4))) {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3 + 1, par4),
+                    par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4))) {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2 - 1, par3, par4),
+                    par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4))) {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2 + 1, par3, par4),
+                    par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4))) {
                     isOpenRight = true;
                 }
 
@@ -274,19 +363,43 @@ public class BlockMachineCasing extends BlockMultiblockBase {
                 }
                 break;
             case 3:
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3 - 1, par4),
+                    par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4))) {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3 + 1, par4),
+                    par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4))) {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2 - 1, par3, par4),
+                    par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4))) {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2 + 1, par3, par4),
+                    par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4))) {
                     isOpenRight = true;
                 }
 
@@ -323,19 +436,43 @@ public class BlockMachineCasing extends BlockMultiblockBase {
                 }
                 break;
             case 4:
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3 - 1, par4),
+                    par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4))) {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3 + 1, par4),
+                    par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4))) {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3, par4 - 1),
+                    par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1))) {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3, par4 + 1),
+                    par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1))) {
                     isOpenRight = true;
                 }
 
@@ -372,19 +509,43 @@ public class BlockMachineCasing extends BlockMultiblockBase {
                 }
                 break;
             case 5:
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3 - 1, par4),
+                    par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4))) {
                     isOpenDown = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3 + 1, par4),
+                    par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4))) {
                     isOpenUp = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3, par4 - 1),
+                    par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1))) {
                     isOpenLeft = true;
                 }
 
-                if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1))) {
+                if (shouldConnectToBlock(
+                    par1IBlockAccess,
+                    par2,
+                    par3,
+                    par4,
+                    par1IBlockAccess.getBlock(par2, par3, par4 + 1),
+                    par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1))) {
                     isOpenRight = true;
                 }
 

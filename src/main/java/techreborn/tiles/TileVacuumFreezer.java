@@ -1,11 +1,12 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.Inventory;
 import techreborn.api.recipe.RecipeCrafter;
 import techreborn.init.ModBlocks;
@@ -21,7 +22,7 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 
     public TileVacuumFreezer() {
         super(2);
-        //Input slots
+        // Input slots
         int[] inputs = new int[1];
         inputs[0] = 0;
         int[] outputs = new int[1];
@@ -75,8 +76,7 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -113,7 +113,6 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
         inventory.writeToNBT(tagCompound);
         crafter.writeToNBT(tagCompound);
     }
-
 
     @Override
     public int getSizeInventory() {
@@ -190,10 +189,13 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
             for (int j = -1; j < 2; j++) {
                 for (int k = -1; k < 2; k++) {
                     if ((i != 0) || (j != 0) || (k != 0)) {
-                        if (worldObj.getBlock(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k) != ModBlocks.MachineCasing) {
+                        if (worldObj.getBlock(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k)
+                            != ModBlocks.MachineCasing) {
                             return false;
                         }
-                        if (worldObj.getBlockMetadata(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k) != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0)) || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
+                        if (worldObj.getBlockMetadata(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k)
+                            != (((i == 0) && (j == 0) && (k != 0)) || ((i == 0) && (j != 0) && (k == 0))
+                                || ((i != 0) && (j == 0) && (k == 0)) ? 2 : 1)) {
                             return false;
                         }
                     } else if (!worldObj.isAirBlock(xCoord - xDir + i, yCoord - yDir + j, zCoord - zDir + k)) {

@@ -1,7 +1,5 @@
 package techreborn.client.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -9,6 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
 import reborncore.client.gui.GuiUtil;
 import reborncore.client.multiblock.MultiblockRenderEvent;
 import reborncore.client.multiblock.MultiblockSet;
@@ -20,7 +21,9 @@ import techreborn.tiles.TileVacuumFreezer;
 
 public class GuiVacuumFreezer extends GuiContainer {
 
-    private static final ResourceLocation texture = new ResourceLocation("techreborn", "textures/gui/vacuum_freezer.png");
+    private static final ResourceLocation texture = new ResourceLocation(
+        "techreborn",
+        "textures/gui/vacuum_freezer.png");
 
     TileVacuumFreezer crafter;
     ContainerVacuumFreezer containerVacuumFreezer;
@@ -41,7 +44,7 @@ public class GuiVacuumFreezer extends GuiContainer {
         buttonList.add(button);
         super.initGui();
         ChunkCoordinates coordinates = new ChunkCoordinates(crafter.xCoord, crafter.yCoord - 5, crafter.zCoord);
-        if(coordinates.equals(MultiblockRenderEvent.anchor)){
+        if (coordinates.equals(MultiblockRenderEvent.anchor)) {
             ClientProxy.multiblockRenderEvent.setMultiblock(null);
             button.displayString = "B";
         } else {
@@ -52,7 +55,8 @@ public class GuiVacuumFreezer extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(texture);
+        this.mc.getTextureManager()
+            .bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
@@ -71,27 +75,40 @@ public class GuiVacuumFreezer extends GuiContainer {
 
         if (containerVacuumFreezer.machineStatus == 0) {
             GuiUtil.drawTooltipBox(k + 30, l + 50 + 12 - 0, 114, 10);
-            this.fontRendererObj.drawString(StatCollector.translateToLocal("techreborn.message.missingmultiblock"), k + 38, l + 52 + 12 - 0, -1);
+            this.fontRendererObj.drawString(
+                StatCollector.translateToLocal("techreborn.message.missingmultiblock"),
+                k + 38,
+                l + 52 + 12 - 0,
+                -1);
         }
     }
 
     @Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String name = StatCollector.translateToLocal("tile.techreborn.vacuumfreezer.name");
-        this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
-        this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj
+            .drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
+        this.fontRendererObj
+            .drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
     }
 
     @Override
     public void actionPerformed(GuiButton button) {
         super.actionPerformed(button);
-        if(button.id == 212){
-            if(ClientProxy.multiblockRenderEvent.currentMultiblock == null){
-                {//This code here makes a basic multiblock and then sets to the selected one.
+        if (button.id == 212) {
+            if (ClientProxy.multiblockRenderEvent.currentMultiblock == null) {
+                {// This code here makes a basic multiblock and then sets to the selected one.
                     MultiblockSet set = new MultiblockSet(ClientMultiBlocks.frezzer);
                     ClientProxy.multiblockRenderEvent.setMultiblock(set);
-                    ClientProxy.multiblockRenderEvent.partent = new Location(crafter.xCoord, crafter.yCoord, crafter.zCoord, crafter.getWorldObj());
-                    MultiblockRenderEvent.anchor = new ChunkCoordinates(crafter.xCoord , crafter.yCoord -5 , crafter.zCoord);
+                    ClientProxy.multiblockRenderEvent.partent = new Location(
+                        crafter.xCoord,
+                        crafter.yCoord,
+                        crafter.zCoord,
+                        crafter.getWorldObj());
+                    MultiblockRenderEvent.anchor = new ChunkCoordinates(
+                        crafter.xCoord,
+                        crafter.yCoord - 5,
+                        crafter.zCoord);
                 }
                 button.displayString = "A";
             } else {

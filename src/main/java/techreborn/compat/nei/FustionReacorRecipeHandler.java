@@ -9,20 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.item.ItemStack;
+
 import org.lwjgl.opengl.GL11;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.item.ItemStack;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.reactor.FusionReactorRecipe;
 import techreborn.api.reactor.FusionReactorRecipeHelper;
 import techreborn.client.gui.GuiFusionReactor;
 
-public class FustionReacorRecipeHandler  extends TemplateRecipeHandler {
-
+public class FustionReacorRecipeHandler extends TemplateRecipeHandler {
 
     public class CachedReactorRecipe extends CachedRecipe {
 
@@ -52,7 +52,6 @@ public class FustionReacorRecipeHandler  extends TemplateRecipeHandler {
         }
     }
 
-
     @Override
     public void drawBackground(int recipeIndex) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -70,7 +69,7 @@ public class FustionReacorRecipeHandler  extends TemplateRecipeHandler {
             symbols.setGroupingSeparator('.');
             formatter.setDecimalFormatSymbols(symbols);
             GuiDraw.drawString("Start: " + formatter.format(genericRecipe.recipe.getStartEU()) + "EU", 16, 105, -1);
-            GuiDraw.drawString("EU/t: " + genericRecipe.recipe.getEuTick() , 16, 115, -1);
+            GuiDraw.drawString("EU/t: " + genericRecipe.recipe.getEuTick(), 16, 115, -1);
             GuiDraw.drawString("Ticks to process: " + genericRecipe.recipe.getTickTime(), 14, 125, -1);
             GuiDraw.drawString("Time to process: " + genericRecipe.recipe.getTickTime() / 20 + " seconds", 14, 135, -1);
         }
@@ -82,9 +81,8 @@ public class FustionReacorRecipeHandler  extends TemplateRecipeHandler {
         return 1;
     }
 
-
     @Override
-	public void loadCraftingRecipes(String outputId, Object... results) {
+    public void loadCraftingRecipes(String outputId, Object... results) {
         if (outputId.equals(getRecipeName())) {
             for (FusionReactorRecipe recipeType : FusionReactorRecipeHelper.reactorRecipes) {
                 addCached(recipeType);
@@ -120,22 +118,29 @@ public class FustionReacorRecipeHandler  extends TemplateRecipeHandler {
         this.arecipes.add(new CachedReactorRecipe(recipie));
     }
 
-
-    public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, FusionReactorRecipe recipeType) {
+    public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs,
+        FusionReactorRecipe recipeType) {
         int offset = 4;
 
-        PositionedStack pStack = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getTopInput()), 88 - offset, 17 - offset, false);
+        PositionedStack pStack = new PositionedStack(
+            ItemUtils.getStackWithAllOre(recipeType.getTopInput()),
+            88 - offset,
+            17 - offset,
+            false);
         input.add(pStack);
 
-        if(recipeType.getBottomInput() != null){
-            PositionedStack pStack2 = new PositionedStack(ItemUtils.getStackWithAllOre(recipeType.getBottomInput()), 88 - offset, 53 - offset, false);
+        if (recipeType.getBottomInput() != null) {
+            PositionedStack pStack2 = new PositionedStack(
+                ItemUtils.getStackWithAllOre(recipeType.getBottomInput()),
+                88 - offset,
+                53 - offset,
+                false);
             input.add(pStack2);
         }
 
         PositionedStack pStack3 = new PositionedStack(recipeType.getOutput(), 148 - offset, 35 - offset, false);
         outputs.add(pStack3);
     }
-
 
     @Override
     public String getRecipeName() {
@@ -154,8 +159,11 @@ public class FustionReacorRecipeHandler  extends TemplateRecipeHandler {
 
     @Override
     public void loadTransferRects() {
-        this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
-                new Rectangle(82, 23, 52, 18), getRecipeName(), new Object[0]));
+        this.transferRects.add(
+            new TemplateRecipeHandler.RecipeTransferRect(
+                new Rectangle(82, 23, 52, 18),
+                getRecipeName(),
+                new Object[0]));
     }
 
 }

@@ -1,5 +1,6 @@
 /*
- * This file was made by modmuss50. View the licence file to see what licence this is is on. You can always ask me if you would like to use part or all of this file in your project.
+ * This file was made by modmuss50. View the licence file to see what licence this is is on. You can always ask me if
+ * you would like to use part or all of this file in your project.
  */
 
 package techreborn.partSystem.parts;
@@ -10,6 +11,7 @@ import java.util.List;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
 import reborncore.common.misc.vecmath.Vecs3d;
 import reborncore.common.misc.vecmath.Vecs3dCube;
 import techreborn.partSystem.IModPart;
@@ -19,6 +21,7 @@ import techreborn.partSystem.ModPart;
  * Created by mark on 11/12/14.
  */
 public class NullPart extends ModPart {
+
     @Override
     public void addCollisionBoxesToList(List<Vecs3dCube> boxes, Entity entity) {
         boxes.add(new Vecs3dCube(0, 0, 0, 1, 1, 1));

@@ -1,8 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -10,18 +7,21 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItem;
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.RollingMachineRecipe;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-//TODO add tick and power bars.
+// TODO add tick and power bars.
 public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable, IInventory {
 
     public Inventory inventory = new Inventory(3, "TileRollingMachine", 64);
-    public final InventoryCrafting craftMatrix = new InventoryCrafting(
-            new RollingTileContainer(), 3, 3);
+    public final InventoryCrafting craftMatrix = new InventoryCrafting(new RollingTileContainer(), 3, 3);
 
     public boolean isRunning;
     public int tickTime;
@@ -88,25 +88,21 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
         super.updateEntity();
         charge(2);
         if (!worldObj.isRemote) {
-            currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(
-                    craftMatrix, worldObj);
+            currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, worldObj);
             if (currentRecipe != null && canMake()) {
                 if (tickTime >= runTime) {
                     currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, worldObj);
                     if (currentRecipe != null) {
                         boolean hasCrafted = false;
                         if (inventory.getStackInSlot(0) == null) {
-                            inventory
-                                    .setInventorySlotContents(0, currentRecipe);
+                            inventory.setInventorySlotContents(0, currentRecipe);
                             tickTime = -1;
                             hasCrafted = true;
                         } else {
-                            if (inventory.getStackInSlot(0).stackSize
-                                    + currentRecipe.stackSize <= currentRecipe
-                                    .getMaxStackSize()) {
+                            if (inventory.getStackInSlot(0).stackSize + currentRecipe.stackSize
+                                <= currentRecipe.getMaxStackSize()) {
                                 ItemStack stack = inventory.getStackInSlot(0);
-                                stack.stackSize = stack.stackSize
-                                        + currentRecipe.stackSize;
+                                stack.stackSize = stack.stackSize + currentRecipe.stackSize;
                                 inventory.setInventorySlotContents(0, stack);
                                 tickTime = -1;
                                 hasCrafted = true;
@@ -131,8 +127,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
                 tickTime = -1;
             }
         } else {
-            currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(
-                    craftMatrix, worldObj);
+            currentRecipe = RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, worldObj);
             if (currentRecipe != null) {
                 inventory.setInventorySlotContents(1, currentRecipe);
             } else {
@@ -142,8 +137,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
     }
 
     public boolean canMake() {
-        if (RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix,
-                worldObj) == null) {
+        if (RollingMachineRecipe.instance.findMatchingRecipe(craftMatrix, worldObj) == null) {
             return false;
         }
         return true;
@@ -160,8 +154,7 @@ public class TileRollingMachine extends TilePowerAcceptor implements IWrenchable
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {

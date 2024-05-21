@@ -8,9 +8,7 @@ import techreborn.tiles.TileAesu;
 
 public class PacketAesu extends SimplePacket {
 
-
-    public PacketAesu() {
-    }
+    public PacketAesu() {}
 
     int buttonID;
 

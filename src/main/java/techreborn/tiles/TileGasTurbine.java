@@ -3,7 +3,6 @@ package techreborn.tiles;
 import java.util.HashMap;
 import java.util.Map;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -18,6 +17,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
 import reborncore.common.util.Tank;
@@ -25,24 +26,23 @@ import techreborn.config.ConfigTechReborn;
 import techreborn.init.ModBlocks;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
-        IFluidHandler, IInventory {
+public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory {
 
-    public Tank tank = new Tank("TileGasTurbine",
-            FluidContainerRegistry.BUCKET_VOLUME * 10, this);
+    public Tank tank = new Tank("TileGasTurbine", FluidContainerRegistry.BUCKET_VOLUME * 10, this);
     public Inventory inventory = new Inventory(3, "TileGasTurbine", 64);
 
-    //TODO: run this off config
+    // TODO: run this off config
     public static final int euTick = 16;
 
     Map<String, Integer> fluids = new HashMap<String, Integer>();
 
-    //We use this to keep track of fractional millibuckets, allowing us to hit our eu/bucket targets while still only ever removing integer millibucket amounts.
+    // We use this to keep track of fractional millibuckets, allowing us to hit our eu/bucket targets while still only
+    // ever removing integer millibucket amounts.
     double pendingWithdraw = 0.0;
 
     public TileGasTurbine() {
         super(ConfigTechReborn.ThermalGeneratorTier);
-        //TODO: fix this to have Gas Turbine generator values
+        // TODO: fix this to have Gas Turbine generator values
 
         fluids.put("fluidhydrogen", 15000);
         fluids.put("fluidmethane", 45000);
@@ -59,8 +59,7 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -88,8 +87,7 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-    public FluidStack drain(ForgeDirection from, FluidStack resource,
-                            boolean doDrain) {
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
         FluidStack drain = tank.drain(resource.amount, doDrain);
         tank.compareAndUpdate();
         return drain;
@@ -112,12 +110,13 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
 
     @Override
     public boolean canDrain(ForgeDirection from, Fluid fluid) {
-        return tank.getFluid() == null || tank.getFluid().getFluid() == fluid;
+        return tank.getFluid() == null || tank.getFluid()
+            .getFluid() == fluid;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[]{tank.getInfo()};
+        return new FluidTankInfo[] { tank.getInfo() };
     }
 
     @Override
@@ -135,18 +134,15 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
     }
 
     @Override
-	public Packet getDescriptionPacket() {
+    public Packet getDescriptionPacket() {
         NBTTagCompound nbtTag = new NBTTagCompound();
         writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord,
-                this.zCoord, 1, nbtTag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net,
-                             S35PacketUpdateTileEntity packet) {
-        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord,
-                yCoord, zCoord);
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
     }
 
@@ -158,23 +154,27 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
             tank.compareAndUpdate();
         }
 
-        if (tank.getFluidAmount() > 0
-                && getMaxPower() - getEnergy() >= euTick) {
-            Integer euPerBucket = fluids.get(tank.getFluidType().getName());
-            //float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8 eu per tick
-            //float millibucketsPerTick = 1000f / totalTicks;
+        if (tank.getFluidAmount() > 0 && getMaxPower() - getEnergy() >= euTick) {
+            Integer euPerBucket = fluids.get(
+                tank.getFluidType()
+                    .getName());
+            // float totalTicks = (float)euPerBucket / 8f; //x eu per bucket / 8 eu per tick
+            // float millibucketsPerTick = 1000f / totalTicks;
             float millibucketsPerTick = 16000f / (float) euPerBucket;
             pendingWithdraw += millibucketsPerTick;
 
-            int currentWithdraw = (int) pendingWithdraw; //float --> int conversion floors the float
+            int currentWithdraw = (int) pendingWithdraw; // float --> int conversion floors the float
             pendingWithdraw -= currentWithdraw;
 
             tank.drain(currentWithdraw, true);
             addEnergy(euTick);
         }
         if (tank.getFluidType() != null && getStackInSlot(2) == null) {
-            inventory.setInventorySlotContents(2, new ItemStack(tank
-                    .getFluidType().getBlock()));
+            inventory.setInventorySlotContents(
+                2,
+                new ItemStack(
+                    tank.getFluidType()
+                        .getBlock()));
         } else if (tank.getFluidType() == null && getStackInSlot(2) != null) {
             setInventorySlotContents(2, null);
         }
@@ -239,7 +239,6 @@ public class TileGasTurbine extends TilePowerAcceptor implements IWrenchable,
     public boolean isItemValidForSlot(int index, ItemStack stack) {
         return inventory.isItemValidForSlot(index, stack);
     }
-
 
     @Override
     public double getMaxPower() {

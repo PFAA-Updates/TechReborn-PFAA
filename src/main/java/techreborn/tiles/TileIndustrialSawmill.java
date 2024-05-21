@@ -1,6 +1,5 @@
 package techreborn.tiles;
 
-import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -13,6 +12,8 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+
+import ic2.api.tile.IWrenchable;
 import reborncore.api.IListInfoProvider;
 import reborncore.common.util.FluidUtils;
 import reborncore.common.util.Inventory;
@@ -24,7 +25,8 @@ import techreborn.init.ModFluids;
 import techreborn.lib.Reference;
 import techreborn.powerSystem.TilePowerAcceptor;
 
-public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrenchable, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider {
+public class TileIndustrialSawmill extends TilePowerAcceptor
+    implements IWrenchable, IFluidHandler, IInventory, ISidedInventory, IListInfoProvider {
 
     public int tickTime;
     public Inventory inventory = new Inventory(5, "TileIndustrialSawmill", 64);
@@ -33,8 +35,8 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
     public TileIndustrialSawmill() {
         super(2);
-        //TODO configs
-        //Input slots
+        // TODO configs
+        // Input slots
         int[] inputs = new int[2];
         inputs[0] = 0;
         inputs[1] = 1;
@@ -57,7 +59,8 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
     public boolean getMutliBlock() {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-            TileEntity tileEntity = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            TileEntity tileEntity = worldObj
+                .getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (tileEntity instanceof TileMachineCasing) {
                 if ((tileEntity.getBlockType() instanceof BlockMachineCasing)) {
                     return true;
@@ -66,7 +69,6 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
         }
         return false;
     }
-
 
     @Override
     public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
@@ -79,8 +81,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     }
 
     @Override
-    public void setFacing(short facing) {
-    }
+    public void setFacing(short facing) {}
 
     @Override
     public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
@@ -123,7 +124,8 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     /* IFluidHandler */
     @Override
     public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
-        if (resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury || resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
+        if (resource.getFluid() == FluidRegistry.WATER || resource.getFluid() == ModFluids.fluidMercury
+            || resource.getFluid() == ModFluids.fluidSodiumpersulfate) {
             int filled = tank.fill(resource, doFill);
             tank.compareAndUpdate();
             return filled;
@@ -163,7 +165,7 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
 
     @Override
     public FluidTankInfo[] getTankInfo(ForgeDirection from) {
-        return new FluidTankInfo[]{tank.getInfo()};
+        return new FluidTankInfo[] { tank.getInfo() };
     }
 
     @Override
@@ -229,13 +231,12 @@ public class TileIndustrialSawmill extends TilePowerAcceptor implements IWrencha
     // ISidedInventory
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        return side == ForgeDirection.DOWN.ordinal() ? new int[]{0, 1, 2, 3, 4} : new int[]{0, 1, 2, 3, 4};
+        return side == ForgeDirection.DOWN.ordinal() ? new int[] { 0, 1, 2, 3, 4 } : new int[] { 0, 1, 2, 3, 4 };
     }
 
     @Override
     public boolean canInsertItem(int slotIndex, ItemStack itemStack, int side) {
-        if (slotIndex >= 2)
-            return false;
+        if (slotIndex >= 2) return false;
         return isItemValidForSlot(slotIndex, itemStack);
     }
 

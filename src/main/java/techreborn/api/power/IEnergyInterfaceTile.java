@@ -40,7 +40,7 @@ public interface IEnergyInterfaceTile {
     /**
      * Will try add add the full amount of energy, if simulate is true it wont add the energy
      *
-     * @param energy amount to add
+     * @param energy   amount to add
      * @param simulate set to true to simulate not perform the action.
      * @return The amount of energy that was added.
      */
@@ -62,11 +62,10 @@ public interface IEnergyInterfaceTile {
      */
     public double useEnergy(double energy);
 
-
     /**
      * Will try and use the full amount of energy, if simulate is true it wont add the energy
      *
-     * @param energy energy to use
+     * @param energy   energy to use
      * @param simulate set to true to simulate not perform the action.
      * @return the amount of energy used
      */

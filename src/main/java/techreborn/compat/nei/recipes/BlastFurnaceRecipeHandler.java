@@ -3,10 +3,11 @@ package techreborn.compat.nei.recipes;
 import java.awt.Rectangle;
 import java.util.List;
 
+import net.minecraft.client.gui.inventory.GuiContainer;
+
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.TemplateRecipeHandler;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import reborncore.common.util.ItemUtils;
 import techreborn.api.recipe.IBaseRecipeType;
 import techreborn.api.recipe.machines.BlastFurnaceRecipe;
@@ -14,17 +15,29 @@ import techreborn.client.gui.GuiBlastFurnace;
 import techreborn.lib.Reference;
 
 public class BlastFurnaceRecipeHandler extends GenericRecipeHander implements INeiBaseRecipe {
+
     @Override
-    public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs, IBaseRecipeType recipeType) {
+    public void addPositionedStacks(List<PositionedStack> input, List<PositionedStack> outputs,
+        IBaseRecipeType recipeType) {
         int offset = 4;
-        if (recipeType.getInputs().size() > 0) {
-    		Object iStack = recipeType.useOreDic() ? ItemUtils.getStackWithAllOre(recipeType.getInputs().get(0)) : recipeType.getInputs().get(0);
+        if (recipeType.getInputs()
+            .size() > 0) {
+            Object iStack = recipeType.useOreDic() ? ItemUtils.getStackWithAllOre(
+                recipeType.getInputs()
+                    .get(0))
+                : recipeType.getInputs()
+                    .get(0);
             PositionedStack pStack = new PositionedStack(iStack, 40 - offset, 25 - offset, false);
             input.add(pStack);
         }
 
-        if (recipeType.getInputs().size() > 1) {
-    		Object iStack = recipeType.useOreDic() ? ItemUtils.getStackWithAllOre(recipeType.getInputs().get(1)) : recipeType.getInputs().get(1);
+        if (recipeType.getInputs()
+            .size() > 1) {
+            Object iStack = recipeType.useOreDic() ? ItemUtils.getStackWithAllOre(
+                recipeType.getInputs()
+                    .get(1))
+                : recipeType.getInputs()
+                    .get(1);
             PositionedStack pStack2 = new PositionedStack(iStack, 40 - offset, 43 - offset, false);
             input.add(pStack2);
         }
@@ -62,8 +75,11 @@ public class BlastFurnaceRecipeHandler extends GenericRecipeHander implements IN
 
     @Override
     public void loadTransferRects() {
-        this.transferRects.add(new TemplateRecipeHandler.RecipeTransferRect(
-                new Rectangle(55, 20, 25, 20), getNeiBaseRecipe().getRecipeName(), new Object[0]));
+        this.transferRects.add(
+            new TemplateRecipeHandler.RecipeTransferRect(
+                new Rectangle(55, 20, 25, 20),
+                getNeiBaseRecipe().getRecipeName(),
+                new Object[0]));
     }
 
     @Override

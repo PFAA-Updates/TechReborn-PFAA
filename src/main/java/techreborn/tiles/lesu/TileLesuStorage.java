@@ -2,6 +2,7 @@ package techreborn.tiles.lesu;
 
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import techreborn.tiles.TileMachineBase;
 
 public class TileLesuStorage extends TileMachineBase {
@@ -14,7 +15,8 @@ public class TileLesuStorage extends TileMachineBase {
         if (network == null) {
             findAndJoinNetwork(worldObj, xCoord, yCoord, zCoord);
         } else {
-            if (network.master != null && network.master.getWorldObj().getTileEntity(network.master.xCoord, network.master.yCoord, network.master.zCoord) != network.master) {
+            if (network.master != null && network.master.getWorldObj()
+                .getTileEntity(network.master.xCoord, network.master.yCoord, network.master.zCoord) != network.master) {
                 network.master = null;
             }
         }
@@ -24,8 +26,12 @@ public class TileLesuStorage extends TileMachineBase {
         network = new LesuNetwork();
         network.addElement(this);
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-            if (world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ) instanceof TileLesuStorage) {
-                TileLesuStorage lesu = (TileLesuStorage) world.getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
+            if (world.getTileEntity(
+                x + direction.offsetX,
+                y + direction.offsetY,
+                z + direction.offsetZ) instanceof TileLesuStorage) {
+                TileLesuStorage lesu = (TileLesuStorage) world
+                    .getTileEntity(x + direction.offsetX, y + direction.offsetY, z + direction.offsetZ);
                 if (lesu.network != null) {
                     lesu.network.merge(network);
                 }
@@ -34,8 +40,7 @@ public class TileLesuStorage extends TileMachineBase {
     }
 
     public final void setNetwork(LesuNetwork n) {
-        if (n == null) {
-        } else {
+        if (n == null) {} else {
             network = n;
             network.addElement(this);
         }
@@ -46,9 +51,7 @@ public class TileLesuStorage extends TileMachineBase {
     }
 
     public final void removeFromNetwork() {
-        if (network == null) {
-        } else
-            network.removeElement(this);
+        if (network == null) {} else network.removeElement(this);
     }
 
     public final void rebuildNetwork() {

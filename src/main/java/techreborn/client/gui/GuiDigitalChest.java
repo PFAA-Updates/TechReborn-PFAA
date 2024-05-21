@@ -1,19 +1,21 @@
 package techreborn.client.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
 import techreborn.client.container.ContainerDigitalChest;
 import techreborn.tiles.TileDigitalChest;
 
 public class GuiDigitalChest extends GuiContainer {
 
     private static final ResourceLocation texture = new ResourceLocation(
-            "techreborn", "textures/gui/thermal_generator.png");
+        "techreborn",
+        "textures/gui/thermal_generator.png");
 
     TileDigitalChest tile;
 
@@ -25,26 +27,26 @@ public class GuiDigitalChest extends GuiContainer {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(float partialTicks,
-                                                   int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(texture);
+        this.mc.getTextureManager()
+            .bindTexture(texture);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
     }
 
     @Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         String name = StatCollector.translateToLocal("tile.techreborn.digitalChest.name");
-        this.fontRendererObj.drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
-        this.fontRendererObj.drawString(
-                I18n.format("container.inventory", new Object[0]), 8,
-                this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj
+            .drawString(name, this.xSize / 2 - this.fontRendererObj.getStringWidth(name) / 2, 6, 4210752);
+        this.fontRendererObj
+            .drawString(I18n.format("container.inventory", new Object[0]), 8, this.ySize - 96 + 2, 4210752);
         this.fontRendererObj.drawString("Amount", 10, 20, 16448255);
-        if (tile.storedItem != null && tile.getStackInSlot(1) != null)
-            this.fontRendererObj.drawString(tile.storedItem.stackSize + tile.getStackInSlot(1).stackSize + "", 10, 30, 16448255);
-       	if (tile.storedItem == null && tile.getStackInSlot(1) != null)
-        	this.fontRendererObj.drawString(tile.getStackInSlot(1).stackSize + "", 10, 30, 16448255);
+        if (tile.storedItem != null && tile.getStackInSlot(1) != null) this.fontRendererObj
+            .drawString(tile.storedItem.stackSize + tile.getStackInSlot(1).stackSize + "", 10, 30, 16448255);
+        if (tile.storedItem == null && tile.getStackInSlot(1) != null)
+            this.fontRendererObj.drawString(tile.getStackInSlot(1).stackSize + "", 10, 30, 16448255);
     }
 }

@@ -2,6 +2,11 @@ package techreborn.powerSystem;
 
 import java.util.List;
 
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ForgeDirection;
+
 import com.mojang.realmsclient.gui.ChatFormatting;
 
 import cofh.api.energy.IEnergyProvider;
@@ -15,26 +20,20 @@ import ic2.api.energy.tile.IEnergySource;
 import ic2.api.energy.tile.IEnergySourceInfo;
 import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.info.Info;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.ForgeDirection;
 import reborncore.api.IListInfoProvider;
 import techreborn.api.power.IEnergyInterfaceTile;
 import techreborn.config.ConfigTechReborn;
 
-
-@Optional.InterfaceList(value = {
-        @Optional.Interface(iface = "ic2.api.energy.tile.IEnergyTile", modid = "IC2"),
+@Optional.InterfaceList(
+    value = { @Optional.Interface(iface = "ic2.api.energy.tile.IEnergyTile", modid = "IC2"),
         @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySink", modid = "IC2"),
-        @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = "IC2")
-})
-public abstract class TilePowerAcceptor extends RFProviderTile implements
-        IEnergyReceiver, IEnergyProvider,           //Cofh
-        IEnergyInterfaceTile, IListInfoProvider,     //TechReborn
-        IEnergyTile, IEnergySink, IEnergySource,    //Ic2
-        IEnergySourceInfo                           //IC2 Classic
+        @Optional.Interface(iface = "ic2.api.energy.tile.IEnergySource", modid = "IC2") })
+public abstract class TilePowerAcceptor extends RFProviderTile implements IEnergyReceiver, IEnergyProvider, // Cofh
+    IEnergyInterfaceTile, IListInfoProvider, // TechReborn
+    IEnergyTile, IEnergySink, IEnergySource, // Ic2
+    IEnergySourceInfo // IC2 Classic
 {
+
     public int tier;
     private double energy;
 
@@ -42,7 +41,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         this.tier = tier;
     }
 
-    //IC2
+    // IC2
 
     protected boolean addedToEnet;
 
@@ -53,9 +52,11 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     }
 
     public void onLoaded() {
-        if (PowerSystem.EUPOWENET && !addedToEnet &&
-                !FMLCommonHandler.instance().getEffectiveSide().isClient() &&
-                Info.isIc2Available()) {
+        if (PowerSystem.EUPOWENET && !addedToEnet
+            && !FMLCommonHandler.instance()
+                .getEffectiveSide()
+                .isClient()
+            && Info.isIc2Available()) {
             MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
 
             addedToEnet = true;
@@ -72,8 +73,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     public void onChunkUnload() {
         super.onChunkUnload();
         if (PowerSystem.EUPOWENET) {
-            if (addedToEnet &&
-                    Info.isIc2Available()) {
+            if (addedToEnet && Info.isIc2Available()) {
                 MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
 
                 addedToEnet = false;
@@ -83,8 +83,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
     @Override
     public double getDemandedEnergy() {
-        if (!PowerSystem.EUPOWENET)
-            return 0;
+        if (!PowerSystem.EUPOWENET) return 0;
         return Math.min(getMaxPower() - getEnergy(), getMaxInput());
     }
 
@@ -101,22 +100,19 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
     @Override
     public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
-        if (!PowerSystem.EUPOWENET)
-            return false;
+        if (!PowerSystem.EUPOWENET) return false;
         return canAcceptEnergy(direction);
     }
 
     @Override
     public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
-        if (!PowerSystem.EUPOWENET)
-            return false;
+        if (!PowerSystem.EUPOWENET) return false;
         return canProvideEnergy(direction);
     }
 
     @Override
     public double getOfferedEnergy() {
-        if (!PowerSystem.EUPOWENET)
-            return 0;
+        if (!PowerSystem.EUPOWENET) return 0;
         return Math.min(getEnergy(), getMaxOutput());
     }
 
@@ -129,25 +125,25 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     public int getSourceTier() {
         return tier;
     }
-    //END IC2
+    // END IC2
 
-    //COFH
+    // COFH
     @Override
     public boolean canConnectEnergy(ForgeDirection from) {
-        if (!PowerSystem.RFPOWENET)
-            return false;
+        if (!PowerSystem.RFPOWENET) return false;
         return canAcceptEnergy(from) || canProvideEnergy(from);
     }
 
     @Override
     public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
-        if (!PowerSystem.RFPOWENET)
-            return 0;
+        if (!PowerSystem.RFPOWENET) return 0;
         if (!canAcceptEnergy(from)) {
             return 0;
         }
         maxReceive *= ConfigTechReborn.euPerRF;
-        int energyReceived = Math.min(getMaxEnergyStored(ForgeDirection.UNKNOWN) - getEnergyStored(ForgeDirection.UNKNOWN), Math.min((int) this.getMaxInput() * ConfigTechReborn.euPerRF, maxReceive));
+        int energyReceived = Math.min(
+            getMaxEnergyStored(ForgeDirection.UNKNOWN) - getEnergyStored(ForgeDirection.UNKNOWN),
+            Math.min((int) this.getMaxInput() * ConfigTechReborn.euPerRF, maxReceive));
 
         if (!simulate) {
             setEnergy(getEnergy() + energyReceived);
@@ -157,22 +153,19 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
     @Override
     public int getEnergyStored(ForgeDirection from) {
-        if (!PowerSystem.RFPOWENET)
-            return 0;
+        if (!PowerSystem.RFPOWENET) return 0;
         return ((int) getEnergy() / ConfigTechReborn.euPerRF);
     }
 
     @Override
     public int getMaxEnergyStored(ForgeDirection from) {
-        if (!PowerSystem.RFPOWENET)
-            return 0;
+        if (!PowerSystem.RFPOWENET) return 0;
         return ((int) getMaxPower() / ConfigTechReborn.euPerRF);
     }
 
     @Override
     public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate) {
-        if (!PowerSystem.RFPOWENET)
-            return 0;
+        if (!PowerSystem.RFPOWENET) return 0;
         if (!canAcceptEnergy(from)) {
             return 0;
         }
@@ -184,9 +177,9 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         }
         return energyExtracted / ConfigTechReborn.euPerRF;
     }
-    //END COFH
+    // END COFH
 
-    //TechReborn
+    // TechReborn
 
     @Override
     public double getEnergy() {
@@ -241,7 +234,7 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
     public boolean canAddEnergy(double energy) {
         return this.energy + energy <= getMaxPower();
     }
-    //TechReborn END
+    // TechReborn END
 
     @Override
     public void readFromNBT(NBTTagCompound tag) {
@@ -271,27 +264,31 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
 
     @Override
     public void addInfo(List<String> info, boolean isRealTile) {
-        info.add(ChatFormatting.LIGHT_PURPLE + "Energy buffer Size " + ChatFormatting.GREEN + getEUString(getMaxPower()));
+        info.add(
+            ChatFormatting.LIGHT_PURPLE + "Energy buffer Size " + ChatFormatting.GREEN + getEUString(getMaxPower()));
         if (getMaxInput() != 0) {
             info.add(ChatFormatting.LIGHT_PURPLE + "Max Input " + ChatFormatting.GREEN + getEUString(getMaxInput()));
         }
         if (getMaxOutput() != 0) {
             info.add(ChatFormatting.LIGHT_PURPLE + "Max Output " + ChatFormatting.GREEN + getEUString(getMaxOutput()));
         }
-//        if(isRealTile){ //TODO sync to client
-//            info.add(ChatFormatting.LIGHT_PURPLE + "Stored energy " + ChatFormatting.GREEN + getEUString(energy));
-//        }
+        // if(isRealTile){ //TODO sync to client
+        // info.add(ChatFormatting.LIGHT_PURPLE + "Stored energy " + ChatFormatting.GREEN + getEUString(energy));
+        // }
     }
 
     private String getEUString(double euValue) {
         if (euValue >= 1000000) {
             double tenX = Math.round(euValue / 100000);
-            return Double.toString(tenX / 10.0).concat(" m EU");
+            return Double.toString(tenX / 10.0)
+                .concat(" m EU");
         } else if (euValue >= 1000) {
             double tenX = Math.round(euValue / 100);
-            return Double.toString(tenX / 10.0).concat(" k EU");
+            return Double.toString(tenX / 10.0)
+                .concat(" k EU");
         } else {
-            return Double.toString(Math.floor(euValue)).concat(" EU");
+            return Double.toString(Math.floor(euValue))
+                .concat(" EU");
         }
     }
 
@@ -299,14 +296,12 @@ public abstract class TilePowerAcceptor extends RFProviderTile implements
         return getMaxPower() - energy;
     }
 
-    //IC2 Classic
-
+    // IC2 Classic
 
     @Override
     public int getMaxEnergyAmount() {
         return (int) getMaxOutput();
     }
-
 
     public int getEnergyScaled(int scale) {
         return (int) ((energy * scale / getMaxPower()));
