@@ -93,7 +93,7 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 
     @Override
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-        return new ItemStack(ModBlocks.AlloySmelter, 1);
+        return new ItemStack(ModBlocks.VacuumFreezer, 1);
     }
 
     public boolean isComplete() {
