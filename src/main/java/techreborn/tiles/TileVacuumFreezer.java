@@ -17,19 +17,26 @@ public class TileVacuumFreezer extends TilePowerAcceptor implements IWrenchable,
 
     public int tickTime;
     public Inventory inventory = new Inventory(2, "TileVacuumFreezer", 64) {
-        
+
         @Override
         public boolean isItemValidForSlot(int slot, ItemStack stack) {
             return slot == 0;
         }
-        
+
     };
     public RecipeCrafter crafter;
     public int multiBlockStatus = 0;
 
     public TileVacuumFreezer() {
         super(2);
-        crafter = new RecipeCrafter(Reference.vacuumFreezerRecipe, this, 2, 1, inventory, new int[] {0}, new int[] {1});
+        crafter = new RecipeCrafter(
+            Reference.vacuumFreezerRecipe,
+            this,
+            2,
+            1,
+            inventory,
+            new int[] { 0 },
+            new int[] { 1 });
     }
 
     @Override

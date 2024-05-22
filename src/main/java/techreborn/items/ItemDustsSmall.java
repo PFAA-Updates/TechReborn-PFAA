@@ -54,7 +54,9 @@ public class ItemDustsSmall extends ItemTR {
         for (int i = 0; i < types.length; ++i) {
             String type = types[i];
             StringBuilder builder = new StringBuilder("techreborn:smallDust/small");
-            builder.append(type.substring(0, 1).toUpperCase(Locale.ROOT));
+            builder.append(
+                type.substring(0, 1)
+                    .toUpperCase(Locale.ROOT));
             builder.append(type.substring(1));
             builder.append("Dust");
             textures[i] = iconRegister.registerIcon(builder.toString());

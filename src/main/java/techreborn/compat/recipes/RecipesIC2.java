@@ -112,7 +112,9 @@ public class RecipesIC2 implements ICompatModule {
                     1,
                     1),
                 40,
-                128, false, false));
+                128,
+                false,
+                false));
         RecipeHandler.addRecipe(
             new VacuumFreezerRecipe(
                 any(IC2Items.getItem("reactorCoolantTriple")),
@@ -122,7 +124,9 @@ public class RecipesIC2 implements ICompatModule {
                     1,
                     1),
                 120,
-                128, false, false));
+                128,
+                false,
+                false));
         RecipeHandler.addRecipe(
             new VacuumFreezerRecipe(
                 any(IC2Items.getItem("reactorCoolantSix")),
@@ -132,7 +136,9 @@ public class RecipesIC2 implements ICompatModule {
                     1,
                     1),
                 350,
-                128, false, false));
+                128,
+                false,
+                false));
         // TODO Distillation Tower: 16 Oil + 17 Empty -> 16 Diesel + 16 Sulfuric Acid + Glyceryl @ 128EU/t * 16000t
         // TODO Distillation Tower: 16 Biomass -> 8 Bio Diesel + 8 Empty @ 32EU/t * 400t
     }
@@ -2196,7 +2202,8 @@ public class RecipesIC2 implements ICompatModule {
                 ItemDusts.getDustByName("coal", 1),
                 new ItemStack(Blocks.sand, 10),
                 2500,
-                5, false));
+                5,
+                false));
         RecipeHandler.addRecipe(
             new CentrifugeRecipe(
                 OreUtil.getStackFromName("sandCracked"),

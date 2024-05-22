@@ -23,7 +23,8 @@ public class VacuumFreezerRecipe extends BaseRecipe {
         this.useOreDictionary = useOreDict;
     }
 
-    public VacuumFreezerRecipe(ItemStack input, ItemStack output, int tickTime, int euPerTick, boolean useOreDict, boolean useNBT) {
+    public VacuumFreezerRecipe(ItemStack input, ItemStack output, int tickTime, int euPerTick, boolean useOreDict,
+        boolean useNBT) {
         this(input, output, tickTime, euPerTick, useOreDict);
         this.useNBT = useNBT;
     }
