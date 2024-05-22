@@ -79,4 +79,6 @@ public interface IBaseRecipeType extends Cloneable {
     public Object clone() throws CloneNotSupportedException;
 
     public boolean useOreDic();
+
+    public boolean useNBT();
 }

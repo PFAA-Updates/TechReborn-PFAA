@@ -688,37 +688,37 @@ public class ModRecipes {
                 new ItemStack(ModItems.coolantHe60k, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(ModItems.coolantHe60k),
                 270,
-                128));
+                128, false, false));
         RecipeHandler.addRecipe(
             new VacuumFreezerRecipe(
                 new ItemStack(ModItems.coolantHe180k, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(ModItems.coolantHe180k),
                 780,
-                128));
+                128, false, false));
         RecipeHandler.addRecipe(
             new VacuumFreezerRecipe(
                 new ItemStack(ModItems.coolantHe360k, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(ModItems.coolantHe360k),
                 1500,
-                128));
+                128, false, false));
         RecipeHandler.addRecipe(
             new VacuumFreezerRecipe(
                 new ItemStack(ModItems.coolantNaK60k, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(ModItems.coolantNaK60k),
                 190,
-                128));
+                128, false, false));
         RecipeHandler.addRecipe(
             new VacuumFreezerRecipe(
                 new ItemStack(ModItems.coolantNaK180k, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(ModItems.coolantNaK180k),
                 580,
-                128));
+                128, false, false));
         RecipeHandler.addRecipe(
             new VacuumFreezerRecipe(
                 new ItemStack(ModItems.coolantNaK360k, 1, OreDictionary.WILDCARD_VALUE),
                 new ItemStack(ModItems.coolantNaK360k),
                 1150,
-                128));
+                128, false, false));
     }
 
     static void addSmeltingRecipes() {

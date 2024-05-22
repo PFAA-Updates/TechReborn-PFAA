@@ -10,6 +10,7 @@ import techreborn.tiles.TileVacuumFreezer;
 public class VacuumFreezerRecipe extends BaseRecipe {
 
     private boolean useOreDictionary = true;
+    private boolean useNBT = true;
 
     public VacuumFreezerRecipe(ItemStack input, ItemStack output, int tickTime, int euPerTick) {
         super(Reference.vacuumFreezerRecipe, tickTime, euPerTick);
@@ -20,6 +21,11 @@ public class VacuumFreezerRecipe extends BaseRecipe {
     public VacuumFreezerRecipe(ItemStack input, ItemStack output, int tickTime, int euPerTick, boolean useOreDict) {
         this(input, output, tickTime, euPerTick);
         this.useOreDictionary = useOreDict;
+    }
+
+    public VacuumFreezerRecipe(ItemStack input, ItemStack output, int tickTime, int euPerTick, boolean useOreDict, boolean useNBT) {
+        this(input, output, tickTime, euPerTick, useOreDict);
+        this.useNBT = useNBT;
     }
 
     @Override
@@ -40,5 +46,9 @@ public class VacuumFreezerRecipe extends BaseRecipe {
     @Override
     public boolean useOreDic() {
         return this.useOreDictionary;
+    }
+
+    public boolean useNBT() {
+        return this.useNBT;
     }
 }

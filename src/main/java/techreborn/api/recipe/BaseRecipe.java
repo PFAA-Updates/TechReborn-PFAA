@@ -84,6 +84,11 @@ public abstract class BaseRecipe implements IBaseRecipeType {
     public boolean useOreDic() {
         return true;
     }
+    
+    @Override
+    public boolean useNBT() {
+        return true;
+    }
 
     @Override
     public List<ItemStack> getOutputs() {
