@@ -1,6 +1,7 @@
 package techreborn.items;
 
 import java.util.List;
+import java.util.Locale;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -51,7 +52,12 @@ public class ItemDustsSmall extends ItemTR {
         textures = new IIcon[types.length];
 
         for (int i = 0; i < types.length; ++i) {
-            textures[i] = iconRegister.registerIcon("techreborn:" + "smallDust/small" + types[i] + "Dust");
+            String type = types[i];
+            StringBuilder builder = new StringBuilder("techreborn:smallDust/small");
+            builder.append(type.substring(0, 1).toUpperCase(Locale.ROOT));
+            builder.append(type.substring(1));
+            builder.append("Dust");
+            textures[i] = iconRegister.registerIcon(builder.toString());
         }
     }
 
