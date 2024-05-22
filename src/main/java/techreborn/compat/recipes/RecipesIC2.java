@@ -26,6 +26,7 @@ import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.RecipeInputOreDict;
 import ic2.api.recipe.Recipes;
+import mods.railcraft.api.crafting.RailcraftCraftingManager;
 import reborncore.common.util.CraftingHelper;
 import reborncore.common.util.OreUtil;
 import reborncore.common.util.RecipeRemover;
@@ -1231,7 +1232,7 @@ public class RecipesIC2 implements ICompatModule {
             "ingotAluminium");
 
         if (Loader.isModLoaded("Railcraft")) {
-            mods.railcraft.api.crafting.RailcraftCraftingManager.rollingMachine.getRecipeList()
+            RailcraftCraftingManager.rollingMachine.getRecipeList()
                 .add(
                     new ShapedOreRecipe(
                         ItemParts.getPartByName("iridiumAlloyIngot"),
@@ -1621,7 +1622,7 @@ public class RecipesIC2 implements ICompatModule {
                 null,
                 200,
                 30,
-                false));
+                true));
         RecipeHandler.addRecipe(
             new IndustrialSawmillRecipe(
                 IC2Items.getItem("rubberWood"),
@@ -1632,7 +1633,7 @@ public class RecipesIC2 implements ICompatModule {
                 IC2Items.getItem("cell"),
                 200,
                 30,
-                false));
+                true));
         if (Loader.isModLoaded("ProjRed|Core")) {
             ItemStack boule = GameRegistry.findItemStack("ProjRed|Core", "projectred.core.part", 1);
             ItemStack silicon = boule.copy();
@@ -2194,7 +2195,7 @@ public class RecipesIC2 implements ICompatModule {
                 ItemDusts.getDustByName("coal", 1),
                 new ItemStack(Blocks.sand, 10),
                 2500,
-                5));
+                5, false));
         RecipeHandler.addRecipe(
             new CentrifugeRecipe(
                 OreUtil.getStackFromName("sandCracked"),

@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 /**
  * This is the base recipe class implement this to make a recipe handler
  */
-public interface IBaseRecipeType {
+public interface IBaseRecipeType extends Cloneable {
 
     /**
      * Use this to get all of the inputs

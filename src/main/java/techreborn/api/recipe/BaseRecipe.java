@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 /**
  * Extend this to add a recipe
  */
-public abstract class BaseRecipe implements IBaseRecipeType, Cloneable {
+public abstract class BaseRecipe implements IBaseRecipeType {
 
     public ArrayList<ItemStack> inputs;
 

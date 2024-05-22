@@ -126,8 +126,8 @@ public class RecipesForestry implements ICompatModule {
             .iterator();
         while (entries.hasNext()) {
             Entry<Fluid, GeneratorFuel> thisEntry = entries.next();
-            Fluid fluid = (Fluid) thisEntry.getKey();
-            GeneratorFuel generatorFuel = (GeneratorFuel) thisEntry.getValue();
+            Fluid fluid = thisEntry.getKey();
+            GeneratorFuel generatorFuel = thisEntry.getValue();
             FluidPowerManager.fluidPowerValues.put(fluid, (double) (generatorFuel.eu / generatorFuel.rate));
         }
     }

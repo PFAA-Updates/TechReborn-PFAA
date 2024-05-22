@@ -206,7 +206,7 @@ public class RecipeCrafter {
             return false;
         }
         for (ItemStack input : recipeType.getInputs()) {
-            Boolean hasItem = false;
+            boolean hasItem = false;
             for (int inputslot : inputSlots) {
                 if (ItemUtils
                     .isItemEqual(input, inventory.getStackInSlot(inputslot), true, true, recipeType.useOreDic())
