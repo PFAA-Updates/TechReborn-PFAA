@@ -155,8 +155,9 @@ public class RecipesIC2 implements ICompatModule {
     }
 
     static ItemStack any(ItemStack stack) {
-        Items.apple.setDamage(stack.copy(), OreDictionary.WILDCARD_VALUE);
-        return stack;
+        ItemStack newStack = stack.copy();
+        Items.apple.setDamage(newStack, OreDictionary.WILDCARD_VALUE);
+        return newStack;
     }
 
     static void addTRRecipes() {
